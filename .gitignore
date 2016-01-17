@@ -1,0 +1,5 @@
+.DS_Store
+API.txt
+npm-debug.log
+teachandtour.sqlite
+node_modules
