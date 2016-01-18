@@ -19,351 +19,7 @@ _reactRouter2['default'].run(_jsComponentsRoutes2['default'], _reactRouter2['def
   _react2['default'].render(_react2['default'].createElement(Root, null), document.body);
 });
 
-},{"./js/components/routes":15,"react":371,"react-router":201}],2:[function(require,module,exports){
-// handles user/profile info
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _dispatcherDispatcher = require('../dispatcher/dispatcher');
-
-var _dispatcherDispatcher2 = _interopRequireDefault(_dispatcherDispatcher);
-
-var _constantsConstants = require('../constants/constants');
-
-var _constantsConstants2 = _interopRequireDefault(_constantsConstants);
-
-var _utilsAppUtils = require('../utils/appUtils');
-
-var _utilsAppUtils2 = _interopRequireDefault(_utilsAppUtils);
-
-var ActionType = _constantsConstants2['default'].ActionTypes;
-
-exports['default'] = {
-
-  updateUser: function updateUser(user, cb) {
-    _dispatcherDispatcher2['default'].dispatch({
-      type: ActionType.UPDATE,
-      message: 'update successful',
-      user: user
-    });
-    cb();
-  },
-
-  createUser: function createUser(user, cb) {
-    _utilsAppUtils2['default'].postJSON('/signup', user).then(function (response) {
-      _dispatcherDispatcher2['default'].dispatch({
-        type: ActionType.SIGNUP,
-        response: response,
-        user: user
-      });
-      console.log('user created');
-      cb();
-    })['catch'](function (err) {
-      console.error('signup failed ', err);
-    });
-  },
-
-  loginUser: function loginUser(user, cb) {
-    _utilsAppUtils2['default'].postJSON('/login', user).then(function (response) {
-      _dispatcherDispatcher2['default'].dispatch({
-        type: ActionType.LOGIN,
-        message: 'Login successful',
-        response: response
-      });
-      cb();
-      console.log('logged in successfuly');
-    })['catch'](function (err) {
-      console.error('login failed: ', err);
-    });
-  },
-
-  logoutUser: function logoutUser() {
-    _dispatcherDispatcher2['default'].dispatch({
-      type: ActionType.LOGOUT,
-      message: 'Logout successful'
-    });
-  },
-
-  getUser: function getUser(userID) {
-    _utilsAppUtils2['default'].postJSON('/getuser', userID).then(function (response) {
-      _dispatcherDispatcher2['default'].dispatch({
-        type: ActionType.GET_USER,
-        message: 'Get user info',
-        response: response
-      });
-      console.log('get userinfo successfuly');
-    })['catch'](function (err) {
-      console.error('get userinfo failed: ', err);
-    });
-  },
-
-  changeProfile: function changeProfile(url) {
-    _dispatcherDispatcher2['default'].dispatch({
-      type: ActionType.CHANGE_IMG_URL,
-      message: 'Change Img url',
-      imgURL: url
-    });
-  },
-
-  updateUsername: function updateUsername(userId, newname) {
-    var obj = {
-      userId: userId,
-      newname: newname,
-      imgUrl: null
-    };
-    _utilsAppUtils2['default'].postJSON('/updateUsername', obj).then(function (response) {
-      _dispatcherDispatcher2['default'].dispatch({
-        type: ActionType.UPDATE,
-        message: 'Get user info',
-        response: obj
-      });
-      console.log('get userinfo successfuly');
-    })['catch'](function (err) {
-      console.error('get userinfo failed: ', err);
-    });
-  },
-
-  updateImg: function updateImg(userId, imgUrl) {
-    var obj = {
-      userId: userId,
-      imgUrl: imgUrl,
-      newname: null
-    };
-    _utilsAppUtils2['default'].postJSON('/updateImg', obj).then(function (response) {
-      _dispatcherDispatcher2['default'].dispatch({
-        type: ActionType.UPDATE,
-        message: 'Get user info',
-        response: obj
-      });
-      console.log('get userinfo successfuly');
-    })['catch'](function (err) {
-      console.error('get userinfo failed: ', err);
-    });
-  }
-
-};
-module.exports = exports['default'];
-
-},{"../constants/constants":18,"../dispatcher/dispatcher":19,"../utils/appUtils":23}],3:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _dispatcherDispatcher = require('../dispatcher/dispatcher');
-
-var _dispatcherDispatcher2 = _interopRequireDefault(_dispatcherDispatcher);
-
-var _constantsConstants = require('../constants/constants');
-
-var _constantsConstants2 = _interopRequireDefault(_constantsConstants);
-
-var ActionType = _constantsConstants2['default'].ActionTypes;
-exports['default'] = {
-
-  resizeHeader: function resizeHeader(headerState) {
-    _dispatcherDispatcher2['default'].dispatch({
-      type: ActionType.RESIZEHEADER,
-      headerState: headerState
-    });
-  },
-
-  SetNavActive: function SetNavActive(NavName) {
-    _dispatcherDispatcher2['default'].dispatch({
-      type: ActionType.NAVACTIVE,
-      NavName: NavName
-    });
-  }
-
-};
-module.exports = exports['default'];
-
-},{"../constants/constants":18,"../dispatcher/dispatcher":19}],4:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _dispatcherDispatcher = require('../dispatcher/dispatcher');
-
-var _dispatcherDispatcher2 = _interopRequireDefault(_dispatcherDispatcher);
-
-var _constantsConstants = require('../constants/constants');
-
-var _constantsConstants2 = _interopRequireDefault(_constantsConstants);
-
-var ActionType = _constantsConstants2['default'].ActionTypes;
-exports['default'] = {
-
-  closeLoginModal: function closeLoginModal() {
-    _dispatcherDispatcher2['default'].dispatch({
-      type: ActionType.CLOSE_LOGIN_MODAL
-    });
-  }
-
-};
-module.exports = exports['default'];
-
-},{"../constants/constants":18,"../dispatcher/dispatcher":19}],5:[function(require,module,exports){
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactBootstrap = require('react-bootstrap');
-
-var img = ['../assets/images/bg5.jpg', '../assets/images/bg6.jpg', '../assets/images/bg7.jpg', '../assets/images/bg8.jpg'];
-
-var ControlledCarousel = (function (_React$Component) {
-  _inherits(ControlledCarousel, _React$Component);
-
-  function ControlledCarousel() {
-    _classCallCheck(this, ControlledCarousel);
-
-    _get(Object.getPrototypeOf(ControlledCarousel.prototype), 'constructor', this).call(this);
-  }
-
-  _createClass(ControlledCarousel, [{
-    key: 'render',
-    value: function render() {
-      return _react2['default'].createElement(
-        _reactBootstrap.Carousel,
-        null,
-        _react2['default'].createElement(
-          _reactBootstrap.CarouselItem,
-          null,
-          _react2['default'].createElement('img', { className: 'bannerImg', src: img[0] }),
-          _react2['default'].createElement(
-            'div',
-            { className: 'carousel-caption' },
-            _react2['default'].createElement(
-              'div',
-              { className: 'carousel-title' },
-              'Explore China by teaching English'
-            ),
-            _react2['default'].createElement(
-              'span',
-              { className: 'imageLocation' },
-              _react2['default'].createElement('i', { className: 'fa fa-map-marker' }),
-              ' Shanghai China'
-            ),
-            _react2['default'].createElement(
-              'p',
-              null,
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            )
-          )
-        ),
-        _react2['default'].createElement(
-          _reactBootstrap.CarouselItem,
-          null,
-          _react2['default'].createElement('img', { className: 'bannerImg', src: img[1] }),
-          _react2['default'].createElement(
-            'div',
-            { className: 'carousel-caption' },
-            _react2['default'].createElement(
-              'div',
-              { className: 'carousel-title' },
-              'Explore China by teaching English'
-            ),
-            _react2['default'].createElement(
-              'span',
-              { className: 'imageLocation' },
-              _react2['default'].createElement('i', { className: 'fa fa-map-marker' }),
-              ' Shanghai China'
-            ),
-            _react2['default'].createElement(
-              'p',
-              null,
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            )
-          )
-        ),
-        _react2['default'].createElement(
-          _reactBootstrap.CarouselItem,
-          null,
-          _react2['default'].createElement('img', { className: 'bannerImg', src: img[2] }),
-          _react2['default'].createElement(
-            'div',
-            { className: 'carousel-caption' },
-            _react2['default'].createElement(
-              'div',
-              { className: 'carousel-title' },
-              'Explore China by teaching English'
-            ),
-            _react2['default'].createElement(
-              'span',
-              { className: 'imageLocation' },
-              _react2['default'].createElement('i', { className: 'fa fa-map-marker' }),
-              ' Shanghai China'
-            ),
-            _react2['default'].createElement(
-              'p',
-              null,
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            )
-          )
-        ),
-        _react2['default'].createElement(
-          _reactBootstrap.CarouselItem,
-          null,
-          _react2['default'].createElement('img', { className: 'bannerImg', src: img[3] }),
-          _react2['default'].createElement(
-            'div',
-            { className: 'carousel-caption' },
-            _react2['default'].createElement(
-              'div',
-              { className: 'carousel-title' },
-              'Explore China by teaching English'
-            ),
-            _react2['default'].createElement(
-              'span',
-              { className: 'imageLocation' },
-              _react2['default'].createElement('i', { className: 'fa fa-map-marker' }),
-              ' Shanghai China'
-            ),
-            _react2['default'].createElement(
-              'p',
-              null,
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return ControlledCarousel;
-})(_react2['default'].Component);
-
-exports['default'] = ControlledCarousel;
-module.exports = exports['default'];
-
-},{"react":371,"react-bootstrap":124}],6:[function(require,module,exports){
+},{"./js/components/routes":6,"react":201,"react-router":32}],2:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', {
   value: true
@@ -398,7 +54,6 @@ var Footer = (function (_React$Component) {
       return _react2['default'].createElement(
         'div',
         { className: 'footer' },
-        _react2['default'].createElement('hr', { className: 'footer-divider' }),
         _react2['default'].createElement(
           'div',
           { className: 'footerTitle' },
@@ -458,7 +113,7 @@ var Footer = (function (_React$Component) {
 exports['default'] = Footer;
 module.exports = exports['default'];
 
-},{"react":371}],7:[function(require,module,exports){
+},{"react":201}],3:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', {
   value: true
@@ -478,727 +133,16 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _carousel = require('./carousel');
+var Header = (function (_React$Component) {
+  _inherits(Header, _React$Component);
 
-var _carousel2 = _interopRequireDefault(_carousel);
+  function Header() {
+    _classCallCheck(this, Header);
 
-var _reactWaypoint = require('react-waypoint');
-
-var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
-
-var _actionsHomeActionCreators = require('../actions/homeActionCreators');
-
-var _actionsHomeActionCreators2 = _interopRequireDefault(_actionsHomeActionCreators);
-
-var _storesHomeStore = require('../stores/homeStore');
-
-var _storesHomeStore2 = _interopRequireDefault(_storesHomeStore);
-
-var _storesUserProfileStore = require('../stores/userProfileStore');
-
-var _storesUserProfileStore2 = _interopRequireDefault(_storesUserProfileStore);
-
-var img = ['../assets/images/bg5.jpg', '../assets/images/bg6.jpg', '../assets/images/bg7.jpg', '../assets/images/bg8.jpg'];
-
-var divStyle = {
-  backgroundImage: 'url(' + img[0] + ')'
-};
-
-var Home = (function (_React$Component) {
-  _inherits(Home, _React$Component);
-
-  function Home() {
-    _classCallCheck(this, Home);
-
-    _get(Object.getPrototypeOf(Home.prototype), 'constructor', this).call(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this._handleWaypointEnter = this._handleWaypointEnter.bind(this);
-    this._handleWaypointLeave = this._handleWaypointLeave.bind(this);
+    _get(Object.getPrototypeOf(Header.prototype), 'constructor', this).call(this);
   }
 
-  _createClass(Home, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      _actionsHomeActionCreators2['default'].SetNavActive('home');
-    }
-  }, {
-    key: '_handleWaypointEnter',
-    value: function _handleWaypointEnter() {
-      _actionsHomeActionCreators2['default'].resizeHeader(true);
-    }
-  }, {
-    key: '_handleWaypointLeave',
-    value: function _handleWaypointLeave() {
-      _actionsHomeActionCreators2['default'].resizeHeader(false);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2['default'].createElement(
-        'div',
-        { className: 'homepage' },
-        _react2['default'].createElement(_reactWaypoint2['default'], { onEnter: this._handleWaypointEnter, onLeave: this._handleWaypointLeave, threshold: 0.3 }),
-        _react2['default'].createElement('div', { id: 'homeleft', style: divStyle }),
-        _react2['default'].createElement(
-          'div',
-          { id: 'homeright' },
-          _react2['default'].createElement(
-            'div',
-            { id: 'topBlock' },
-            _react2['default'].createElement(
-              'div',
-              { id: 'topLeft' },
-              _react2['default'].createElement('div', { id: 'topLeftLayer' })
-            ),
-            _react2['default'].createElement('div', { id: 'topRight' })
-          ),
-          _react2['default'].createElement('div', { id: 'buttonBlock' })
-        )
-      );
-    }
-  }]);
-
-  return Home;
-})(_react2['default'].Component);
-
-exports['default'] = Home;
-module.exports = exports['default'];
-
-},{"../actions/homeActionCreators":3,"../stores/homeStore":20,"../stores/userProfileStore":22,"./carousel":5,"react":371,"react-waypoint":216}],8:[function(require,module,exports){
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactWaypoint = require('react-waypoint');
-
-var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
-
-var _actionsHomeActionCreators = require('../actions/homeActionCreators');
-
-var _actionsHomeActionCreators2 = _interopRequireDefault(_actionsHomeActionCreators);
-
-var User = (function (_React$Component) {
-  _inherits(User, _React$Component);
-
-  function User() {
-    _classCallCheck(this, User);
-
-    _get(Object.getPrototypeOf(User.prototype), 'constructor', this).call(this);
-    this._handleWaypointEnter = this._handleWaypointEnter.bind(this);
-    this._handleWaypointLeave = this._handleWaypointLeave.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-  }
-
-  _createClass(User, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      _actionsHomeActionCreators2['default'].SetNavActive('join');
-    }
-  }, {
-    key: '_handleWaypointEnter',
-    value: function _handleWaypointEnter() {
-      _actionsHomeActionCreators2['default'].resizeHeader(true);
-    }
-  }, {
-    key: '_handleWaypointLeave',
-    value: function _handleWaypointLeave() {
-      _actionsHomeActionCreators2['default'].resizeHeader(false);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2['default'].createElement(
-        'div',
-        { className: 'page' },
-        _react2['default'].createElement(_reactWaypoint2['default'], { onEnter: this._handleWaypointEnter, onLeave: this._handleWaypointLeave, threshold: 0.3 }),
-        _react2['default'].createElement(
-          'div',
-          { className: 'tempBigTitle' },
-          'this is page2'
-        )
-      );
-    }
-  }]);
-
-  return User;
-})(_react2['default'].Component);
-
-exports['default'] = User;
-module.exports = exports['default'];
-
-},{"../actions/homeActionCreators":3,"react":371,"react-waypoint":216}],9:[function(require,module,exports){
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _reactRouter2 = _interopRequireDefault(_reactRouter);
-
-var _nav = require('./nav');
-
-var _nav2 = _interopRequireDefault(_nav);
-
-var _footer = require('./footer');
-
-var _footer2 = _interopRequireDefault(_footer);
-
-var Layout = (function (_React$Component) {
-  _inherits(Layout, _React$Component);
-
-  function Layout() {
-    _classCallCheck(this, Layout);
-
-    _get(Object.getPrototypeOf(Layout.prototype), 'constructor', this).apply(this, arguments);
-  }
-
-  _createClass(Layout, [{
-    key: 'render',
-    value: function render() {
-      return _react2['default'].createElement(
-        'div',
-        { id: 'root' },
-        _react2['default'].createElement(_nav2['default'], null),
-        _react2['default'].createElement(_reactRouter2['default'].RouteHandler, null),
-        _react2['default'].createElement(_footer2['default'], null)
-      );
-    }
-  }]);
-
-  return Layout;
-})(_react2['default'].Component);
-
-exports['default'] = Layout;
-module.exports = exports['default'];
-
-},{"./footer":6,"./nav":12,"react":371,"react-router":201}],10:[function(require,module,exports){
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _reactRouter2 = _interopRequireDefault(_reactRouter);
-
-var _loginmodal = require('./loginmodal');
-
-var _loginmodal2 = _interopRequireDefault(_loginmodal);
-
-var _storesHomeStore = require('../stores/homeStore');
-
-var _storesHomeStore2 = _interopRequireDefault(_storesHomeStore);
-
-var _storesUserProfileStore = require('../stores/userProfileStore');
-
-var _storesUserProfileStore2 = _interopRequireDefault(_storesUserProfileStore);
-
-var _storesModalStore = require('../stores/modalStore');
-
-var _storesModalStore2 = _interopRequireDefault(_storesModalStore);
-
-var _actionsUserActionCreators = require('../actions/UserActionCreators');
-
-var _actionsUserActionCreators2 = _interopRequireDefault(_actionsUserActionCreators);
-
-var LoginButton = (function (_React$Component) {
-  _inherits(LoginButton, _React$Component);
-
-  function LoginButton() {
-    _classCallCheck(this, LoginButton);
-
-    _get(Object.getPrototypeOf(LoginButton.prototype), 'constructor', this).call(this);
-    this.changeLoginStatus = this.changeLoginStatus.bind(this);
-    this.componentWillUnmount = this.componentWillUnmount.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.changeHeaderState = this.changeHeaderState.bind(this);
-    this.open = this.open.bind(this);
-    this.close = this.close.bind(this);
-    this.state = {
-      open: false,
-      header: false,
-      login: 'login'
-    };
-  }
-
-  _createClass(LoginButton, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      _storesUserProfileStore2['default'].addChangeListener(this.changeLoginStatus);
-      _storesModalStore2['default'].addChangeListener(this.close);
-      _storesHomeStore2['default'].addChangeListener(this.changeHeaderState);
-      if (_storesUserProfileStore2['default'].isLoggedIn()) {
-        this.setState({ login: ' logout' });
-      }
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      _storesModalStore2['default'].removeChangeListener(this.close);
-      _storesHomeStore2['default'].removeChangeListener(this.changeHeaderState);
-      _storesUserProfileStore2['default'].removeChangeListener(this.changeLoginStatus);
-    }
-  }, {
-    key: 'changeHeaderState',
-    value: function changeHeaderState() {
-      this.setState({ header: _storesHomeStore2['default'].getHeaderState() });
-    }
-  }, {
-    key: 'changeLoginStatus',
-    value: function changeLoginStatus() {
-      if (_storesUserProfileStore2['default'].isLoggedIn()) {
-        this.setState({ login: ' logout' });
-      } else {
-        this.setState({ login: ' login' });
-      }
-    }
-  }, {
-    key: 'open',
-    value: function open() {
-      if (_storesUserProfileStore2['default'].isLoggedIn()) {
-        _actionsUserActionCreators2['default'].logoutUser();
-        this.context.router.transitionTo('home');
-      } else {
-        this.setState({ open: true });
-      }
-    }
-  }, {
-    key: 'close',
-    value: function close() {
-      this.setState({ open: false });
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2['default'].createElement(
-        'button',
-        { className: 'bigheaderlogin loginbutton', onClick: this.open },
-        _react2['default'].createElement('i', { className: 'fa fa-power-off' }),
-        _react2['default'].createElement(
-          'span',
-          null,
-          ' ',
-          this.state.login
-        ),
-        _react2['default'].createElement(_loginmodal2['default'], { className: 'modal', show: this.state.open })
-      );
-    }
-  }]);
-
-  return LoginButton;
-})(_react2['default'].Component);
-
-;
-
-LoginButton.contextTypes = {
-  router: _react2['default'].PropTypes.func.isRequired
-};
-
-exports['default'] = LoginButton;
-module.exports = exports['default'];
-
-},{"../actions/UserActionCreators":2,"../stores/homeStore":20,"../stores/modalStore":21,"../stores/userProfileStore":22,"./loginmodal":11,"react":371,"react-router":201}],11:[function(require,module,exports){
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactBootstrap = require('react-bootstrap');
-
-var _actionsModalActionCreators = require('../actions/modalActionCreators');
-
-var _actionsModalActionCreators2 = _interopRequireDefault(_actionsModalActionCreators);
-
-var _actionsUserActionCreators = require('../actions/UserActionCreators');
-
-var _actionsUserActionCreators2 = _interopRequireDefault(_actionsUserActionCreators);
-
-var ENTER_KEY_CODE = 13;
-
-var Login = (function (_React$Component) {
-  _inherits(Login, _React$Component);
-
-  function Login(props, context) {
-    _classCallCheck(this, Login);
-
-    _get(Object.getPrototypeOf(Login.prototype), 'constructor', this).call(this, props);
-    this.toggleAuth = this.toggleAuth.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleKeyDown = this.handleKeyDown.bind(this);
-  }
-
-  _createClass(Login, [{
-    key: 'toggleAuth',
-    value: function toggleAuth() {
-      this.props.handleToggle('Signup');
-    }
-  }, {
-    key: 'handleLogin',
-    value: function handleLogin() {
-      var _this = this;
-
-      var userData = {};
-      userData.username = this.refs.username.getDOMNode().value;
-      userData.password = this.refs.password.getDOMNode().value;
-      if (userData.username && userData.password) {
-        _actionsUserActionCreators2['default'].loginUser(userData, function () {
-          _actionsModalActionCreators2['default'].closeLoginModal();
-          _this.context.router.transitionTo('news');
-        });
-      }
-    }
-  }, {
-    key: 'handleKeyDown',
-    value: function handleKeyDown(event) {
-      if (event.keyCode === ENTER_KEY_CODE) {
-        this.handleLogin();
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2['default'].createElement(
-        'div',
-        { className: 'AuthForm', onKeyDown: this.handleKeyDown },
-        _react2['default'].createElement(
-          'div',
-          { className: 'modalButtonBox3' },
-          _react2['default'].createElement('input', { type: 'text', placeholder: 'Username', ref: 'username' }),
-          _react2['default'].createElement('input', { type: 'password', placeholder: 'Password', ref: 'password' })
-        ),
-        _react2['default'].createElement('hr', null),
-        _react2['default'].createElement(
-          'div',
-          { className: 'modalButtonBox' },
-          _react2['default'].createElement(
-            'button',
-            { className: 'modalLoginButton', onClick: this.handleLogin },
-            'Login'
-          )
-        ),
-        _react2['default'].createElement(
-          'div',
-          { className: 'modalButtonBox2' },
-          _react2['default'].createElement(
-            'a',
-            { onClick: this.toggleAuth },
-            'Don\'t Have an Account?'
-          )
-        )
-      );
-    }
-  }]);
-
-  return Login;
-})(_react2['default'].Component);
-
-Login.contextTypes = {
-  router: _react2['default'].PropTypes.func.isRequired
-};
-
-var Signup = (function (_React$Component2) {
-  _inherits(Signup, _React$Component2);
-
-  function Signup() {
-    _classCallCheck(this, Signup);
-
-    _get(Object.getPrototypeOf(Signup.prototype), 'constructor', this).call(this);
-    this.toggleAuth = this.toggleAuth.bind(this);
-    this.handleSignup = this.handleSignup.bind(this);
-  }
-
-  _createClass(Signup, [{
-    key: 'toggleAuth',
-    value: function toggleAuth() {
-      this.props.handleToggle('Login');
-    }
-  }, {
-    key: 'handleSignup',
-    value: function handleSignup() {
-      var nameStr = /^[A-Za-z0-9_]{1,20}$/;
-      var passwordStr = /^.{3,64}$/;
-      var userData = {};
-      userData.username = this.refs.username.getDOMNode().value;
-      userData.password = this.refs.password.getDOMNode().value;
-      userData.verpassword = this.refs.verpassword.getDOMNode().value;
-      userData.email = this.refs.email.getDOMNode().value;
-
-      if (!userData.username.match(nameStr)) {
-        alert('Username can have only letters, numbers or underscores');
-      } else if (userData.username.length < 1) {
-        alert('Username must have at least 1 character');
-      } else if (userData.password !== userData.verpassword) {
-        alert('Passwords must match');
-      } else if (!userData.password.match(passwordStr)) {
-        alert('Password must be between 8 and 64 characters');
-      } else {
-        _actionsUserActionCreators2['default'].createUser(userData, function () {
-          _actionsModalActionCreators2['default'].closeLoginModal();
-        });
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2['default'].createElement(
-        'div',
-        { className: 'AuthForm' },
-        _react2['default'].createElement(
-          'div',
-          { className: 'modalButtonBox3' },
-          _react2['default'].createElement('input', { type: 'text', placeholder: 'Username', ref: 'username' }),
-          _react2['default'].createElement('input', { type: 'password', placeholder: 'Password', ref: 'password' }),
-          _react2['default'].createElement('input', { type: 'password', placeholder: 'Verify password', ref: 'verpassword' }),
-          _react2['default'].createElement('input', { type: 'email', placeholder: 'Email', ref: 'email' })
-        ),
-        _react2['default'].createElement('hr', null),
-        _react2['default'].createElement(
-          'div',
-          { className: 'modalButtonBox' },
-          _react2['default'].createElement(
-            'button',
-            { className: 'modalSignupButton', onClick: this.handleSignup },
-            'Signup'
-          )
-        ),
-        _react2['default'].createElement(
-          'div',
-          { className: 'modalButtonBox2' },
-          _react2['default'].createElement(
-            'a',
-            { onClick: this.toggleAuth },
-            'Already Have an Account?'
-          )
-        )
-      );
-    }
-  }]);
-
-  return Signup;
-})(_react2['default'].Component);
-
-var LoginModal = (function (_React$Component3) {
-  _inherits(LoginModal, _React$Component3);
-
-  function LoginModal(props) {
-    _classCallCheck(this, LoginModal);
-
-    _get(Object.getPrototypeOf(LoginModal.prototype), 'constructor', this).call(this, props);
-    this.toggle = this.toggle.bind(this);
-    this.state = { authType: props.authType };
-    this.close = this.close.bind(this);
-  }
-
-  _createClass(LoginModal, [{
-    key: 'close',
-    value: function close() {
-      _actionsModalActionCreators2['default'].closeLoginModal();
-    }
-  }, {
-    key: 'toggle',
-    value: function toggle(data) {
-      this.setState({ authType: data }, function () {});
-    }
-  }, {
-    key: 'handleLogout',
-    value: function handleLogout() {
-      // UserActions.logoutUser();
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var authform = _react2['default'].createElement(Login, { handleToggle: this.toggle });
-      var authtitle = _react2['default'].createElement(
-        _reactBootstrap.Modal.Title,
-        null,
-        'LOGIN'
-      );
-
-      if (this.state.authType === 'Signup') {
-        authform = _react2['default'].createElement(Signup, { handleToggle: this.toggle });
-        authtitle = _react2['default'].createElement(
-          _reactBootstrap.Modal.Title,
-          null,
-          'SIGNUP'
-        );
-      }
-
-      return _react2['default'].createElement(
-        'div',
-        null,
-        _react2['default'].createElement(
-          _reactBootstrap.Modal,
-          { bsSize: 'small', show: this.props.show, onHide: this.close },
-          _react2['default'].createElement(
-            _reactBootstrap.Modal.Header,
-            { closeButton: true },
-            authtitle
-          ),
-          _react2['default'].createElement(
-            _reactBootstrap.Modal.Body,
-            null,
-            authform
-          )
-        )
-      );
-    }
-  }]);
-
-  return LoginModal;
-})(_react2['default'].Component);
-
-;
-
-exports['default'] = LoginModal;
-module.exports = exports['default'];
-
-},{"../actions/UserActionCreators":2,"../actions/modalActionCreators":4,"react":371,"react-bootstrap":124}],12:[function(require,module,exports){
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouter = require('react-router');
-
-var _reactRouter2 = _interopRequireDefault(_reactRouter);
-
-var _loginmodal = require('./loginmodal');
-
-var _loginmodal2 = _interopRequireDefault(_loginmodal);
-
-var _loginbutton = require('./loginbutton');
-
-var _loginbutton2 = _interopRequireDefault(_loginbutton);
-
-var _storesHomeStore = require('../stores/homeStore');
-
-var _storesHomeStore2 = _interopRequireDefault(_storesHomeStore);
-
-var _storesUserProfileStore = require('../stores/userProfileStore');
-
-var _storesUserProfileStore2 = _interopRequireDefault(_storesUserProfileStore);
-
-var _storesModalStore = require('../stores/modalStore');
-
-var _storesModalStore2 = _interopRequireDefault(_storesModalStore);
-
-var _actionsUserActionCreators = require('../actions/UserActionCreators');
-
-var _actionsUserActionCreators2 = _interopRequireDefault(_actionsUserActionCreators);
-
-var Nav = (function (_React$Component) {
-  _inherits(Nav, _React$Component);
-
-  function Nav() {
-    _classCallCheck(this, Nav);
-
-    _get(Object.getPrototypeOf(Nav.prototype), 'constructor', this).call(this);
-    this.changeNavState = this.changeNavState.bind(this);
-    this.changeHeaderState = this.changeHeaderState.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.componentWillUnmount = this.componentWillUnmount.bind(this);
-    this.state = {
-      bigheader: true,
-      header: 'hideSmallHeader',
-      activeNav: null
-    };
-  }
-
-  _createClass(Nav, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      _storesHomeStore2['default'].addChangeListener(this.changeHeaderState);
-      _storesHomeStore2['default'].addNavActiveListener(this.changeNavState);
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      _storesHomeStore2['default'].removeChangeListener(this.changeHeaderState);
-      _storesHomeStore2['default'].removeNavActiveListener(this.changeNavState);
-    }
-  }, {
-    key: 'changeHeaderState',
-    value: function changeHeaderState() {
-      this.setState({ header: _storesHomeStore2['default'].getHeaderState() });
-    }
-  }, {
-    key: 'changeNavState',
-    value: function changeNavState() {
-      this.setState({ activeNav: _storesHomeStore2['default'].getNavState() });
-    }
-  }, {
+  _createClass(Header, [{
     key: 'render',
     value: function render() {
       return _react2['default'].createElement(
@@ -1216,120 +160,12 @@ var Nav = (function (_React$Component) {
               _react2['default'].createElement(
                 'span',
                 { className: 'fa fa-home' },
-                ' 425 Street Name, Washington DC'
+                ' 853 Commodore Dr'
               ),
               _react2['default'].createElement(
                 'span',
                 { className: 'fa fa-phone' },
-                ' (765) 432-109'
-              )
-            )
-          ),
-          _react2['default'].createElement(
-            'div',
-            null,
-            _react2['default'].createElement(
-              _reactRouter2['default'].Link,
-              { to: 'home', className: 'navLogo' },
-              _react2['default'].createElement('img', { className: 'logo', src: '../assets/logo2.png' })
-            ),
-            _react2['default'].createElement(_loginbutton2['default'], { className: 'loginButton' }),
-            _react2['default'].createElement(
-              'div',
-              { className: 'navButtonGroup' },
-              _react2['default'].createElement(
-                _reactRouter2['default'].Link,
-                { to: 'home' },
-                _react2['default'].createElement('button', { className: 'navButton2 navButton4 fa fa-home' })
-              ),
-              _react2['default'].createElement(
-                _reactRouter2['default'].Link,
-                { to: 'who' },
-                _react2['default'].createElement(
-                  'button',
-                  { className: this.state.activeNav === 'who' ? 'navButton2 activeNav' : 'navButton2' },
-                  'WHO WE ARE'
-                )
-              ),
-              _react2['default'].createElement(
-                _reactRouter2['default'].Link,
-                { to: 'what' },
-                _react2['default'].createElement(
-                  'button',
-                  { className: this.state.activeNav === 'what' ? 'navButton2 activeNav' : 'navButton2' },
-                  'WHAT WE DO'
-                )
-              ),
-              _react2['default'].createElement(
-                _reactRouter2['default'].Link,
-                { to: 'join-us' },
-                _react2['default'].createElement(
-                  'button',
-                  { className: this.state.activeNav === 'join' ? 'navButton2 activeNav' : 'navButton2' },
-                  'JOIN US'
-                )
-              ),
-              _react2['default'].createElement(
-                _reactRouter2['default'].Link,
-                { to: 'news' },
-                _react2['default'].createElement(
-                  'button',
-                  { className: this.state.activeNav === 'contact' ? 'navButton2 navButton3 activeNav' : 'navButton2 navButton3' },
-                  'CONTACT US'
-                )
-              )
-            )
-          )
-        ),
-        _react2['default'].createElement(
-          'div',
-          { className: this.state.header ? 'hideSmallHeader' : 'displaySmallHeader' },
-          _react2['default'].createElement(
-            'div',
-            { className: 'navButtonGroup2' },
-            _react2['default'].createElement(
-              _reactRouter2['default'].Link,
-              { to: 'home' },
-              _react2['default'].createElement(
-                'button',
-                { className: 'navButton' },
-                'home'
-              )
-            ),
-            _react2['default'].createElement(
-              _reactRouter2['default'].Link,
-              { to: 'who' },
-              _react2['default'].createElement(
-                'button',
-                { className: 'navButton' },
-                'WHO WE ARE'
-              )
-            ),
-            _react2['default'].createElement(
-              _reactRouter2['default'].Link,
-              { to: 'what' },
-              _react2['default'].createElement(
-                'button',
-                { className: 'navButton' },
-                'WHAT WE DO'
-              )
-            ),
-            _react2['default'].createElement(
-              _reactRouter2['default'].Link,
-              { to: 'join-us' },
-              _react2['default'].createElement(
-                'button',
-                { className: 'navButton' },
-                'JOIN US'
-              )
-            ),
-            _react2['default'].createElement(
-              _reactRouter2['default'].Link,
-              { to: 'news' },
-              _react2['default'].createElement(
-                'button',
-                { className: 'navButton' },
-                'CONTACT US'
+                ' (773) 969-2089'
               )
             )
           )
@@ -1338,15 +174,13 @@ var Nav = (function (_React$Component) {
     }
   }]);
 
-  return Nav;
+  return Header;
 })(_react2['default'].Component);
 
-;
-
-exports['default'] = Nav;
+exports['default'] = Header;
 module.exports = exports['default'];
 
-},{"../actions/UserActionCreators":2,"../stores/homeStore":20,"../stores/modalStore":21,"../stores/userProfileStore":22,"./loginbutton":10,"./loginmodal":11,"react":371,"react-router":201}],13:[function(require,module,exports){
+},{"react":201}],4:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', {
   value: true
@@ -1366,73 +200,37 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactWaypoint = require('react-waypoint');
+var User = (function (_React$Component) {
+  _inherits(User, _React$Component);
 
-var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
+  function User() {
+    _classCallCheck(this, User);
 
-var _actionsHomeActionCreators = require('../actions/homeActionCreators');
-
-var _actionsHomeActionCreators2 = _interopRequireDefault(_actionsHomeActionCreators);
-
-var _storesUserProfileStore = require('../stores/userProfileStore');
-
-var _storesUserProfileStore2 = _interopRequireDefault(_storesUserProfileStore);
-
-var News = (function (_React$Component) {
-  _inherits(News, _React$Component);
-
-  function News() {
-    _classCallCheck(this, News);
-
-    _get(Object.getPrototypeOf(News.prototype), 'constructor', this).call(this);
-    this._handleWaypointEnter = this._handleWaypointEnter.bind(this);
-    this._handleWaypointLeave = this._handleWaypointLeave.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this.state = {
-      username: 'null'
-    };
+    _get(Object.getPrototypeOf(User.prototype), 'constructor', this).call(this);
   }
 
-  _createClass(News, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.setState({ username: _storesUserProfileStore2['default'].getCookieName() });
-      _actionsHomeActionCreators2['default'].SetNavActive('contact');
-    }
-  }, {
-    key: '_handleWaypointEnter',
-    value: function _handleWaypointEnter() {
-      _actionsHomeActionCreators2['default'].resizeHeader(true);
-    }
-  }, {
-    key: '_handleWaypointLeave',
-    value: function _handleWaypointLeave() {
-      _actionsHomeActionCreators2['default'].resizeHeader(false);
-    }
-  }, {
+  _createClass(User, [{
     key: 'render',
     value: function render() {
       return _react2['default'].createElement(
         'div',
         { className: 'page' },
-        _react2['default'].createElement(_reactWaypoint2['default'], { onEnter: this._handleWaypointEnter, onLeave: this._handleWaypointLeave, threshold: 0.3 }),
         _react2['default'].createElement(
           'div',
           { className: 'tempBigTitle' },
-          'Hello ',
-          this.state.username
+          'this is page2'
         )
       );
     }
   }]);
 
-  return News;
+  return User;
 })(_react2['default'].Component);
 
-exports['default'] = News;
+exports['default'] = User;
 module.exports = exports['default'];
 
-},{"../actions/homeActionCreators":3,"../stores/userProfileStore":22,"react":371,"react-waypoint":216}],14:[function(require,module,exports){
+},{"react":201}],5:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', {
   value: true
@@ -1452,33 +250,47 @@ var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
 
-var NotFound = (function (_React$Component) {
-  _inherits(NotFound, _React$Component);
+var _reactRouter = require('react-router');
 
-  function NotFound() {
-    _classCallCheck(this, NotFound);
+var _reactRouter2 = _interopRequireDefault(_reactRouter);
 
-    _get(Object.getPrototypeOf(NotFound.prototype), 'constructor', this).apply(this, arguments);
+var _footer = require('./footer');
+
+var _footer2 = _interopRequireDefault(_footer);
+
+var _header = require('./header');
+
+var _header2 = _interopRequireDefault(_header);
+
+var Layout = (function (_React$Component) {
+  _inherits(Layout, _React$Component);
+
+  function Layout() {
+    _classCallCheck(this, Layout);
+
+    _get(Object.getPrototypeOf(Layout.prototype), 'constructor', this).apply(this, arguments);
   }
 
-  _createClass(NotFound, [{
+  _createClass(Layout, [{
     key: 'render',
     value: function render() {
       return _react2['default'].createElement(
         'div',
-        null,
-        '404'
+        { id: 'root' },
+        _react2['default'].createElement(_header2['default'], null),
+        _react2['default'].createElement(_reactRouter2['default'].RouteHandler, null),
+        _react2['default'].createElement(_footer2['default'], null)
       );
     }
   }]);
 
-  return NotFound;
+  return Layout;
 })(_react2['default'].Component);
 
-exports['default'] = NotFound;
+exports['default'] = Layout;
 module.exports = exports['default'];
 
-},{"react":371}],15:[function(require,module,exports){
+},{"./footer":2,"./header":3,"react":201,"react-router":32}],6:[function(require,module,exports){
 'use strict';
 Object.defineProperty(exports, '__esModule', {
   value: true
@@ -1496,909 +308,16 @@ var _layout = require('./layout');
 
 var _layout2 = _interopRequireDefault(_layout);
 
-var _home = require('./home');
-
-var _home2 = _interopRequireDefault(_home);
-
-var _notfound = require('./notfound');
-
-var _notfound2 = _interopRequireDefault(_notfound);
-
 var _joinus = require('./joinus');
 
 var _joinus2 = _interopRequireDefault(_joinus);
 
-var _whoweare = require('./whoweare');
-
-var _whoweare2 = _interopRequireDefault(_whoweare);
-
-var _news = require('./news');
-
-var _news2 = _interopRequireDefault(_news);
-
-var _whatwedo = require('./whatwedo');
-
-var _whatwedo2 = _interopRequireDefault(_whatwedo);
-
-var routes = _react2['default'].createElement(
-  _reactRouter.Route,
-  { handler: _layout2['default'] },
-  _react2['default'].createElement(_reactRouter.DefaultRoute, { name: 'home', handler: _home2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { name: 'join-us', path: '/join-us', handler: _joinus2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { name: 'news', path: '/news', handler: _news2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { name: 'who', path: '/who', handler: _whoweare2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { name: 'what', path: '/what', handler: _whatwedo2['default'] }),
-  _react2['default'].createElement(_reactRouter.NotFoundRoute, { name: 'not-found', handler: _notfound2['default'] })
-);
+var routes = _react2['default'].createElement(_reactRouter.Route, { handler: _layout2['default'] });
 
 exports['default'] = routes;
 module.exports = exports['default'];
 
-},{"./home":7,"./joinus":8,"./layout":9,"./news":13,"./notfound":14,"./whatwedo":16,"./whoweare":17,"react":371,"react-router":201}],16:[function(require,module,exports){
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactWaypoint = require('react-waypoint');
-
-var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
-
-var _actionsHomeActionCreators = require('../actions/homeActionCreators');
-
-var _actionsHomeActionCreators2 = _interopRequireDefault(_actionsHomeActionCreators);
-
-var whatStyle = {
-  'background': 'url("../assets/images/bg2.jpg") no-repeat center center',
-  'background-size': 'cover;'
-};
-
-var Whatwedo = (function (_React$Component) {
-  _inherits(Whatwedo, _React$Component);
-
-  function Whatwedo() {
-    _classCallCheck(this, Whatwedo);
-
-    _get(Object.getPrototypeOf(Whatwedo.prototype), 'constructor', this).call(this);
-    this._handleWaypointEnter = this._handleWaypointEnter.bind(this);
-    this._handleWaypointLeave = this._handleWaypointLeave.bind(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-  }
-
-  _createClass(Whatwedo, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      _actionsHomeActionCreators2['default'].SetNavActive('what');
-    }
-  }, {
-    key: '_handleWaypointEnter',
-    value: function _handleWaypointEnter() {
-      _actionsHomeActionCreators2['default'].resizeHeader(true);
-    }
-  }, {
-    key: '_handleWaypointLeave',
-    value: function _handleWaypointLeave() {
-      _actionsHomeActionCreators2['default'].resizeHeader(false);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2['default'].createElement(
-        'div',
-        { className: 'page section' },
-        _react2['default'].createElement(_reactWaypoint2['default'], { onEnter: this._handleWaypointEnter, onLeave: this._handleWaypointLeave, threshold: 0.3 }),
-        _react2['default'].createElement(
-          'div',
-          { className: 'sectionBanner', style: whatStyle },
-          _react2['default'].createElement(
-            'div',
-            { className: 'sectionBannerTitle' },
-            'What We Do'
-          ),
-          _react2['default'].createElement(
-            'div',
-            { className: 'sectionBannerSubtitle' },
-            'What We Do What We Do What We Do'
-          )
-        )
-      );
-    }
-  }]);
-
-  return Whatwedo;
-})(_react2['default'].Component);
-
-exports['default'] = Whatwedo;
-module.exports = exports['default'];
-
-},{"../actions/homeActionCreators":3,"react":371,"react-waypoint":216}],17:[function(require,module,exports){
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
-
-var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactWaypoint = require('react-waypoint');
-
-var _reactWaypoint2 = _interopRequireDefault(_reactWaypoint);
-
-var _actionsHomeActionCreators = require('../actions/homeActionCreators');
-
-var _actionsHomeActionCreators2 = _interopRequireDefault(_actionsHomeActionCreators);
-
-var whoStyle = {
-  'background': 'url("../assets/images/bg1.jpg") no-repeat center center',
-  'background-size': 'cover;'
-};
-
-var Whoweare = (function (_React$Component) {
-  _inherits(Whoweare, _React$Component);
-
-  function Whoweare() {
-    _classCallCheck(this, Whoweare);
-
-    _get(Object.getPrototypeOf(Whoweare.prototype), 'constructor', this).call(this);
-    this.componentDidMount = this.componentDidMount.bind(this);
-    this._handleWaypointEnter = this._handleWaypointEnter.bind(this);
-    this._handleWaypointLeave = this._handleWaypointLeave.bind(this);
-  }
-
-  _createClass(Whoweare, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      _actionsHomeActionCreators2['default'].SetNavActive('who');
-    }
-  }, {
-    key: '_handleWaypointEnter',
-    value: function _handleWaypointEnter() {
-      _actionsHomeActionCreators2['default'].resizeHeader(true);
-    }
-  }, {
-    key: '_handleWaypointLeave',
-    value: function _handleWaypointLeave() {
-      _actionsHomeActionCreators2['default'].resizeHeader(false);
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return _react2['default'].createElement(
-        'div',
-        { className: 'page section' },
-        _react2['default'].createElement(_reactWaypoint2['default'], { onEnter: this._handleWaypointEnter, onLeave: this._handleWaypointLeave, threshold: 0.3 }),
-        _react2['default'].createElement(
-          'div',
-          { className: 'sectionBanner', style: whoStyle },
-          _react2['default'].createElement(
-            'div',
-            { className: 'sectionBannerTitle' },
-            'Who We Are'
-          ),
-          _react2['default'].createElement(
-            'div',
-            { className: 'sectionBannerSubtitle' },
-            'Teach & Tour is a platform for foreign teachers'
-          )
-        )
-      );
-    }
-  }]);
-
-  return Whoweare;
-})(_react2['default'].Component);
-
-exports['default'] = Whoweare;
-module.exports = exports['default'];
-
-},{"../actions/homeActionCreators":3,"react":371,"react-waypoint":216}],18:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _keymirror = require('keymirror');
-
-var _keymirror2 = _interopRequireDefault(_keymirror);
-
-var constants = {
-  ActionTypes: (0, _keymirror2['default'])({
-    RESIZEHEADER: null,
-    CLOSE_LOGIN_MODAL: null,
-    SIGNUP: null,
-    LOGIN: null,
-    LOGOUT: null,
-    NAVACTIVE: null
-  })
-};
-
-exports['default'] = constants;
-module.exports = exports['default'];
-
-},{"keymirror":29}],19:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-var _flux = require('flux');
-
-var _Dispatcher = new _flux.Dispatcher();
-exports['default'] = _Dispatcher;
-module.exports = exports['default'];
-
-},{"flux":26}],20:[function(require,module,exports){
-// all songs, to be displayed on homepage
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _dispatcherDispatcherJs = require('../dispatcher/dispatcher.js');
-
-var _dispatcherDispatcherJs2 = _interopRequireDefault(_dispatcherDispatcherJs);
-
-var _constantsConstants = require('../constants/constants');
-
-var _constantsConstants2 = _interopRequireDefault(_constantsConstants);
-
-var _events = require('events');
-
-var _events2 = _interopRequireDefault(_events);
-
-var _objectAssign = require('object-assign');
-
-var _objectAssign2 = _interopRequireDefault(_objectAssign);
-
-var ActionType = _constantsConstants2['default'].ActionTypes;
-var CHANGE_EVENT = 'change';
-var CHANGE_NAV_ACTIVE = 'nav_active';
-
-var _header = true;
-var _nav_active = 'home';
-
-var setHeaderState = function setHeaderState(headerState) {
-  _header = headerState;
-};
-
-var setNavState = function setNavState(NavName) {
-  _nav_active = NavName;
-};
-
-var HomeStore = (0, _objectAssign2['default'])({}, _events2['default'].prototype, {
-  emitChange: function emitChange() {
-    this.emit(CHANGE_EVENT);
-  },
-  emitNavActive: function emitNavActive() {
-    this.emit(CHANGE_NAV_ACTIVE);
-  },
-  addChangeListener: function addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-  addNavActiveListener: function addNavActiveListener(callback) {
-    this.on(CHANGE_NAV_ACTIVE, callback);
-  },
-  removeChangeListener: function removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-  removeNavActiveListener: function removeNavActiveListener(callback) {
-    this.removeListener(CHANGE_NAV_ACTIVE, callback);
-  },
-  getHeaderState: function getHeaderState() {
-    return _header;
-  },
-  getNavState: function getNavState() {
-    return _nav_active;
-  }
-});
-
-HomeStore.dispatchToken = _dispatcherDispatcherJs2['default'].register(function (payload) {
-  switch (payload.type) {
-    case ActionType.RESIZEHEADER:
-      setHeaderState(payload.headerState);
-      HomeStore.emitChange();
-      break;
-
-    case ActionType.NAVACTIVE:
-      setNavState(payload.NavName);
-      HomeStore.emitNavActive();
-      break;
-
-    default:
-      break;
-  }
-});
-
-exports['default'] = HomeStore;
-module.exports = exports['default'];
-
-},{"../constants/constants":18,"../dispatcher/dispatcher.js":19,"events":24,"object-assign":55}],21:[function(require,module,exports){
-// all songs, to be displayed on homepage
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _dispatcherDispatcherJs = require('../dispatcher/dispatcher.js');
-
-var _dispatcherDispatcherJs2 = _interopRequireDefault(_dispatcherDispatcherJs);
-
-var _constantsConstants = require('../constants/constants');
-
-var _constantsConstants2 = _interopRequireDefault(_constantsConstants);
-
-var _events = require('events');
-
-var _events2 = _interopRequireDefault(_events);
-
-var _objectAssign = require('object-assign');
-
-var _objectAssign2 = _interopRequireDefault(_objectAssign);
-
-var ActionType = _constantsConstants2['default'].ActionTypes;
-var CHANGE_EVENT = 'change';
-
-var ModalStore = (0, _objectAssign2['default'])({}, _events2['default'].prototype, {
-  emitChange: function emitChange() {
-    this.emit(CHANGE_EVENT);
-  },
-  addChangeListener: function addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-  removeChangeListener: function removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  }
-});
-
-ModalStore.dispatchToken = _dispatcherDispatcherJs2['default'].register(function (payload) {
-  switch (payload.type) {
-    case ActionType.CLOSE_LOGIN_MODAL:
-      ModalStore.emitChange();
-      break;
-
-    default:
-      break;
-  }
-});
-
-exports['default'] = ModalStore;
-module.exports = exports['default'];
-
-},{"../constants/constants":18,"../dispatcher/dispatcher.js":19,"events":24,"object-assign":55}],22:[function(require,module,exports){
-// store for profile components (not including songs)
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _dispatcherDispatcherJs = require('../dispatcher/dispatcher.js');
-
-var _dispatcherDispatcherJs2 = _interopRequireDefault(_dispatcherDispatcherJs);
-
-var _constantsConstants = require('../constants/constants');
-
-var _constantsConstants2 = _interopRequireDefault(_constantsConstants);
-
-var _events = require('events');
-
-var _events2 = _interopRequireDefault(_events);
-
-var _objectAssign = require('object-assign');
-
-var _objectAssign2 = _interopRequireDefault(_objectAssign);
-
-var ActionType = _constantsConstants2['default'].ActionTypes;
-var CHANGE_EVENT = 'change';
-
-var _user = {};
-
-var UserProfile = (0, _objectAssign2['default'])({}, _events2['default'].prototype, {
-  emitChange: function emitChange() {
-    this.emit(CHANGE_EVENT);
-  },
-  addChangeListener: function addChangeListener(callback) {
-    this.on(CHANGE_EVENT, callback);
-  },
-  removeChangeListener: function removeChangeListener(callback) {
-    this.removeListener(CHANGE_EVENT, callback);
-  },
-  isLoggedIn: function isLoggedIn() {
-    return !!this.getCookieID();
-  },
-  getCookieID: function getCookieID() {
-    var name = 'id=';
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') c = c.substring(1);
-      if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return 0;
-  },
-  getCookieName: function getCookieName() {
-    var name = 'username=';
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') c = c.substring(1);
-      if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return "";
-  },
-  getCookieImg: function getCookieImg() {
-    var name = 'img=';
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-      var c = ca[i];
-      while (c.charAt(0) == ' ') c = c.substring(1);
-      if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return "";
-  }
-});
-
-var setCookie = function setCookie(id, username, img) {
-  if (id !== null) {
-    document.cookie = "id" + "=" + id;
-  }
-  if (username !== null) {
-    document.cookie = "username" + "=" + username;
-  }
-  if (img !== null) {
-    document.cookie = "img" + "=" + img;
-  }
-};
-
-var deleteCookie = function deleteCookie() {
-  document.cookie = "id=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-  document.cookie = "username=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-  document.cookie = "img=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
-};
-
-UserProfile.dispatchToken = _dispatcherDispatcherJs2['default'].register(function (payload) {
-  switch (payload.type) {
-    case ActionType.LOGIN:
-      if (payload.response.success) {
-        var id = payload.response.user[0].id;
-        var _username = payload.response.user[0].username;
-        var img = payload.response.user[0].profilePic;
-        setCookie(id, _username, img);
-        UserProfile.emitChange();
-      } else {
-        console.log("login failed, user does not exist");
-      }
-      break;
-
-    case ActionType.SIGNUP:
-      if (payload.response.success) {
-        console.log('signup success');
-        var id = payload.response.userData.id;
-        var _username2 = payload.response.userData.username;
-        var img = payload.response.userData.profilePic;
-        setCookie(id, _username2, img);
-        UserProfile.emitChange();
-      } else {
-        console.log("signup failed, user already exists");
-      }
-      break;
-
-    case ActionType.LOGOUT:
-      deleteCookie();
-      UserProfile.emitChange();
-      break;
-
-    case ActionType.UPDATE:
-      var username = payload.response.newname;
-      var imgUrl = payload.response.imgUrl;
-      setCookie(null, username, imgUrl);
-      UserProfile.emitChange();
-      break;
-
-    default:
-  }
-});
-
-exports['default'] = UserProfile;
-module.exports = exports['default'];
-
-},{"../constants/constants":18,"../dispatcher/dispatcher.js":19,"events":24,"object-assign":55}],23:[function(require,module,exports){
-'use strict';
-Object.defineProperty(exports, '__esModule', {
-  value: true
-});
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-var _whatwgFetch = require('whatwg-fetch');
-
-var _whatwgFetch2 = _interopRequireDefault(_whatwgFetch);
-
-exports['default'] = {
-
-  postJSON: function postJSON(url, body) {
-    var body = JSON.stringify(body);
-    return new Promise(function (resolve, reject) {
-      window.fetch(url, {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: body
-      }).then(function (response) {
-        response.json().then(function (json) {
-          resolve(json);
-        });
-      })['catch'](function (err) {
-        console.log(err);
-        reject(err);
-      });
-    });
-  },
-
-  simplePost: function simplePost(url, body) {
-    var body = JSON.stringify(body);
-    return new Promise(function (resolve, reject) {
-      window.fetch(url, {
-        method: 'post',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: body
-      }).then(function (response) {
-        resolve(response);
-      })['catch'](function (err) {
-        console.log(err);
-        reject(err);
-      });
-    });
-  }
-};
-module.exports = exports['default'];
-
-},{"whatwg-fetch":372}],24:[function(require,module,exports){
-// Copyright Joyent, Inc. and other Node contributors.
-//
-// Permission is hereby granted, free of charge, to any person obtaining a
-// copy of this software and associated documentation files (the
-// "Software"), to deal in the Software without restriction, including
-// without limitation the rights to use, copy, modify, merge, publish,
-// distribute, sublicense, and/or sell copies of the Software, and to permit
-// persons to whom the Software is furnished to do so, subject to the
-// following conditions:
-//
-// The above copyright notice and this permission notice shall be included
-// in all copies or substantial portions of the Software.
-//
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
-// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
-// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
-// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-// USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-function EventEmitter() {
-  this._events = this._events || {};
-  this._maxListeners = this._maxListeners || undefined;
-}
-module.exports = EventEmitter;
-
-// Backwards-compat with node 0.10.x
-EventEmitter.EventEmitter = EventEmitter;
-
-EventEmitter.prototype._events = undefined;
-EventEmitter.prototype._maxListeners = undefined;
-
-// By default EventEmitters will print a warning if more than 10 listeners are
-// added to it. This is a useful default which helps finding memory leaks.
-EventEmitter.defaultMaxListeners = 10;
-
-// Obviously not all Emitters should be limited to 10. This function allows
-// that to be increased. Set to zero for unlimited.
-EventEmitter.prototype.setMaxListeners = function(n) {
-  if (!isNumber(n) || n < 0 || isNaN(n))
-    throw TypeError('n must be a positive number');
-  this._maxListeners = n;
-  return this;
-};
-
-EventEmitter.prototype.emit = function(type) {
-  var er, handler, len, args, i, listeners;
-
-  if (!this._events)
-    this._events = {};
-
-  // If there is no 'error' event listener then throw.
-  if (type === 'error') {
-    if (!this._events.error ||
-        (isObject(this._events.error) && !this._events.error.length)) {
-      er = arguments[1];
-      if (er instanceof Error) {
-        throw er; // Unhandled 'error' event
-      }
-      throw TypeError('Uncaught, unspecified "error" event.');
-    }
-  }
-
-  handler = this._events[type];
-
-  if (isUndefined(handler))
-    return false;
-
-  if (isFunction(handler)) {
-    switch (arguments.length) {
-      // fast cases
-      case 1:
-        handler.call(this);
-        break;
-      case 2:
-        handler.call(this, arguments[1]);
-        break;
-      case 3:
-        handler.call(this, arguments[1], arguments[2]);
-        break;
-      // slower
-      default:
-        len = arguments.length;
-        args = new Array(len - 1);
-        for (i = 1; i < len; i++)
-          args[i - 1] = arguments[i];
-        handler.apply(this, args);
-    }
-  } else if (isObject(handler)) {
-    len = arguments.length;
-    args = new Array(len - 1);
-    for (i = 1; i < len; i++)
-      args[i - 1] = arguments[i];
-
-    listeners = handler.slice();
-    len = listeners.length;
-    for (i = 0; i < len; i++)
-      listeners[i].apply(this, args);
-  }
-
-  return true;
-};
-
-EventEmitter.prototype.addListener = function(type, listener) {
-  var m;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events)
-    this._events = {};
-
-  // To avoid recursion in the case that type === "newListener"! Before
-  // adding it to the listeners, first emit "newListener".
-  if (this._events.newListener)
-    this.emit('newListener', type,
-              isFunction(listener.listener) ?
-              listener.listener : listener);
-
-  if (!this._events[type])
-    // Optimize the case of one listener. Don't need the extra array object.
-    this._events[type] = listener;
-  else if (isObject(this._events[type]))
-    // If we've already got an array, just append.
-    this._events[type].push(listener);
-  else
-    // Adding the second element, need to change to array.
-    this._events[type] = [this._events[type], listener];
-
-  // Check for listener leak
-  if (isObject(this._events[type]) && !this._events[type].warned) {
-    var m;
-    if (!isUndefined(this._maxListeners)) {
-      m = this._maxListeners;
-    } else {
-      m = EventEmitter.defaultMaxListeners;
-    }
-
-    if (m && m > 0 && this._events[type].length > m) {
-      this._events[type].warned = true;
-      console.error('(node) warning: possible EventEmitter memory ' +
-                    'leak detected. %d listeners added. ' +
-                    'Use emitter.setMaxListeners() to increase limit.',
-                    this._events[type].length);
-      if (typeof console.trace === 'function') {
-        // not supported in IE 10
-        console.trace();
-      }
-    }
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.on = EventEmitter.prototype.addListener;
-
-EventEmitter.prototype.once = function(type, listener) {
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  var fired = false;
-
-  function g() {
-    this.removeListener(type, g);
-
-    if (!fired) {
-      fired = true;
-      listener.apply(this, arguments);
-    }
-  }
-
-  g.listener = listener;
-  this.on(type, g);
-
-  return this;
-};
-
-// emits a 'removeListener' event iff the listener was removed
-EventEmitter.prototype.removeListener = function(type, listener) {
-  var list, position, length, i;
-
-  if (!isFunction(listener))
-    throw TypeError('listener must be a function');
-
-  if (!this._events || !this._events[type])
-    return this;
-
-  list = this._events[type];
-  length = list.length;
-  position = -1;
-
-  if (list === listener ||
-      (isFunction(list.listener) && list.listener === listener)) {
-    delete this._events[type];
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-
-  } else if (isObject(list)) {
-    for (i = length; i-- > 0;) {
-      if (list[i] === listener ||
-          (list[i].listener && list[i].listener === listener)) {
-        position = i;
-        break;
-      }
-    }
-
-    if (position < 0)
-      return this;
-
-    if (list.length === 1) {
-      list.length = 0;
-      delete this._events[type];
-    } else {
-      list.splice(position, 1);
-    }
-
-    if (this._events.removeListener)
-      this.emit('removeListener', type, listener);
-  }
-
-  return this;
-};
-
-EventEmitter.prototype.removeAllListeners = function(type) {
-  var key, listeners;
-
-  if (!this._events)
-    return this;
-
-  // not listening for removeListener, no need to emit
-  if (!this._events.removeListener) {
-    if (arguments.length === 0)
-      this._events = {};
-    else if (this._events[type])
-      delete this._events[type];
-    return this;
-  }
-
-  // emit removeListener for all listeners on all events
-  if (arguments.length === 0) {
-    for (key in this._events) {
-      if (key === 'removeListener') continue;
-      this.removeAllListeners(key);
-    }
-    this.removeAllListeners('removeListener');
-    this._events = {};
-    return this;
-  }
-
-  listeners = this._events[type];
-
-  if (isFunction(listeners)) {
-    this.removeListener(type, listeners);
-  } else {
-    // LIFO order
-    while (listeners.length)
-      this.removeListener(type, listeners[listeners.length - 1]);
-  }
-  delete this._events[type];
-
-  return this;
-};
-
-EventEmitter.prototype.listeners = function(type) {
-  var ret;
-  if (!this._events || !this._events[type])
-    ret = [];
-  else if (isFunction(this._events[type]))
-    ret = [this._events[type]];
-  else
-    ret = this._events[type].slice();
-  return ret;
-};
-
-EventEmitter.listenerCount = function(emitter, type) {
-  var ret;
-  if (!emitter._events || !emitter._events[type])
-    ret = 0;
-  else if (isFunction(emitter._events[type]))
-    ret = 1;
-  else
-    ret = emitter._events[type].length;
-  return ret;
-};
-
-function isFunction(arg) {
-  return typeof arg === 'function';
-}
-
-function isNumber(arg) {
-  return typeof arg === 'number';
-}
-
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
-
-function isUndefined(arg) {
-  return arg === void 0;
-}
-
-},{}],25:[function(require,module,exports){
+},{"./joinus":4,"./layout":5,"react":201,"react-router":32}],7:[function(require,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -2491,11296 +410,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],26:[function(require,module,exports){
-/**
- * Copyright (c) 2014-2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- */
-
-module.exports.Dispatcher = require('./lib/Dispatcher');
-
-},{"./lib/Dispatcher":27}],27:[function(require,module,exports){
-(function (process){
-/**
- * Copyright (c) 2014-2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @providesModule Dispatcher
- * 
- * @preventMunge
- */
-
-'use strict';
-
-exports.__esModule = true;
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
-
-var invariant = require('fbjs/lib/invariant');
-
-var _prefix = 'ID_';
-
-/**
- * Dispatcher is used to broadcast payloads to registered callbacks. This is
- * different from generic pub-sub systems in two ways:
- *
- *   1) Callbacks are not subscribed to particular events. Every payload is
- *      dispatched to every registered callback.
- *   2) Callbacks can be deferred in whole or part until other callbacks have
- *      been executed.
- *
- * For example, consider this hypothetical flight destination form, which
- * selects a default city when a country is selected:
- *
- *   var flightDispatcher = new Dispatcher();
- *
- *   // Keeps track of which country is selected
- *   var CountryStore = {country: null};
- *
- *   // Keeps track of which city is selected
- *   var CityStore = {city: null};
- *
- *   // Keeps track of the base flight price of the selected city
- *   var FlightPriceStore = {price: null}
- *
- * When a user changes the selected city, we dispatch the payload:
- *
- *   flightDispatcher.dispatch({
- *     actionType: 'city-update',
- *     selectedCity: 'paris'
- *   });
- *
- * This payload is digested by `CityStore`:
- *
- *   flightDispatcher.register(function(payload) {
- *     if (payload.actionType === 'city-update') {
- *       CityStore.city = payload.selectedCity;
- *     }
- *   });
- *
- * When the user selects a country, we dispatch the payload:
- *
- *   flightDispatcher.dispatch({
- *     actionType: 'country-update',
- *     selectedCountry: 'australia'
- *   });
- *
- * This payload is digested by both stores:
- *
- *   CountryStore.dispatchToken = flightDispatcher.register(function(payload) {
- *     if (payload.actionType === 'country-update') {
- *       CountryStore.country = payload.selectedCountry;
- *     }
- *   });
- *
- * When the callback to update `CountryStore` is registered, we save a reference
- * to the returned token. Using this token with `waitFor()`, we can guarantee
- * that `CountryStore` is updated before the callback that updates `CityStore`
- * needs to query its data.
- *
- *   CityStore.dispatchToken = flightDispatcher.register(function(payload) {
- *     if (payload.actionType === 'country-update') {
- *       // `CountryStore.country` may not be updated.
- *       flightDispatcher.waitFor([CountryStore.dispatchToken]);
- *       // `CountryStore.country` is now guaranteed to be updated.
- *
- *       // Select the default city for the new country
- *       CityStore.city = getDefaultCityForCountry(CountryStore.country);
- *     }
- *   });
- *
- * The usage of `waitFor()` can be chained, for example:
- *
- *   FlightPriceStore.dispatchToken =
- *     flightDispatcher.register(function(payload) {
- *       switch (payload.actionType) {
- *         case 'country-update':
- *         case 'city-update':
- *           flightDispatcher.waitFor([CityStore.dispatchToken]);
- *           FlightPriceStore.price =
- *             getFlightPriceStore(CountryStore.country, CityStore.city);
- *           break;
- *     }
- *   });
- *
- * The `country-update` payload will be guaranteed to invoke the stores'
- * registered callbacks in order: `CountryStore`, `CityStore`, then
- * `FlightPriceStore`.
- */
-
-var Dispatcher = (function () {
-  function Dispatcher() {
-    _classCallCheck(this, Dispatcher);
-
-    this._callbacks = {};
-    this._isDispatching = false;
-    this._isHandled = {};
-    this._isPending = {};
-    this._lastID = 1;
-  }
-
-  /**
-   * Registers a callback to be invoked with every dispatched payload. Returns
-   * a token that can be used with `waitFor()`.
-   */
-
-  Dispatcher.prototype.register = function register(callback) {
-    var id = _prefix + this._lastID++;
-    this._callbacks[id] = callback;
-    return id;
-  };
-
-  /**
-   * Removes a callback based on its token.
-   */
-
-  Dispatcher.prototype.unregister = function unregister(id) {
-    !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.unregister(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
-    delete this._callbacks[id];
-  };
-
-  /**
-   * Waits for the callbacks specified to be invoked before continuing execution
-   * of the current callback. This method should only be used by a callback in
-   * response to a dispatched payload.
-   */
-
-  Dispatcher.prototype.waitFor = function waitFor(ids) {
-    !this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Must be invoked while dispatching.') : invariant(false) : undefined;
-    for (var ii = 0; ii < ids.length; ii++) {
-      var id = ids[ii];
-      if (this._isPending[id]) {
-        !this._isHandled[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): Circular dependency detected while ' + 'waiting for `%s`.', id) : invariant(false) : undefined;
-        continue;
-      }
-      !this._callbacks[id] ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatcher.waitFor(...): `%s` does not map to a registered callback.', id) : invariant(false) : undefined;
-      this._invokeCallback(id);
-    }
-  };
-
-  /**
-   * Dispatches a payload to all registered callbacks.
-   */
-
-  Dispatcher.prototype.dispatch = function dispatch(payload) {
-    !!this._isDispatching ? process.env.NODE_ENV !== 'production' ? invariant(false, 'Dispatch.dispatch(...): Cannot dispatch in the middle of a dispatch.') : invariant(false) : undefined;
-    this._startDispatching(payload);
-    try {
-      for (var id in this._callbacks) {
-        if (this._isPending[id]) {
-          continue;
-        }
-        this._invokeCallback(id);
-      }
-    } finally {
-      this._stopDispatching();
-    }
-  };
-
-  /**
-   * Is this Dispatcher currently dispatching.
-   */
-
-  Dispatcher.prototype.isDispatching = function isDispatching() {
-    return this._isDispatching;
-  };
-
-  /**
-   * Call the callback stored with the given id. Also do some internal
-   * bookkeeping.
-   *
-   * @internal
-   */
-
-  Dispatcher.prototype._invokeCallback = function _invokeCallback(id) {
-    this._isPending[id] = true;
-    this._callbacks[id](this._pendingPayload);
-    this._isHandled[id] = true;
-  };
-
-  /**
-   * Set up bookkeeping needed when dispatching.
-   *
-   * @internal
-   */
-
-  Dispatcher.prototype._startDispatching = function _startDispatching(payload) {
-    for (var id in this._callbacks) {
-      this._isPending[id] = false;
-      this._isHandled[id] = false;
-    }
-    this._pendingPayload = payload;
-    this._isDispatching = true;
-  };
-
-  /**
-   * Clear bookkeeping used for dispatching.
-   *
-   * @internal
-   */
-
-  Dispatcher.prototype._stopDispatching = function _stopDispatching() {
-    delete this._pendingPayload;
-    this._isDispatching = false;
-  };
-
-  return Dispatcher;
-})();
-
-module.exports = Dispatcher;
-}).call(this,require('_process'))
-
-},{"_process":25,"fbjs/lib/invariant":28}],28:[function(require,module,exports){
-(function (process){
-/**
- * Copyright 2013-2015, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- * @providesModule invariant
- */
-
-"use strict";
-
-/**
- * Use invariant() to assert state which your program assumes to be true.
- *
- * Provide sprintf-style format (only %s is supported) and arguments
- * to provide information about what broke and what you were
- * expecting.
- *
- * The invariant message will be stripped in production, but the invariant
- * will remain to ensure logic does not differ in production.
- */
-
-var invariant = function (condition, format, a, b, c, d, e, f) {
-  if (process.env.NODE_ENV !== 'production') {
-    if (format === undefined) {
-      throw new Error('invariant requires an error message argument');
-    }
-  }
-
-  if (!condition) {
-    var error;
-    if (format === undefined) {
-      error = new Error('Minified exception occurred; use the non-minified dev environment ' + 'for the full error message and additional helpful warnings.');
-    } else {
-      var args = [a, b, c, d, e, f];
-      var argIndex = 0;
-      error = new Error('Invariant Violation: ' + format.replace(/%s/g, function () {
-        return args[argIndex++];
-      }));
-    }
-
-    error.framesToPop = 1; // we don't care about invariant's own frame
-    throw error;
-  }
-};
-
-module.exports = invariant;
-}).call(this,require('_process'))
-
-},{"_process":25}],29:[function(require,module,exports){
-/**
- * Copyright 2013-2014 Facebook, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
-
-"use strict";
-
-/**
- * Constructs an enumeration with keys equal to their value.
- *
- * For example:
- *
- *   var COLORS = keyMirror({blue: null, red: null});
- *   var myColor = COLORS.blue;
- *   var isColorValid = !!COLORS[myColor];
- *
- * The last line could not be performed if the values of the generated enum were
- * not equal to their keys.
- *
- *   Input:  {key1: val1, key2: val2}
- *   Output: {key1: key1, key2: key2}
- *
- * @param {object} obj
- * @return {object}
- */
-var keyMirror = function(obj) {
-  var ret = {};
-  var key;
-  if (!(obj instanceof Object && !Array.isArray(obj))) {
-    throw new Error('keyMirror(...): Argument must be an object.');
-  }
-  for (key in obj) {
-    if (!obj.hasOwnProperty(key)) {
-      continue;
-    }
-    ret[key] = key;
-  }
-  return ret;
-};
-
-module.exports = keyMirror;
-
-},{}],30:[function(require,module,exports){
-/** Used as the `TypeError` message for "Functions" methods. */
-var FUNC_ERROR_TEXT = 'Expected a function';
-
-/* Native method references for those with the same name as other `lodash` methods. */
-var nativeMax = Math.max;
-
-/**
- * Creates a function that invokes `func` with the `this` binding of the
- * created function and arguments from `start` and beyond provided as an array.
- *
- * **Note:** This method is based on the [rest parameter](https://developer.mozilla.org/Web/JavaScript/Reference/Functions/rest_parameters).
- *
- * @static
- * @memberOf _
- * @category Function
- * @param {Function} func The function to apply a rest parameter to.
- * @param {number} [start=func.length-1] The start position of the rest parameter.
- * @returns {Function} Returns the new function.
- * @example
- *
- * var say = _.restParam(function(what, names) {
- *   return what + ' ' + _.initial(names).join(', ') +
- *     (_.size(names) > 1 ? ', & ' : '') + _.last(names);
- * });
- *
- * say('hello', 'fred', 'barney', 'pebbles');
- * // => 'hello fred, barney, & pebbles'
- */
-function restParam(func, start) {
-  if (typeof func != 'function') {
-    throw new TypeError(FUNC_ERROR_TEXT);
-  }
-  start = nativeMax(start === undefined ? (func.length - 1) : (+start || 0), 0);
-  return function() {
-    var args = arguments,
-        index = -1,
-        length = nativeMax(args.length - start, 0),
-        rest = Array(length);
-
-    while (++index < length) {
-      rest[index] = args[start + index];
-    }
-    switch (start) {
-      case 0: return func.call(this, rest);
-      case 1: return func.call(this, args[0], rest);
-      case 2: return func.call(this, args[0], args[1], rest);
-    }
-    var otherArgs = Array(start + 1);
-    index = -1;
-    while (++index < start) {
-      otherArgs[index] = args[index];
-    }
-    otherArgs[start] = rest;
-    return func.apply(this, otherArgs);
-  };
-}
-
-module.exports = restParam;
-
-},{}],31:[function(require,module,exports){
-/**
- * Appends the elements of `values` to `array`.
- *
- * @private
- * @param {Array} array The array to modify.
- * @param {Array} values The values to append.
- * @returns {Array} Returns `array`.
- */
-function arrayPush(array, values) {
-  var index = -1,
-      length = values.length,
-      offset = array.length;
-
-  while (++index < length) {
-    array[offset + index] = values[index];
-  }
-  return array;
-}
-
-module.exports = arrayPush;
-
-},{}],32:[function(require,module,exports){
-var arrayPush = require('./arrayPush'),
-    isArguments = require('../lang/isArguments'),
-    isArray = require('../lang/isArray'),
-    isArrayLike = require('./isArrayLike'),
-    isObjectLike = require('./isObjectLike');
-
-/**
- * The base implementation of `_.flatten` with added support for restricting
- * flattening and specifying the start index.
- *
- * @private
- * @param {Array} array The array to flatten.
- * @param {boolean} [isDeep] Specify a deep flatten.
- * @param {boolean} [isStrict] Restrict flattening to arrays-like objects.
- * @param {Array} [result=[]] The initial result value.
- * @returns {Array} Returns the new flattened array.
- */
-function baseFlatten(array, isDeep, isStrict, result) {
-  result || (result = []);
-
-  var index = -1,
-      length = array.length;
-
-  while (++index < length) {
-    var value = array[index];
-    if (isObjectLike(value) && isArrayLike(value) &&
-        (isStrict || isArray(value) || isArguments(value))) {
-      if (isDeep) {
-        // Recursively flatten arrays (susceptible to call stack limits).
-        baseFlatten(value, isDeep, isStrict, result);
-      } else {
-        arrayPush(result, value);
-      }
-    } else if (!isStrict) {
-      result[result.length] = value;
-    }
-  }
-  return result;
-}
-
-module.exports = baseFlatten;
-
-},{"../lang/isArguments":47,"../lang/isArray":48,"./arrayPush":31,"./isArrayLike":40,"./isObjectLike":43}],33:[function(require,module,exports){
-var createBaseFor = require('./createBaseFor');
-
-/**
- * The base implementation of `baseForIn` and `baseForOwn` which iterates
- * over `object` properties returned by `keysFunc` invoking `iteratee` for
- * each property. Iteratee functions may exit iteration early by explicitly
- * returning `false`.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @param {Function} keysFunc The function to get the keys of `object`.
- * @returns {Object} Returns `object`.
- */
-var baseFor = createBaseFor();
-
-module.exports = baseFor;
-
-},{"./createBaseFor":37}],34:[function(require,module,exports){
-var baseFor = require('./baseFor'),
-    keysIn = require('../object/keysIn');
-
-/**
- * The base implementation of `_.forIn` without support for callback
- * shorthands and `this` binding.
- *
- * @private
- * @param {Object} object The object to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Object} Returns `object`.
- */
-function baseForIn(object, iteratee) {
-  return baseFor(object, iteratee, keysIn);
-}
-
-module.exports = baseForIn;
-
-},{"../object/keysIn":52,"./baseFor":33}],35:[function(require,module,exports){
-/**
- * The base implementation of `_.property` without support for deep paths.
- *
- * @private
- * @param {string} key The key of the property to get.
- * @returns {Function} Returns the new function.
- */
-function baseProperty(key) {
-  return function(object) {
-    return object == null ? undefined : object[key];
-  };
-}
-
-module.exports = baseProperty;
-
-},{}],36:[function(require,module,exports){
-var identity = require('../utility/identity');
-
-/**
- * A specialized version of `baseCallback` which only supports `this` binding
- * and specifying the number of arguments to provide to `func`.
- *
- * @private
- * @param {Function} func The function to bind.
- * @param {*} thisArg The `this` binding of `func`.
- * @param {number} [argCount] The number of arguments to provide to `func`.
- * @returns {Function} Returns the callback.
- */
-function bindCallback(func, thisArg, argCount) {
-  if (typeof func != 'function') {
-    return identity;
-  }
-  if (thisArg === undefined) {
-    return func;
-  }
-  switch (argCount) {
-    case 1: return function(value) {
-      return func.call(thisArg, value);
-    };
-    case 3: return function(value, index, collection) {
-      return func.call(thisArg, value, index, collection);
-    };
-    case 4: return function(accumulator, value, index, collection) {
-      return func.call(thisArg, accumulator, value, index, collection);
-    };
-    case 5: return function(value, other, key, object, source) {
-      return func.call(thisArg, value, other, key, object, source);
-    };
-  }
-  return function() {
-    return func.apply(thisArg, arguments);
-  };
-}
-
-module.exports = bindCallback;
-
-},{"../utility/identity":54}],37:[function(require,module,exports){
-var toObject = require('./toObject');
-
-/**
- * Creates a base function for `_.forIn` or `_.forInRight`.
- *
- * @private
- * @param {boolean} [fromRight] Specify iterating from right to left.
- * @returns {Function} Returns the new base function.
- */
-function createBaseFor(fromRight) {
-  return function(object, iteratee, keysFunc) {
-    var iterable = toObject(object),
-        props = keysFunc(object),
-        length = props.length,
-        index = fromRight ? length : -1;
-
-    while ((fromRight ? index-- : ++index < length)) {
-      var key = props[index];
-      if (iteratee(iterable[key], key, iterable) === false) {
-        break;
-      }
-    }
-    return object;
-  };
-}
-
-module.exports = createBaseFor;
-
-},{"./toObject":46}],38:[function(require,module,exports){
-var baseProperty = require('./baseProperty');
-
-/**
- * Gets the "length" property value of `object`.
- *
- * **Note:** This function is used to avoid a [JIT bug](https://bugs.webkit.org/show_bug.cgi?id=142792)
- * that affects Safari on at least iOS 8.1-8.3 ARM64.
- *
- * @private
- * @param {Object} object The object to query.
- * @returns {*} Returns the "length" value.
- */
-var getLength = baseProperty('length');
-
-module.exports = getLength;
-
-},{"./baseProperty":35}],39:[function(require,module,exports){
-var isNative = require('../lang/isNative');
-
-/**
- * Gets the native function at `key` of `object`.
- *
- * @private
- * @param {Object} object The object to query.
- * @param {string} key The key of the method to get.
- * @returns {*} Returns the function if it's native, else `undefined`.
- */
-function getNative(object, key) {
-  var value = object == null ? undefined : object[key];
-  return isNative(value) ? value : undefined;
-}
-
-module.exports = getNative;
-
-},{"../lang/isNative":50}],40:[function(require,module,exports){
-var getLength = require('./getLength'),
-    isLength = require('./isLength');
-
-/**
- * Checks if `value` is array-like.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
- */
-function isArrayLike(value) {
-  return value != null && isLength(getLength(value));
-}
-
-module.exports = isArrayLike;
-
-},{"./getLength":38,"./isLength":42}],41:[function(require,module,exports){
-/** Used to detect unsigned integer values. */
-var reIsUint = /^\d+$/;
-
-/**
- * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
- * of an array-like value.
- */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/**
- * Checks if `value` is a valid array-like index.
- *
- * @private
- * @param {*} value The value to check.
- * @param {number} [length=MAX_SAFE_INTEGER] The upper bounds of a valid index.
- * @returns {boolean} Returns `true` if `value` is a valid index, else `false`.
- */
-function isIndex(value, length) {
-  value = (typeof value == 'number' || reIsUint.test(value)) ? +value : -1;
-  length = length == null ? MAX_SAFE_INTEGER : length;
-  return value > -1 && value % 1 == 0 && value < length;
-}
-
-module.exports = isIndex;
-
-},{}],42:[function(require,module,exports){
-/**
- * Used as the [maximum length](http://ecma-international.org/ecma-262/6.0/#sec-number.max_safe_integer)
- * of an array-like value.
- */
-var MAX_SAFE_INTEGER = 9007199254740991;
-
-/**
- * Checks if `value` is a valid array-like length.
- *
- * **Note:** This function is based on [`ToLength`](http://ecma-international.org/ecma-262/6.0/#sec-tolength).
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a valid length, else `false`.
- */
-function isLength(value) {
-  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
-}
-
-module.exports = isLength;
-
-},{}],43:[function(require,module,exports){
-/**
- * Checks if `value` is object-like.
- *
- * @private
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is object-like, else `false`.
- */
-function isObjectLike(value) {
-  return !!value && typeof value == 'object';
-}
-
-module.exports = isObjectLike;
-
-},{}],44:[function(require,module,exports){
-var toObject = require('./toObject');
-
-/**
- * A specialized version of `_.pick` which picks `object` properties specified
- * by `props`.
- *
- * @private
- * @param {Object} object The source object.
- * @param {string[]} props The property names to pick.
- * @returns {Object} Returns the new object.
- */
-function pickByArray(object, props) {
-  object = toObject(object);
-
-  var index = -1,
-      length = props.length,
-      result = {};
-
-  while (++index < length) {
-    var key = props[index];
-    if (key in object) {
-      result[key] = object[key];
-    }
-  }
-  return result;
-}
-
-module.exports = pickByArray;
-
-},{"./toObject":46}],45:[function(require,module,exports){
-var baseForIn = require('./baseForIn');
-
-/**
- * A specialized version of `_.pick` which picks `object` properties `predicate`
- * returns truthy for.
- *
- * @private
- * @param {Object} object The source object.
- * @param {Function} predicate The function invoked per iteration.
- * @returns {Object} Returns the new object.
- */
-function pickByCallback(object, predicate) {
-  var result = {};
-  baseForIn(object, function(value, key, object) {
-    if (predicate(value, key, object)) {
-      result[key] = value;
-    }
-  });
-  return result;
-}
-
-module.exports = pickByCallback;
-
-},{"./baseForIn":34}],46:[function(require,module,exports){
-var isObject = require('../lang/isObject');
-
-/**
- * Converts `value` to an object if it's not one.
- *
- * @private
- * @param {*} value The value to process.
- * @returns {Object} Returns the object.
- */
-function toObject(value) {
-  return isObject(value) ? value : Object(value);
-}
-
-module.exports = toObject;
-
-},{"../lang/isObject":51}],47:[function(require,module,exports){
-var isArrayLike = require('../internal/isArrayLike'),
-    isObjectLike = require('../internal/isObjectLike');
-
-/** Used for native method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Native method references. */
-var propertyIsEnumerable = objectProto.propertyIsEnumerable;
-
-/**
- * Checks if `value` is classified as an `arguments` object.
- *
- * @static
- * @memberOf _
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
- * @example
- *
- * _.isArguments(function() { return arguments; }());
- * // => true
- *
- * _.isArguments([1, 2, 3]);
- * // => false
- */
-function isArguments(value) {
-  return isObjectLike(value) && isArrayLike(value) &&
-    hasOwnProperty.call(value, 'callee') && !propertyIsEnumerable.call(value, 'callee');
-}
-
-module.exports = isArguments;
-
-},{"../internal/isArrayLike":40,"../internal/isObjectLike":43}],48:[function(require,module,exports){
-var getNative = require('../internal/getNative'),
-    isLength = require('../internal/isLength'),
-    isObjectLike = require('../internal/isObjectLike');
-
-/** `Object#toString` result references. */
-var arrayTag = '[object Array]';
-
-/** Used for native method references. */
-var objectProto = Object.prototype;
-
-/**
- * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
- * of values.
- */
-var objToString = objectProto.toString;
-
-/* Native method references for those with the same name as other `lodash` methods. */
-var nativeIsArray = getNative(Array, 'isArray');
-
-/**
- * Checks if `value` is classified as an `Array` object.
- *
- * @static
- * @memberOf _
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
- * @example
- *
- * _.isArray([1, 2, 3]);
- * // => true
- *
- * _.isArray(function() { return arguments; }());
- * // => false
- */
-var isArray = nativeIsArray || function(value) {
-  return isObjectLike(value) && isLength(value.length) && objToString.call(value) == arrayTag;
-};
-
-module.exports = isArray;
-
-},{"../internal/getNative":39,"../internal/isLength":42,"../internal/isObjectLike":43}],49:[function(require,module,exports){
-var isObject = require('./isObject');
-
-/** `Object#toString` result references. */
-var funcTag = '[object Function]';
-
-/** Used for native method references. */
-var objectProto = Object.prototype;
-
-/**
- * Used to resolve the [`toStringTag`](http://ecma-international.org/ecma-262/6.0/#sec-object.prototype.tostring)
- * of values.
- */
-var objToString = objectProto.toString;
-
-/**
- * Checks if `value` is classified as a `Function` object.
- *
- * @static
- * @memberOf _
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is correctly classified, else `false`.
- * @example
- *
- * _.isFunction(_);
- * // => true
- *
- * _.isFunction(/abc/);
- * // => false
- */
-function isFunction(value) {
-  // The use of `Object#toString` avoids issues with the `typeof` operator
-  // in older versions of Chrome and Safari which return 'function' for regexes
-  // and Safari 8 which returns 'object' for typed array constructors.
-  return isObject(value) && objToString.call(value) == funcTag;
-}
-
-module.exports = isFunction;
-
-},{"./isObject":51}],50:[function(require,module,exports){
-var isFunction = require('./isFunction'),
-    isObjectLike = require('../internal/isObjectLike');
-
-/** Used to detect host constructors (Safari > 5). */
-var reIsHostCtor = /^\[object .+?Constructor\]$/;
-
-/** Used for native method references. */
-var objectProto = Object.prototype;
-
-/** Used to resolve the decompiled source of functions. */
-var fnToString = Function.prototype.toString;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/** Used to detect if a method is native. */
-var reIsNative = RegExp('^' +
-  fnToString.call(hasOwnProperty).replace(/[\\^$.*+?()[\]{}|]/g, '\\$&')
-  .replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, '$1.*?') + '$'
-);
-
-/**
- * Checks if `value` is a native function.
- *
- * @static
- * @memberOf _
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is a native function, else `false`.
- * @example
- *
- * _.isNative(Array.prototype.push);
- * // => true
- *
- * _.isNative(_);
- * // => false
- */
-function isNative(value) {
-  if (value == null) {
-    return false;
-  }
-  if (isFunction(value)) {
-    return reIsNative.test(fnToString.call(value));
-  }
-  return isObjectLike(value) && reIsHostCtor.test(value);
-}
-
-module.exports = isNative;
-
-},{"../internal/isObjectLike":43,"./isFunction":49}],51:[function(require,module,exports){
-/**
- * Checks if `value` is the [language type](https://es5.github.io/#x8) of `Object`.
- * (e.g. arrays, functions, objects, regexes, `new Number(0)`, and `new String('')`)
- *
- * @static
- * @memberOf _
- * @category Lang
- * @param {*} value The value to check.
- * @returns {boolean} Returns `true` if `value` is an object, else `false`.
- * @example
- *
- * _.isObject({});
- * // => true
- *
- * _.isObject([1, 2, 3]);
- * // => true
- *
- * _.isObject(1);
- * // => false
- */
-function isObject(value) {
-  // Avoid a V8 JIT bug in Chrome 19-20.
-  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
-  var type = typeof value;
-  return !!value && (type == 'object' || type == 'function');
-}
-
-module.exports = isObject;
-
-},{}],52:[function(require,module,exports){
-var isArguments = require('../lang/isArguments'),
-    isArray = require('../lang/isArray'),
-    isIndex = require('../internal/isIndex'),
-    isLength = require('../internal/isLength'),
-    isObject = require('../lang/isObject');
-
-/** Used for native method references. */
-var objectProto = Object.prototype;
-
-/** Used to check objects for own properties. */
-var hasOwnProperty = objectProto.hasOwnProperty;
-
-/**
- * Creates an array of the own and inherited enumerable property names of `object`.
- *
- * **Note:** Non-object values are coerced to objects.
- *
- * @static
- * @memberOf _
- * @category Object
- * @param {Object} object The object to query.
- * @returns {Array} Returns the array of property names.
- * @example
- *
- * function Foo() {
- *   this.a = 1;
- *   this.b = 2;
- * }
- *
- * Foo.prototype.c = 3;
- *
- * _.keysIn(new Foo);
- * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
- */
-function keysIn(object) {
-  if (object == null) {
-    return [];
-  }
-  if (!isObject(object)) {
-    object = Object(object);
-  }
-  var length = object.length;
-  length = (length && isLength(length) &&
-    (isArray(object) || isArguments(object)) && length) || 0;
-
-  var Ctor = object.constructor,
-      index = -1,
-      isProto = typeof Ctor == 'function' && Ctor.prototype === object,
-      result = Array(length),
-      skipIndexes = length > 0;
-
-  while (++index < length) {
-    result[index] = (index + '');
-  }
-  for (var key in object) {
-    if (!(skipIndexes && isIndex(key, length)) &&
-        !(key == 'constructor' && (isProto || !hasOwnProperty.call(object, key)))) {
-      result.push(key);
-    }
-  }
-  return result;
-}
-
-module.exports = keysIn;
-
-},{"../internal/isIndex":41,"../internal/isLength":42,"../lang/isArguments":47,"../lang/isArray":48,"../lang/isObject":51}],53:[function(require,module,exports){
-var baseFlatten = require('../internal/baseFlatten'),
-    bindCallback = require('../internal/bindCallback'),
-    pickByArray = require('../internal/pickByArray'),
-    pickByCallback = require('../internal/pickByCallback'),
-    restParam = require('../function/restParam');
-
-/**
- * Creates an object composed of the picked `object` properties. Property
- * names may be specified as individual arguments or as arrays of property
- * names. If `predicate` is provided it's invoked for each property of `object`
- * picking the properties `predicate` returns truthy for. The predicate is
- * bound to `thisArg` and invoked with three arguments: (value, key, object).
- *
- * @static
- * @memberOf _
- * @category Object
- * @param {Object} object The source object.
- * @param {Function|...(string|string[])} [predicate] The function invoked per
- *  iteration or property names to pick, specified as individual property
- *  names or arrays of property names.
- * @param {*} [thisArg] The `this` binding of `predicate`.
- * @returns {Object} Returns the new object.
- * @example
- *
- * var object = { 'user': 'fred', 'age': 40 };
- *
- * _.pick(object, 'user');
- * // => { 'user': 'fred' }
- *
- * _.pick(object, _.isString);
- * // => { 'user': 'fred' }
- */
-var pick = restParam(function(object, props) {
-  if (object == null) {
-    return {};
-  }
-  return typeof props[0] == 'function'
-    ? pickByCallback(object, bindCallback(props[0], props[1], 3))
-    : pickByArray(object, baseFlatten(props));
-});
-
-module.exports = pick;
-
-},{"../function/restParam":30,"../internal/baseFlatten":32,"../internal/bindCallback":36,"../internal/pickByArray":44,"../internal/pickByCallback":45}],54:[function(require,module,exports){
-/**
- * This method returns the first argument provided to it.
- *
- * @static
- * @memberOf _
- * @category Utility
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'user': 'fred' };
- *
- * _.identity(object) === object;
- * // => true
- */
-function identity(value) {
-  return value;
-}
-
-module.exports = identity;
-
-},{}],55:[function(require,module,exports){
-/* eslint-disable no-unused-vars */
-'use strict';
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-var propIsEnumerable = Object.prototype.propertyIsEnumerable;
-
-function toObject(val) {
-	if (val === null || val === undefined) {
-		throw new TypeError('Object.assign cannot be called with null or undefined');
-	}
-
-	return Object(val);
-}
-
-module.exports = Object.assign || function (target, source) {
-	var from;
-	var to = toObject(target);
-	var symbols;
-
-	for (var s = 1; s < arguments.length; s++) {
-		from = Object(arguments[s]);
-
-		for (var key in from) {
-			if (hasOwnProperty.call(from, key)) {
-				to[key] = from[key];
-			}
-		}
-
-		if (Object.getOwnPropertySymbols) {
-			symbols = Object.getOwnPropertySymbols(from);
-			for (var i = 0; i < symbols.length; i++) {
-				if (propIsEnumerable.call(from, symbols[i])) {
-					to[symbols[i]] = from[symbols[i]];
-				}
-			}
-		}
-	}
-
-	return to;
-};
-
-},{}],56:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _PanelGroup = require('./PanelGroup');
-
-var _PanelGroup2 = _interopRequireDefault(_PanelGroup);
-
-var Accordion = _react2['default'].createClass({
-  displayName: 'Accordion',
-
-  render: function render() {
-    return _react2['default'].createElement(
-      _PanelGroup2['default'],
-      _extends({}, this.props, { accordion: true }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Accordion;
-module.exports = exports['default'];
-},{"./PanelGroup":107,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"react":371}],57:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _AffixMixin = require('./AffixMixin');
-
-var _AffixMixin2 = _interopRequireDefault(_AffixMixin);
-
-var _utilsDomUtils = require('./utils/domUtils');
-
-var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
-
-var Affix = _react2['default'].createClass({
-  displayName: 'Affix',
-
-  statics: {
-    domUtils: _utilsDomUtils2['default']
-  },
-
-  mixins: [_AffixMixin2['default']],
-
-  render: function render() {
-    var holderStyle = _extends({
-      top: this.state.affixPositionTop
-    }, this.props.style);
-
-    // eslint-disable-line react/prop-types
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, this.state.affixClass),
-        style: holderStyle }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Affix;
-module.exports = exports['default'];
-// we don't want to expose the `style` property
-},{"./AffixMixin":58,"./utils/domUtils":135,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],58:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsDomUtils = require('./utils/domUtils');
-
-var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
-
-var _utilsEventListener = require('./utils/EventListener');
-
-var _utilsEventListener2 = _interopRequireDefault(_utilsEventListener);
-
-var AffixMixin = {
-  propTypes: {
-    offset: _react2['default'].PropTypes.number,
-    offsetTop: _react2['default'].PropTypes.number,
-    offsetBottom: _react2['default'].PropTypes.number
-  },
-
-  getInitialState: function getInitialState() {
-    return {
-      affixClass: 'affix-top'
-    };
-  },
-
-  getPinnedOffset: function getPinnedOffset(DOMNode) {
-    if (this.pinnedOffset) {
-      return this.pinnedOffset;
-    }
-
-    DOMNode.className = DOMNode.className.replace(/affix-top|affix-bottom|affix/, '');
-    DOMNode.className += DOMNode.className.length ? ' affix' : 'affix';
-
-    this.pinnedOffset = _utilsDomUtils2['default'].getOffset(DOMNode).top - window.pageYOffset;
-
-    return this.pinnedOffset;
-  },
-
-  checkPosition: function checkPosition() {
-    var DOMNode = undefined,
-        scrollHeight = undefined,
-        scrollTop = undefined,
-        position = undefined,
-        offsetTop = undefined,
-        offsetBottom = undefined,
-        affix = undefined,
-        affixType = undefined,
-        affixPositionTop = undefined;
-
-    // TODO: or not visible
-    if (!this.isMounted()) {
-      return;
-    }
-
-    DOMNode = _react2['default'].findDOMNode(this);
-    scrollHeight = document.documentElement.offsetHeight;
-    scrollTop = window.pageYOffset;
-    position = _utilsDomUtils2['default'].getOffset(DOMNode);
-
-    if (this.affixed === 'top') {
-      position.top += scrollTop;
-    }
-
-    offsetTop = this.props.offsetTop != null ? this.props.offsetTop : this.props.offset;
-    offsetBottom = this.props.offsetBottom != null ? this.props.offsetBottom : this.props.offset;
-
-    if (offsetTop == null && offsetBottom == null) {
-      return;
-    }
-    if (offsetTop == null) {
-      offsetTop = 0;
-    }
-    if (offsetBottom == null) {
-      offsetBottom = 0;
-    }
-
-    if (this.unpin != null && scrollTop + this.unpin <= position.top) {
-      affix = false;
-    } else if (offsetBottom != null && position.top + DOMNode.offsetHeight >= scrollHeight - offsetBottom) {
-      affix = 'bottom';
-    } else if (offsetTop != null && scrollTop <= offsetTop) {
-      affix = 'top';
-    } else {
-      affix = false;
-    }
-
-    if (this.affixed === affix) {
-      return;
-    }
-
-    if (this.unpin != null) {
-      DOMNode.style.top = '';
-    }
-
-    affixType = 'affix' + (affix ? '-' + affix : '');
-
-    this.affixed = affix;
-    this.unpin = affix === 'bottom' ? this.getPinnedOffset(DOMNode) : null;
-
-    if (affix === 'bottom') {
-      DOMNode.className = DOMNode.className.replace(/affix-top|affix-bottom|affix/, 'affix-bottom');
-      affixPositionTop = scrollHeight - offsetBottom - DOMNode.offsetHeight - _utilsDomUtils2['default'].getOffset(DOMNode).top;
-    }
-
-    this.setState({
-      affixClass: affixType,
-      affixPositionTop: affixPositionTop
-    });
-  },
-
-  checkPositionWithEventLoop: function checkPositionWithEventLoop() {
-    setTimeout(this.checkPosition, 0);
-  },
-
-  componentDidMount: function componentDidMount() {
-    this._onWindowScrollListener = _utilsEventListener2['default'].listen(window, 'scroll', this.checkPosition);
-    this._onDocumentClickListener = _utilsEventListener2['default'].listen(_utilsDomUtils2['default'].ownerDocument(this), 'click', this.checkPositionWithEventLoop);
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    if (this._onWindowScrollListener) {
-      this._onWindowScrollListener.remove();
-    }
-
-    if (this._onDocumentClickListener) {
-      this._onDocumentClickListener.remove();
-    }
-  },
-
-  componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
-    if (prevState.affixClass === this.state.affixClass) {
-      this.checkPositionWithEventLoop();
-    }
-  }
-};
-
-exports['default'] = AffixMixin;
-module.exports = exports['default'];
-},{"./utils/EventListener":127,"./utils/domUtils":135,"babel-runtime/helpers/interop-require-default":146,"react":371}],59:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var Alert = _react2['default'].createClass({
-  displayName: 'Alert',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    onDismiss: _react2['default'].PropTypes.func,
-    dismissAfter: _react2['default'].PropTypes.number,
-    closeLabel: _react2['default'].PropTypes.string
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'alert',
-      bsStyle: 'info',
-      closeLabel: 'Close Alert'
-    };
-  },
-
-  renderDismissButton: function renderDismissButton() {
-    return _react2['default'].createElement(
-      'button',
-      {
-        type: 'button',
-        className: 'close',
-        'aria-label': this.props.closeLabel,
-        onClick: this.props.onDismiss },
-      _react2['default'].createElement(
-        'span',
-        { 'aria-hidden': 'true' },
-        '×'
-      )
-    );
-  },
-
-  render: function render() {
-    var classes = this.getBsClassSet();
-    var isDismissable = !!this.props.onDismiss;
-
-    classes['alert-dismissable'] = isDismissable;
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, { role: 'alert', className: _classnames2['default'](this.props.className, classes) }),
-      isDismissable ? this.renderDismissButton() : null,
-      this.props.children
-    );
-  },
-
-  componentDidMount: function componentDidMount() {
-    if (this.props.dismissAfter && this.props.onDismiss) {
-      this.dismissTimer = setTimeout(this.props.onDismiss, this.props.dismissAfter);
-    }
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    clearTimeout(this.dismissTimer);
-  }
-});
-
-exports['default'] = Alert;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],60:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var Badge = _react2['default'].createClass({
-  displayName: 'Badge',
-
-  propTypes: {
-    pullRight: _react2['default'].PropTypes.bool
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      pullRight: false
-    };
-  },
-
-  hasContent: function hasContent() {
-    return _utilsValidComponentChildren2['default'].hasValidComponent(this.props.children) || _react2['default'].Children.count(this.props.children) > 1 || typeof this.props.children === 'string' || typeof this.props.children === 'number';
-  },
-
-  render: function render() {
-    var classes = {
-      'pull-right': this.props.pullRight,
-      'badge': this.hasContent()
-    };
-    return _react2['default'].createElement(
-      'span',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, classes) }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Badge;
-module.exports = exports['default'];
-},{"./utils/ValidComponentChildren":129,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],61:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _styleMaps = require('./styleMaps');
-
-var _styleMaps2 = _interopRequireDefault(_styleMaps);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var BootstrapMixin = {
-  propTypes: {
-    /**
-     * bootstrap className
-     * @private
-     */
-    bsClass: _utilsCustomPropTypes2['default'].keyOf(_styleMaps2['default'].CLASSES),
-    /**
-     * Style variants
-     * @type {("default"|"primary"|"success"|"info"|"warning"|"danger"|"link")}
-     */
-    bsStyle: _react2['default'].PropTypes.oneOf(_styleMaps2['default'].STYLES),
-    /**
-     * Size variants
-     * @type {("xsmall"|"small"|"medium"|"large"|"xs"|"sm"|"md"|"lg")}
-     */
-    bsSize: _utilsCustomPropTypes2['default'].keyOf(_styleMaps2['default'].SIZES)
-  },
-
-  getBsClassSet: function getBsClassSet() {
-    var classes = {};
-
-    var bsClass = this.props.bsClass && _styleMaps2['default'].CLASSES[this.props.bsClass];
-    if (bsClass) {
-      classes[bsClass] = true;
-
-      var prefix = bsClass + '-';
-
-      var bsSize = this.props.bsSize && _styleMaps2['default'].SIZES[this.props.bsSize];
-      if (bsSize) {
-        classes[prefix + bsSize] = true;
-      }
-
-      if (this.props.bsStyle) {
-        if (_styleMaps2['default'].STYLES.indexOf(this.props.bsStyle) >= 0) {
-          classes[prefix + this.props.bsStyle] = true;
-        } else {
-          classes[this.props.bsStyle] = true;
-        }
-      }
-    }
-
-    return classes;
-  },
-
-  prefixClass: function prefixClass(subClass) {
-    return _styleMaps2['default'].CLASSES[this.props.bsClass] + '-' + subClass;
-  }
-};
-
-exports['default'] = BootstrapMixin;
-module.exports = exports['default'];
-},{"./styleMaps":125,"./utils/CustomPropTypes":126,"babel-runtime/helpers/interop-require-default":146,"react":371}],62:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var _ButtonInput = require('./ButtonInput');
-
-var _ButtonInput2 = _interopRequireDefault(_ButtonInput);
-
-var Button = _react2['default'].createClass({
-  displayName: 'Button',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    active: _react2['default'].PropTypes.bool,
-    disabled: _react2['default'].PropTypes.bool,
-    block: _react2['default'].PropTypes.bool,
-    navItem: _react2['default'].PropTypes.bool,
-    navDropdown: _react2['default'].PropTypes.bool,
-    /**
-     * You can use a custom element for this component
-     */
-    componentClass: _utilsCustomPropTypes2['default'].elementType,
-    href: _react2['default'].PropTypes.string,
-    target: _react2['default'].PropTypes.string,
-    /**
-     * Defines HTML button type Attribute
-     * @type {("button"|"reset"|"submit")}
-     */
-    type: _react2['default'].PropTypes.oneOf(_ButtonInput2['default'].types)
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      active: false,
-      block: false,
-      bsClass: 'button',
-      bsStyle: 'default',
-      disabled: false,
-      navItem: false,
-      navDropdown: false
-    };
-  },
-
-  render: function render() {
-    var classes = this.props.navDropdown ? {} : this.getBsClassSet();
-    var renderFuncName = undefined;
-
-    classes = _extends({
-      active: this.props.active,
-      'btn-block': this.props.block
-    }, classes);
-
-    if (this.props.navItem) {
-      return this.renderNavItem(classes);
-    }
-
-    renderFuncName = this.props.href || this.props.target || this.props.navDropdown ? 'renderAnchor' : 'renderButton';
-
-    return this[renderFuncName](classes);
-  },
-
-  renderAnchor: function renderAnchor(classes) {
-
-    var Component = this.props.componentClass || 'a';
-    var href = this.props.href || '#';
-    classes.disabled = this.props.disabled;
-
-    return _react2['default'].createElement(
-      Component,
-      _extends({}, this.props, {
-        href: href,
-        className: _classnames2['default'](this.props.className, classes),
-        role: 'button' }),
-      this.props.children
-    );
-  },
-
-  renderButton: function renderButton(classes) {
-    var Component = this.props.componentClass || 'button';
-
-    return _react2['default'].createElement(
-      Component,
-      _extends({}, this.props, {
-        type: this.props.type || 'button',
-        className: _classnames2['default'](this.props.className, classes) }),
-      this.props.children
-    );
-  },
-
-  renderNavItem: function renderNavItem(classes) {
-    var liClasses = {
-      active: this.props.active
-    };
-
-    return _react2['default'].createElement(
-      'li',
-      { className: _classnames2['default'](liClasses) },
-      this.renderAnchor(classes)
-    );
-  }
-});
-
-exports['default'] = Button;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./ButtonInput":64,"./utils/CustomPropTypes":126,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],63:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var ButtonGroup = _react2['default'].createClass({
-  displayName: 'ButtonGroup',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    vertical: _react2['default'].PropTypes.bool,
-    justified: _react2['default'].PropTypes.bool,
-    /**
-     * Display block buttons, only useful when used with the "vertical" prop.
-     * @type {bool}
-     */
-    block: _utilsCustomPropTypes2['default'].all([_react2['default'].PropTypes.bool, function (props, propName, componentName) {
-      if (props.block && !props.vertical) {
-        return new Error('The block property requires the vertical property to be set to have any effect');
-      }
-    }])
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      block: false,
-      bsClass: 'button-group',
-      justified: false,
-      vertical: false
-    };
-  },
-
-  render: function render() {
-    var classes = this.getBsClassSet();
-    classes['btn-group'] = !this.props.vertical;
-    classes['btn-group-vertical'] = this.props.vertical;
-    classes['btn-group-justified'] = this.props.justified;
-    classes['btn-block'] = this.props.block;
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, classes) }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = ButtonGroup;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./utils/CustomPropTypes":126,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],64:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Button = require('./Button');
-
-var _Button2 = _interopRequireDefault(_Button);
-
-var _FormGroup = require('./FormGroup');
-
-var _FormGroup2 = _interopRequireDefault(_FormGroup);
-
-var _InputBase2 = require('./InputBase');
-
-var _InputBase3 = _interopRequireDefault(_InputBase2);
-
-var _utilsChildrenValueInputValidation = require('./utils/childrenValueInputValidation');
-
-var _utilsChildrenValueInputValidation2 = _interopRequireDefault(_utilsChildrenValueInputValidation);
-
-var ButtonInput = (function (_InputBase) {
-  _inherits(ButtonInput, _InputBase);
-
-  function ButtonInput() {
-    _classCallCheck(this, ButtonInput);
-
-    _InputBase.apply(this, arguments);
-  }
-
-  ButtonInput.prototype.renderFormGroup = function renderFormGroup(children) {
-    var _props = this.props;
-    var bsStyle = _props.bsStyle;
-    var value = _props.value;
-
-    var other = _objectWithoutProperties(_props, ['bsStyle', 'value']);
-
-    return _react2['default'].createElement(
-      _FormGroup2['default'],
-      other,
-      children
-    );
-  };
-
-  ButtonInput.prototype.renderInput = function renderInput() {
-    var _props2 = this.props;
-    var children = _props2.children;
-    var value = _props2.value;
-
-    var other = _objectWithoutProperties(_props2, ['children', 'value']);
-
-    var val = children ? children : value;
-    return _react2['default'].createElement(_Button2['default'], _extends({}, other, { componentClass: 'input', ref: 'input', key: 'input', value: val }));
-  };
-
-  return ButtonInput;
-})(_InputBase3['default']);
-
-ButtonInput.types = ['button', 'reset', 'submit'];
-
-ButtonInput.defaultProps = {
-  type: 'button'
-};
-
-ButtonInput.propTypes = {
-  type: _react2['default'].PropTypes.oneOf(ButtonInput.types),
-  bsStyle: function bsStyle(props) {
-    //defer to Button propTypes of bsStyle
-    return null;
-  },
-  children: _utilsChildrenValueInputValidation2['default'],
-  value: _utilsChildrenValueInputValidation2['default']
-};
-
-exports['default'] = ButtonInput;
-module.exports = exports['default'];
-},{"./Button":62,"./FormGroup":79,"./InputBase":83,"./utils/childrenValueInputValidation":130,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/object-without-properties":148,"react":371}],65:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var ButtonToolbar = _react2['default'].createClass({
-  displayName: 'ButtonToolbar',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'button-toolbar'
-    };
-  },
-
-  render: function render() {
-    var classes = this.getBsClassSet();
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        role: 'toolbar',
-        className: _classnames2['default'](this.props.className, classes) }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = ButtonToolbar;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],66:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var _Glyphicon = require('./Glyphicon');
-
-var _Glyphicon2 = _interopRequireDefault(_Glyphicon);
-
-var Carousel = _react2['default'].createClass({
-  displayName: 'Carousel',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    slide: _react2['default'].PropTypes.bool,
-    indicators: _react2['default'].PropTypes.bool,
-    interval: _react2['default'].PropTypes.number,
-    controls: _react2['default'].PropTypes.bool,
-    pauseOnHover: _react2['default'].PropTypes.bool,
-    wrap: _react2['default'].PropTypes.bool,
-    onSelect: _react2['default'].PropTypes.func,
-    onSlideEnd: _react2['default'].PropTypes.func,
-    activeIndex: _react2['default'].PropTypes.number,
-    defaultActiveIndex: _react2['default'].PropTypes.number,
-    direction: _react2['default'].PropTypes.oneOf(['prev', 'next']),
-    prevIcon: _react2['default'].PropTypes.node,
-    nextIcon: _react2['default'].PropTypes.node
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      slide: true,
-      interval: 5000,
-      pauseOnHover: true,
-      wrap: true,
-      indicators: true,
-      controls: true,
-      prevIcon: _react2['default'].createElement(_Glyphicon2['default'], { glyph: 'chevron-left' }),
-      nextIcon: _react2['default'].createElement(_Glyphicon2['default'], { glyph: 'chevron-right' })
-    };
-  },
-
-  getInitialState: function getInitialState() {
-    return {
-      activeIndex: this.props.defaultActiveIndex == null ? 0 : this.props.defaultActiveIndex,
-      previousActiveIndex: null,
-      direction: null
-    };
-  },
-
-  getDirection: function getDirection(prevIndex, index) {
-    if (prevIndex === index) {
-      return null;
-    }
-
-    return prevIndex > index ? 'prev' : 'next';
-  },
-
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    var activeIndex = this.getActiveIndex();
-
-    if (nextProps.activeIndex != null && nextProps.activeIndex !== activeIndex) {
-      clearTimeout(this.timeout);
-      this.setState({
-        previousActiveIndex: activeIndex,
-        direction: nextProps.direction != null ? nextProps.direction : this.getDirection(activeIndex, nextProps.activeIndex)
-      });
-    }
-  },
-
-  componentDidMount: function componentDidMount() {
-    this.waitForNext();
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    clearTimeout(this.timeout);
-  },
-
-  next: function next(e) {
-    if (e) {
-      e.preventDefault();
-    }
-
-    var index = this.getActiveIndex() + 1;
-    var count = _utilsValidComponentChildren2['default'].numberOf(this.props.children);
-
-    if (index > count - 1) {
-      if (!this.props.wrap) {
-        return;
-      }
-      index = 0;
-    }
-
-    this.handleSelect(index, 'next');
-  },
-
-  prev: function prev(e) {
-    if (e) {
-      e.preventDefault();
-    }
-
-    var index = this.getActiveIndex() - 1;
-
-    if (index < 0) {
-      if (!this.props.wrap) {
-        return;
-      }
-      index = _utilsValidComponentChildren2['default'].numberOf(this.props.children) - 1;
-    }
-
-    this.handleSelect(index, 'prev');
-  },
-
-  pause: function pause() {
-    this.isPaused = true;
-    clearTimeout(this.timeout);
-  },
-
-  play: function play() {
-    this.isPaused = false;
-    this.waitForNext();
-  },
-
-  waitForNext: function waitForNext() {
-    if (!this.isPaused && this.props.slide && this.props.interval && this.props.activeIndex == null) {
-      this.timeout = setTimeout(this.next, this.props.interval);
-    }
-  },
-
-  handleMouseOver: function handleMouseOver() {
-    if (this.props.pauseOnHover) {
-      this.pause();
-    }
-  },
-
-  handleMouseOut: function handleMouseOut() {
-    if (this.isPaused) {
-      this.play();
-    }
-  },
-
-  render: function render() {
-    var classes = {
-      carousel: true,
-      slide: this.props.slide
-    };
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, classes),
-        onMouseOver: this.handleMouseOver,
-        onMouseOut: this.handleMouseOut }),
-      this.props.indicators ? this.renderIndicators() : null,
-      _react2['default'].createElement(
-        'div',
-        { className: 'carousel-inner', ref: 'inner' },
-        _utilsValidComponentChildren2['default'].map(this.props.children, this.renderItem)
-      ),
-      this.props.controls ? this.renderControls() : null
-    );
-  },
-
-  renderPrev: function renderPrev() {
-    return _react2['default'].createElement(
-      'a',
-      { className: 'left carousel-control', href: '#prev', key: 0, onClick: this.prev },
-      this.props.prevIcon
-    );
-  },
-
-  renderNext: function renderNext() {
-    return _react2['default'].createElement(
-      'a',
-      { className: 'right carousel-control', href: '#next', key: 1, onClick: this.next },
-      this.props.nextIcon
-    );
-  },
-
-  renderControls: function renderControls() {
-    if (!this.props.wrap) {
-      var activeIndex = this.getActiveIndex();
-      var count = _utilsValidComponentChildren2['default'].numberOf(this.props.children);
-
-      return [activeIndex !== 0 ? this.renderPrev() : null, activeIndex !== count - 1 ? this.renderNext() : null];
-    }
-
-    return [this.renderPrev(), this.renderNext()];
-  },
-
-  renderIndicator: function renderIndicator(child, index) {
-    var className = index === this.getActiveIndex() ? 'active' : null;
-
-    return _react2['default'].createElement('li', {
-      key: index,
-      className: className,
-      onClick: this.handleSelect.bind(this, index, null) });
-  },
-
-  renderIndicators: function renderIndicators() {
-    var indicators = [];
-    _utilsValidComponentChildren2['default'].forEach(this.props.children, function (child, index) {
-      indicators.push(this.renderIndicator(child, index),
-
-      // Force whitespace between indicator elements, bootstrap
-      // requires this for correct spacing of elements.
-      ' ');
-    }, this);
-
-    return _react2['default'].createElement(
-      'ol',
-      { className: 'carousel-indicators' },
-      indicators
-    );
-  },
-
-  getActiveIndex: function getActiveIndex() {
-    return this.props.activeIndex != null ? this.props.activeIndex : this.state.activeIndex;
-  },
-
-  handleItemAnimateOutEnd: function handleItemAnimateOutEnd() {
-    this.setState({
-      previousActiveIndex: null,
-      direction: null
-    }, function () {
-      this.waitForNext();
-
-      if (this.props.onSlideEnd) {
-        this.props.onSlideEnd();
-      }
-    });
-  },
-
-  renderItem: function renderItem(child, index) {
-    var activeIndex = this.getActiveIndex();
-    var isActive = index === activeIndex;
-    var isPreviousActive = this.state.previousActiveIndex != null && this.state.previousActiveIndex === index && this.props.slide;
-
-    return _react.cloneElement(child, {
-      active: isActive,
-      ref: child.ref,
-      key: child.key ? child.key : index,
-      index: index,
-      animateOut: isPreviousActive,
-      animateIn: isActive && this.state.previousActiveIndex != null && this.props.slide,
-      direction: this.state.direction,
-      onAnimateOutEnd: isPreviousActive ? this.handleItemAnimateOutEnd : null
-    });
-  },
-
-  handleSelect: function handleSelect(index, direction) {
-    clearTimeout(this.timeout);
-
-    if (this.isMounted()) {
-      var previousActiveIndex = this.getActiveIndex();
-      direction = direction || this.getDirection(previousActiveIndex, index);
-
-      if (this.props.onSelect) {
-        this.props.onSelect(index, direction);
-      }
-
-      if (this.props.activeIndex == null && index !== previousActiveIndex) {
-        if (this.state.previousActiveIndex != null) {
-          // If currently animating don't activate the new index.
-          // TODO: look into queuing this canceled call and
-          // animating after the current animation has ended.
-          return;
-        }
-
-        this.setState({
-          activeIndex: index,
-          previousActiveIndex: previousActiveIndex,
-          direction: direction
-        });
-      }
-    }
-  }
-});
-
-exports['default'] = Carousel;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./Glyphicon":80,"./utils/ValidComponentChildren":129,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],67:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsTransitionEvents = require('./utils/TransitionEvents');
-
-var _utilsTransitionEvents2 = _interopRequireDefault(_utilsTransitionEvents);
-
-var CarouselItem = _react2['default'].createClass({
-  displayName: 'CarouselItem',
-
-  propTypes: {
-    direction: _react2['default'].PropTypes.oneOf(['prev', 'next']),
-    onAnimateOutEnd: _react2['default'].PropTypes.func,
-    active: _react2['default'].PropTypes.bool,
-    animateIn: _react2['default'].PropTypes.bool,
-    animateOut: _react2['default'].PropTypes.bool,
-    caption: _react2['default'].PropTypes.node,
-    index: _react2['default'].PropTypes.number
-  },
-
-  getInitialState: function getInitialState() {
-    return {
-      direction: null
-    };
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      active: false,
-      animateIn: false,
-      animateOut: false
-    };
-  },
-
-  handleAnimateOutEnd: function handleAnimateOutEnd() {
-    if (this.props.onAnimateOutEnd && this.isMounted()) {
-      this.props.onAnimateOutEnd(this.props.index);
-    }
-  },
-
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    if (this.props.active !== nextProps.active) {
-      this.setState({
-        direction: null
-      });
-    }
-  },
-
-  componentDidUpdate: function componentDidUpdate(prevProps) {
-    if (!this.props.active && prevProps.active) {
-      _utilsTransitionEvents2['default'].addEndEventListener(_react2['default'].findDOMNode(this), this.handleAnimateOutEnd);
-    }
-
-    if (this.props.active !== prevProps.active) {
-      setTimeout(this.startAnimation, 20);
-    }
-  },
-
-  startAnimation: function startAnimation() {
-    if (!this.isMounted()) {
-      return;
-    }
-
-    this.setState({
-      direction: this.props.direction === 'prev' ? 'right' : 'left'
-    });
-  },
-
-  render: function render() {
-    var classes = {
-      item: true,
-      active: this.props.active && !this.props.animateIn || this.props.animateOut,
-      next: this.props.active && this.props.animateIn && this.props.direction === 'next',
-      prev: this.props.active && this.props.animateIn && this.props.direction === 'prev'
-    };
-
-    if (this.state.direction && (this.props.animateIn || this.props.animateOut)) {
-      classes[this.state.direction] = true;
-    }
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-      this.props.children,
-      this.props.caption ? this.renderCaption() : null
-    );
-  },
-
-  renderCaption: function renderCaption() {
-    return _react2['default'].createElement(
-      'div',
-      { className: 'carousel-caption' },
-      this.props.caption
-    );
-  }
-});
-
-exports['default'] = CarouselItem;
-module.exports = exports['default'];
-},{"./utils/TransitionEvents":128,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],68:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _Object$keys = require('babel-runtime/core-js/object/keys')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _styleMaps = require('./styleMaps');
-
-var _styleMaps2 = _interopRequireDefault(_styleMaps);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var Col = _react2['default'].createClass({
-  displayName: 'Col',
-
-  propTypes: {
-    /**
-     * The number of columns you wish to span
-     *
-     * for Extra small devices Phones (<768px)
-     *
-     * class-prefix `col-xs-`
-     */
-    xs: _react2['default'].PropTypes.number,
-    /**
-     * The number of columns you wish to span
-     *
-     * for Small devices Tablets (≥768px)
-     *
-     * class-prefix `col-sm-`
-     */
-    sm: _react2['default'].PropTypes.number,
-    /**
-     * The number of columns you wish to span
-     *
-     * for Medium devices Desktops (≥992px)
-     *
-     * class-prefix `col-md-`
-     */
-    md: _react2['default'].PropTypes.number,
-    /**
-     * The number of columns you wish to span
-     *
-     * for Large devices Desktops (≥1200px)
-     *
-     * class-prefix `col-lg-`
-     */
-    lg: _react2['default'].PropTypes.number,
-    /**
-     * Move columns to the right
-     *
-     * for Extra small devices Phones
-     *
-     * class-prefix `col-xs-offset-`
-     */
-    xsOffset: _react2['default'].PropTypes.number,
-    /**
-     * Move columns to the right
-     *
-     * for Small devices Tablets
-     *
-     * class-prefix `col-sm-offset-`
-     */
-    smOffset: _react2['default'].PropTypes.number,
-    /**
-     * Move columns to the right
-     *
-     * for Medium devices Desktops
-     *
-     * class-prefix `col-md-offset-`
-     */
-    mdOffset: _react2['default'].PropTypes.number,
-    /**
-     * Move columns to the right
-     *
-     * for Large devices Desktops
-     *
-     * class-prefix `col-lg-offset-`
-     */
-    lgOffset: _react2['default'].PropTypes.number,
-    /**
-     * Change the order of grid columns to the right
-     *
-     * for Extra small devices Phones
-     *
-     * class-prefix `col-xs-push-`
-     */
-    xsPush: _react2['default'].PropTypes.number,
-    /**
-     * Change the order of grid columns to the right
-     *
-     * for Small devices Tablets
-     *
-     * class-prefix `col-sm-push-`
-     */
-    smPush: _react2['default'].PropTypes.number,
-    /**
-     * Change the order of grid columns to the right
-     *
-     * for Medium devices Desktops
-     *
-     * class-prefix `col-md-push-`
-     */
-    mdPush: _react2['default'].PropTypes.number,
-    /**
-     * Change the order of grid columns to the right
-     *
-     * for Large devices Desktops
-     *
-     * class-prefix `col-lg-push-`
-     */
-    lgPush: _react2['default'].PropTypes.number,
-    /**
-     * Change the order of grid columns to the left
-     *
-     * for Extra small devices Phones
-     *
-     * class-prefix `col-xs-pull-`
-     */
-    xsPull: _react2['default'].PropTypes.number,
-    /**
-     * Change the order of grid columns to the left
-     *
-     * for Small devices Tablets
-     *
-     * class-prefix `col-sm-pull-`
-     */
-    smPull: _react2['default'].PropTypes.number,
-    /**
-     * Change the order of grid columns to the left
-     *
-     * for Medium devices Desktops
-     *
-     * class-prefix `col-md-pull-`
-     */
-    mdPull: _react2['default'].PropTypes.number,
-    /**
-     * Change the order of grid columns to the left
-     *
-     * for Large devices Desktops
-     *
-     * class-prefix `col-lg-pull-`
-     */
-    lgPull: _react2['default'].PropTypes.number,
-    /**
-     * You can use a custom element for this component
-     */
-    componentClass: _utilsCustomPropTypes2['default'].elementType
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      componentClass: 'div'
-    };
-  },
-
-  render: function render() {
-    var ComponentClass = this.props.componentClass;
-    var classes = {};
-
-    _Object$keys(_styleMaps2['default'].SIZES).forEach(function (key) {
-      var size = _styleMaps2['default'].SIZES[key];
-      var prop = size;
-      var classPart = size + '-';
-
-      if (this.props[prop]) {
-        classes['col-' + classPart + this.props[prop]] = true;
-      }
-
-      prop = size + 'Offset';
-      classPart = size + '-offset-';
-      if (this.props[prop] >= 0) {
-        classes['col-' + classPart + this.props[prop]] = true;
-      }
-
-      prop = size + 'Push';
-      classPart = size + '-push-';
-      if (this.props[prop] >= 0) {
-        classes['col-' + classPart + this.props[prop]] = true;
-      }
-
-      prop = size + 'Pull';
-      classPart = size + '-pull-';
-      if (this.props[prop] >= 0) {
-        classes['col-' + classPart + this.props[prop]] = true;
-      }
-    }, this);
-
-    return _react2['default'].createElement(
-      ComponentClass,
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Col;
-module.exports = exports['default'];
-},{"./styleMaps":125,"./utils/CustomPropTypes":126,"babel-runtime/core-js/object/keys":141,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],69:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Transition = require('./Transition');
-
-var _Transition2 = _interopRequireDefault(_Transition);
-
-var _utilsDomUtils = require('./utils/domUtils');
-
-var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var capitalize = function capitalize(str) {
-  return str[0].toUpperCase() + str.substr(1);
-};
-
-// reading a dimension prop will cause the browser to recalculate,
-// which will let our animations work
-var triggerBrowserReflow = function triggerBrowserReflow(node) {
-  return node.offsetHeight;
-};
-
-var MARGINS = {
-  height: ['marginTop', 'marginBottom'],
-  width: ['marginLeft', 'marginRight']
-};
-
-function getDimensionValue(dimension, elem) {
-  var value = elem['offset' + capitalize(dimension)];
-  var computedStyles = _utilsDomUtils2['default'].getComputedStyles(elem);
-  var margins = MARGINS[dimension];
-
-  return value + parseInt(computedStyles[margins[0]], 10) + parseInt(computedStyles[margins[1]], 10);
-}
-
-var Collapse = (function (_React$Component) {
-  _inherits(Collapse, _React$Component);
-
-  function Collapse(props, context) {
-    _classCallCheck(this, Collapse);
-
-    _React$Component.call(this, props, context);
-
-    this.onEnterListener = this.handleEnter.bind(this);
-    this.onEnteringListener = this.handleEntering.bind(this);
-    this.onEnteredListener = this.handleEntered.bind(this);
-    this.onExitListener = this.handleExit.bind(this);
-    this.onExitingListener = this.handleExiting.bind(this);
-  }
-
-  // Explicitly copied from Transition for doc generation.
-  // TODO: Remove duplication once #977 is resolved.
-
-  Collapse.prototype.render = function render() {
-    var enter = _utilsCreateChainedFunction2['default'](this.onEnterListener, this.props.onEnter);
-    var entering = _utilsCreateChainedFunction2['default'](this.onEnteringListener, this.props.onEntering);
-    var entered = _utilsCreateChainedFunction2['default'](this.onEnteredListener, this.props.onEntered);
-    var exit = _utilsCreateChainedFunction2['default'](this.onExitListener, this.props.onExit);
-    var exiting = _utilsCreateChainedFunction2['default'](this.onExitingListener, this.props.onExiting);
-
-    return _react2['default'].createElement(
-      _Transition2['default'],
-      _extends({
-        ref: 'transition'
-      }, this.props, {
-        'aria-expanded': this.props.role ? this.props['in'] : null,
-        className: this._dimension() === 'width' ? 'width' : '',
-        exitedClassName: 'collapse',
-        exitingClassName: 'collapsing',
-        enteredClassName: 'collapse in',
-        enteringClassName: 'collapsing',
-        onEnter: enter,
-        onEntering: entering,
-        onEntered: entered,
-        onExit: exit,
-        onExiting: exiting,
-        onExited: this.props.onExited
-      }),
-      this.props.children
-    );
-  };
-
-  /* -- Expanding -- */
-
-  Collapse.prototype.handleEnter = function handleEnter(elem) {
-    var dimension = this._dimension();
-    elem.style[dimension] = '0';
-  };
-
-  Collapse.prototype.handleEntering = function handleEntering(elem) {
-    var dimension = this._dimension();
-
-    elem.style[dimension] = this._getScrollDimensionValue(elem, dimension);
-  };
-
-  Collapse.prototype.handleEntered = function handleEntered(elem) {
-    var dimension = this._dimension();
-    elem.style[dimension] = null;
-  };
-
-  /* -- Collapsing -- */
-
-  Collapse.prototype.handleExit = function handleExit(elem) {
-    var dimension = this._dimension();
-
-    elem.style[dimension] = this.props.getDimensionValue(dimension, elem) + 'px';
-  };
-
-  Collapse.prototype.handleExiting = function handleExiting(elem) {
-    var dimension = this._dimension();
-
-    triggerBrowserReflow(elem);
-    elem.style[dimension] = '0';
-  };
-
-  Collapse.prototype._dimension = function _dimension() {
-    return typeof this.props.dimension === 'function' ? this.props.dimension() : this.props.dimension;
-  };
-
-  //for testing
-
-  Collapse.prototype._getTransitionInstance = function _getTransitionInstance() {
-    return this.refs.transition;
-  };
-
-  Collapse.prototype._getScrollDimensionValue = function _getScrollDimensionValue(elem, dimension) {
-    return elem['scroll' + capitalize(dimension)] + 'px';
-  };
-
-  return Collapse;
-})(_react2['default'].Component);
-
-Collapse.propTypes = {
-  /**
-   * Show the component; triggers the expand or collapse animation
-   */
-  'in': _react2['default'].PropTypes.bool,
-
-  /**
-   * Unmount the component (remove it from the DOM) when it is collapsed
-   */
-  unmountOnExit: _react2['default'].PropTypes.bool,
-
-  /**
-   * Run the expand animation when the component mounts, if it is initially
-   * shown
-   */
-  transitionAppear: _react2['default'].PropTypes.bool,
-
-  /**
-   * Duration of the collapse animation in milliseconds, to ensure that
-   * finishing callbacks are fired even if the original browser transition end
-   * events are canceled
-   */
-  duration: _react2['default'].PropTypes.number,
-
-  /**
-   * Callback fired before the component expands
-   */
-  onEnter: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the component starts to expand
-   */
-  onEntering: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the component has expanded
-   */
-  onEntered: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired before the component collapses
-   */
-  onExit: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the component starts to collapse
-   */
-  onExiting: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the component has collapsed
-   */
-  onExited: _react2['default'].PropTypes.func,
-
-  /**
-   * The dimension used when collapsing, or a function that returns the
-   * dimension
-   *
-   * _Note: Bootstrap only partially supports 'width'!
-   * You will need to supply your own CSS animation for the `.width` CSS class._
-   */
-  dimension: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.oneOf(['height', 'width']), _react2['default'].PropTypes.func]),
-
-  /**
-   * Function that returns the height or width of the animating DOM node
-   *
-   * Allows for providing some custom logic for how much the Collapse component
-   * should animate in its specified dimension. Called with the current
-   * dimension prop value and the DOM node.
-   */
-  getDimensionValue: _react2['default'].PropTypes.func,
-
-  /**
-   * ARIA role of collapsible element
-   */
-  role: _react2['default'].PropTypes.string
-};
-
-Collapse.defaultProps = {
-  'in': false,
-  duration: 300,
-  unmountOnExit: false,
-  transitionAppear: false,
-
-  dimension: 'height',
-  getDimensionValue: getDimensionValue
-};
-
-exports['default'] = Collapse;
-module.exports = exports['default'];
-},{"./Transition":122,"./utils/createChainedFunction":131,"./utils/domUtils":135,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"react":371}],70:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsTransitionEvents = require('./utils/TransitionEvents');
-
-var _utilsTransitionEvents2 = _interopRequireDefault(_utilsTransitionEvents);
-
-var _utilsDeprecationWarning = require('./utils/deprecationWarning');
-
-var _utilsDeprecationWarning2 = _interopRequireDefault(_utilsDeprecationWarning);
-
-var CollapsibleMixin = {
-
-  propTypes: {
-    defaultExpanded: _react2['default'].PropTypes.bool,
-    expanded: _react2['default'].PropTypes.bool
-  },
-
-  getInitialState: function getInitialState() {
-    var defaultExpanded = this.props.defaultExpanded != null ? this.props.defaultExpanded : this.props.expanded != null ? this.props.expanded : false;
-
-    return {
-      expanded: defaultExpanded,
-      collapsing: false
-    };
-  },
-
-  componentWillMount: function componentWillMount() {
-    _utilsDeprecationWarning2['default']('CollapsibleMixin', 'Collapse Component');
-  },
-
-  componentWillUpdate: function componentWillUpdate(nextProps, nextState) {
-    var willExpanded = nextProps.expanded != null ? nextProps.expanded : nextState.expanded;
-    if (willExpanded === this.isExpanded()) {
-      return;
-    }
-
-    // if the expanded state is being toggled, ensure node has a dimension value
-    // this is needed for the animation to work and needs to be set before
-    // the collapsing class is applied (after collapsing is applied the in class
-    // is removed and the node's dimension will be wrong)
-
-    var node = this.getCollapsibleDOMNode();
-    var dimension = this.dimension();
-    var value = '0';
-
-    if (!willExpanded) {
-      value = this.getCollapsibleDimensionValue();
-    }
-
-    node.style[dimension] = value + 'px';
-
-    this._afterWillUpdate();
-  },
-
-  componentDidUpdate: function componentDidUpdate(prevProps, prevState) {
-    // check if expanded is being toggled; if so, set collapsing
-    this._checkToggleCollapsing(prevProps, prevState);
-
-    // check if collapsing was turned on; if so, start animation
-    this._checkStartAnimation();
-  },
-
-  // helps enable test stubs
-  _afterWillUpdate: function _afterWillUpdate() {},
-
-  _checkStartAnimation: function _checkStartAnimation() {
-    if (!this.state.collapsing) {
-      return;
-    }
-
-    var node = this.getCollapsibleDOMNode();
-    var dimension = this.dimension();
-    var value = this.getCollapsibleDimensionValue();
-
-    // setting the dimension here starts the transition animation
-    var result = undefined;
-    if (this.isExpanded()) {
-      result = value + 'px';
-    } else {
-      result = '0px';
-    }
-    node.style[dimension] = result;
-  },
-
-  _checkToggleCollapsing: function _checkToggleCollapsing(prevProps, prevState) {
-    var wasExpanded = prevProps.expanded != null ? prevProps.expanded : prevState.expanded;
-    var isExpanded = this.isExpanded();
-    if (wasExpanded !== isExpanded) {
-      if (wasExpanded) {
-        this._handleCollapse();
-      } else {
-        this._handleExpand();
-      }
-    }
-  },
-
-  _handleExpand: function _handleExpand() {
-    var _this = this;
-
-    var node = this.getCollapsibleDOMNode();
-    var dimension = this.dimension();
-
-    var complete = function complete() {
-      _this._removeEndEventListener(node, complete);
-      // remove dimension value - this ensures the collapsible item can grow
-      // in dimension after initial display (such as an image loading)
-      node.style[dimension] = '';
-      _this.setState({
-        collapsing: false
-      });
-    };
-
-    this._addEndEventListener(node, complete);
-
-    this.setState({
-      collapsing: true
-    });
-  },
-
-  _handleCollapse: function _handleCollapse() {
-    var _this2 = this;
-
-    var node = this.getCollapsibleDOMNode();
-
-    var complete = function complete() {
-      _this2._removeEndEventListener(node, complete);
-      _this2.setState({
-        collapsing: false
-      });
-    };
-
-    this._addEndEventListener(node, complete);
-
-    this.setState({
-      collapsing: true
-    });
-  },
-
-  // helps enable test stubs
-  _addEndEventListener: function _addEndEventListener(node, complete) {
-    _utilsTransitionEvents2['default'].addEndEventListener(node, complete);
-  },
-
-  // helps enable test stubs
-  _removeEndEventListener: function _removeEndEventListener(node, complete) {
-    _utilsTransitionEvents2['default'].removeEndEventListener(node, complete);
-  },
-
-  dimension: function dimension() {
-    return typeof this.getCollapsibleDimension === 'function' ? this.getCollapsibleDimension() : 'height';
-  },
-
-  isExpanded: function isExpanded() {
-    return this.props.expanded != null ? this.props.expanded : this.state.expanded;
-  },
-
-  getCollapsibleClassSet: function getCollapsibleClassSet(className) {
-    var classes = {};
-
-    if (typeof className === 'string') {
-      className.split(' ').forEach(function (subClasses) {
-        if (subClasses) {
-          classes[subClasses] = true;
-        }
-      });
-    }
-
-    classes.collapsing = this.state.collapsing;
-    classes.collapse = !this.state.collapsing;
-    classes['in'] = this.isExpanded() && !this.state.collapsing;
-
-    return classes;
-  }
-};
-
-exports['default'] = CollapsibleMixin;
-module.exports = exports['default'];
-},{"./utils/TransitionEvents":128,"./utils/deprecationWarning":134,"babel-runtime/helpers/interop-require-default":146,"react":371}],71:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _Collapse = require('./Collapse');
-
-var _Collapse2 = _interopRequireDefault(_Collapse);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var CollapsibleNav = _react2['default'].createClass({
-  displayName: 'CollapsibleNav',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    onSelect: _react2['default'].PropTypes.func,
-    activeHref: _react2['default'].PropTypes.string,
-    activeKey: _react2['default'].PropTypes.any,
-    collapsible: _react2['default'].PropTypes.bool,
-    expanded: _react2['default'].PropTypes.bool,
-    eventKey: _react2['default'].PropTypes.any
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      collapsible: false,
-      expanded: false
-    };
-  },
-
-  render: function render() {
-    /*
-     * this.props.collapsible is set in NavBar when an eventKey is supplied.
-     */
-    var classes = this.props.collapsible ? 'navbar-collapse' : null;
-    var renderChildren = this.props.collapsible ? this.renderCollapsibleNavChildren : this.renderChildren;
-
-    var nav = _react2['default'].createElement(
-      'div',
-      { eventKey: this.props.eventKey, className: _classnames2['default'](this.props.className, classes) },
-      _utilsValidComponentChildren2['default'].map(this.props.children, renderChildren)
-    );
-
-    if (this.props.collapsible) {
-      return _react2['default'].createElement(
-        _Collapse2['default'],
-        { 'in': this.props.expanded },
-        nav
-      );
-    } else {
-      return nav;
-    }
-  },
-
-  getChildActiveProp: function getChildActiveProp(child) {
-    if (child.props.active) {
-      return true;
-    }
-    if (this.props.activeKey != null) {
-      if (child.props.eventKey === this.props.activeKey) {
-        return true;
-      }
-    }
-    if (this.props.activeHref != null) {
-      if (child.props.href === this.props.activeHref) {
-        return true;
-      }
-    }
-
-    return child.props.active;
-  },
-
-  renderChildren: function renderChildren(child, index) {
-    var key = child.key ? child.key : index;
-    return _react.cloneElement(child, {
-      activeKey: this.props.activeKey,
-      activeHref: this.props.activeHref,
-      ref: 'nocollapse_' + key,
-      key: key,
-      navItem: true
-    });
-  },
-
-  renderCollapsibleNavChildren: function renderCollapsibleNavChildren(child, index) {
-    var key = child.key ? child.key : index;
-    return _react.cloneElement(child, {
-      active: this.getChildActiveProp(child),
-      activeKey: this.props.activeKey,
-      activeHref: this.props.activeHref,
-      onSelect: _utilsCreateChainedFunction2['default'](child.props.onSelect, this.props.onSelect),
-      ref: 'collapsible_' + key,
-      key: key,
-      navItem: true
-    });
-  }
-});
-
-exports['default'] = CollapsibleNav;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./Collapse":69,"./utils/ValidComponentChildren":129,"./utils/createChainedFunction":131,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],72:[function(require,module,exports){
-/* eslint react/prop-types: [2, {ignore: "bsSize"}] */
-/* BootstrapMixin contains `bsSize` type validation */
-
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _DropdownStateMixin = require('./DropdownStateMixin');
-
-var _DropdownStateMixin2 = _interopRequireDefault(_DropdownStateMixin);
-
-var _Button = require('./Button');
-
-var _Button2 = _interopRequireDefault(_Button);
-
-var _ButtonGroup = require('./ButtonGroup');
-
-var _ButtonGroup2 = _interopRequireDefault(_ButtonGroup);
-
-var _DropdownMenu = require('./DropdownMenu');
-
-var _DropdownMenu2 = _interopRequireDefault(_DropdownMenu);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var DropdownButton = _react2['default'].createClass({
-  displayName: 'DropdownButton',
-
-  mixins: [_BootstrapMixin2['default'], _DropdownStateMixin2['default']],
-
-  propTypes: {
-    pullRight: _react2['default'].PropTypes.bool,
-    dropup: _react2['default'].PropTypes.bool,
-    title: _react2['default'].PropTypes.node,
-    href: _react2['default'].PropTypes.string,
-    id: _react2['default'].PropTypes.string,
-    onClick: _react2['default'].PropTypes.func,
-    onSelect: _react2['default'].PropTypes.func,
-    navItem: _react2['default'].PropTypes.bool,
-    noCaret: _react2['default'].PropTypes.bool,
-    buttonClassName: _react2['default'].PropTypes.string,
-    className: _react2['default'].PropTypes.string,
-    children: _react2['default'].PropTypes.node
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      pullRight: false,
-      dropup: false,
-      navItem: false,
-      noCaret: false
-    };
-  },
-
-  render: function render() {
-    var renderMethod = this.props.navItem ? 'renderNavItem' : 'renderButtonGroup';
-
-    var caret = this.props.noCaret ? null : _react2['default'].createElement('span', { className: 'caret' });
-
-    return this[renderMethod]([_react2['default'].createElement(
-      _Button2['default'],
-      _extends({}, this.props, {
-        ref: 'dropdownButton',
-        className: _classnames2['default']('dropdown-toggle', this.props.buttonClassName),
-        onClick: _utilsCreateChainedFunction2['default'](this.props.onClick, this.handleDropdownClick),
-        key: 0,
-        navDropdown: this.props.navItem,
-        navItem: null,
-        title: null,
-        pullRight: null,
-        dropup: null }),
-      this.props.title,
-      ' ',
-      caret
-    ), _react2['default'].createElement(
-      _DropdownMenu2['default'],
-      {
-        ref: 'menu',
-        'aria-labelledby': this.props.id,
-        pullRight: this.props.pullRight,
-        key: 1 },
-      _utilsValidComponentChildren2['default'].map(this.props.children, this.renderMenuItem)
-    )]);
-  },
-
-  renderButtonGroup: function renderButtonGroup(children) {
-    var groupClasses = {
-      'open': this.state.open,
-      'dropup': this.props.dropup
-    };
-
-    return _react2['default'].createElement(
-      _ButtonGroup2['default'],
-      {
-        bsSize: this.props.bsSize,
-        className: _classnames2['default'](this.props.className, groupClasses) },
-      children
-    );
-  },
-
-  renderNavItem: function renderNavItem(children) {
-    var classes = {
-      'dropdown': true,
-      'open': this.state.open,
-      'dropup': this.props.dropup
-    };
-
-    return _react2['default'].createElement(
-      'li',
-      { className: _classnames2['default'](this.props.className, classes) },
-      children
-    );
-  },
-
-  renderMenuItem: function renderMenuItem(child, index) {
-    // Only handle the option selection if an onSelect prop has been set on the
-    // component or it's child, this allows a user not to pass an onSelect
-    // handler and have the browser preform the default action.
-    var handleOptionSelect = this.props.onSelect || child.props.onSelect ? this.handleOptionSelect : null;
-
-    return _react.cloneElement(child, {
-      // Capture onSelect events
-      onSelect: _utilsCreateChainedFunction2['default'](child.props.onSelect, handleOptionSelect),
-      key: child.key ? child.key : index
-    });
-  },
-
-  handleDropdownClick: function handleDropdownClick(e) {
-    e.preventDefault();
-
-    this.setDropdownState(!this.state.open);
-  },
-
-  handleOptionSelect: function handleOptionSelect(key) {
-    if (this.props.onSelect) {
-      this.props.onSelect(key);
-    }
-
-    this.setDropdownState(false);
-  }
-});
-
-exports['default'] = DropdownButton;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./Button":62,"./ButtonGroup":63,"./DropdownMenu":73,"./DropdownStateMixin":74,"./utils/ValidComponentChildren":129,"./utils/createChainedFunction":131,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],73:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var DropdownMenu = _react2['default'].createClass({
-  displayName: 'DropdownMenu',
-
-  propTypes: {
-    pullRight: _react2['default'].PropTypes.bool,
-    onSelect: _react2['default'].PropTypes.func
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      pullRight: false
-    };
-  },
-
-  render: function render() {
-    var classes = {
-      'dropdown-menu': true,
-      'dropdown-menu-right': this.props.pullRight
-    };
-
-    return _react2['default'].createElement(
-      'ul',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, classes),
-        role: 'menu' }),
-      _utilsValidComponentChildren2['default'].map(this.props.children, this.renderMenuItem)
-    );
-  },
-
-  renderMenuItem: function renderMenuItem(child, index) {
-    return _react.cloneElement(child, {
-      // Capture onSelect events
-      onSelect: _utilsCreateChainedFunction2['default'](child.props.onSelect, this.props.onSelect),
-
-      // Force special props to be transferred
-      key: child.key ? child.key : index
-    });
-  }
-});
-
-exports['default'] = DropdownMenu;
-module.exports = exports['default'];
-},{"./utils/ValidComponentChildren":129,"./utils/createChainedFunction":131,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],74:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsDomUtils = require('./utils/domUtils');
-
-var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
-
-var _utilsEventListener = require('./utils/EventListener');
-
-var _utilsEventListener2 = _interopRequireDefault(_utilsEventListener);
-
-/**
- * Checks whether a node is within
- * a root nodes tree
- *
- * @param {DOMElement} node
- * @param {DOMElement} root
- * @returns {boolean}
- */
-function isNodeInRoot(node, root) {
-  while (node) {
-    if (node === root) {
-      return true;
-    }
-    node = node.parentNode;
-  }
-
-  return false;
-}
-
-var DropdownStateMixin = {
-  getInitialState: function getInitialState() {
-    return {
-      open: false
-    };
-  },
-
-  setDropdownState: function setDropdownState(newState, onStateChangeComplete) {
-    if (newState) {
-      this.bindRootCloseHandlers();
-    } else {
-      this.unbindRootCloseHandlers();
-    }
-
-    this.setState({
-      open: newState
-    }, onStateChangeComplete);
-  },
-
-  handleDocumentKeyUp: function handleDocumentKeyUp(e) {
-    if (e.keyCode === 27) {
-      this.setDropdownState(false);
-    }
-  },
-
-  handleDocumentClick: function handleDocumentClick(e) {
-    // If the click originated from within this component
-    // don't do anything.
-    // e.srcElement is required for IE8 as e.target is undefined
-    var target = e.target || e.srcElement;
-    if (isNodeInRoot(target, _react2['default'].findDOMNode(this))) {
-      return;
-    }
-
-    this.setDropdownState(false);
-  },
-
-  bindRootCloseHandlers: function bindRootCloseHandlers() {
-    var doc = _utilsDomUtils2['default'].ownerDocument(this);
-
-    this._onDocumentClickListener = _utilsEventListener2['default'].listen(doc, 'click', this.handleDocumentClick);
-    this._onDocumentKeyupListener = _utilsEventListener2['default'].listen(doc, 'keyup', this.handleDocumentKeyUp);
-  },
-
-  unbindRootCloseHandlers: function unbindRootCloseHandlers() {
-    if (this._onDocumentClickListener) {
-      this._onDocumentClickListener.remove();
-    }
-
-    if (this._onDocumentKeyupListener) {
-      this._onDocumentKeyupListener.remove();
-    }
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    this.unbindRootCloseHandlers();
-  }
-};
-
-exports['default'] = DropdownStateMixin;
-module.exports = exports['default'];
-},{"./utils/EventListener":127,"./utils/domUtils":135,"babel-runtime/helpers/interop-require-default":146,"react":371}],75:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Transition = require('./Transition');
-
-var _Transition2 = _interopRequireDefault(_Transition);
-
-var Fade = (function (_React$Component) {
-  _inherits(Fade, _React$Component);
-
-  function Fade() {
-    _classCallCheck(this, Fade);
-
-    _React$Component.apply(this, arguments);
-  }
-
-  // Explicitly copied from Transition for doc generation.
-  // TODO: Remove duplication once #977 is resolved.
-
-  Fade.prototype.render = function render() {
-    return _react2['default'].createElement(
-      _Transition2['default'],
-      _extends({}, this.props, {
-        className: 'fade',
-        enteredClassName: 'in',
-        enteringClassName: 'in'
-      }),
-      this.props.children
-    );
-  };
-
-  return Fade;
-})(_react2['default'].Component);
-
-Fade.propTypes = {
-  /**
-   * Show the component; triggers the fade in or fade out animation
-   */
-  'in': _react2['default'].PropTypes.bool,
-
-  /**
-   * Unmount the component (remove it from the DOM) when it is faded out
-   */
-  unmountOnExit: _react2['default'].PropTypes.bool,
-
-  /**
-   * Run the fade in animation when the component mounts, if it is initially
-   * shown
-   */
-  transitionAppear: _react2['default'].PropTypes.bool,
-
-  /**
-   * Duration of the fade animation in milliseconds, to ensure that finishing
-   * callbacks are fired even if the original browser transition end events are
-   * canceled
-   */
-  duration: _react2['default'].PropTypes.number,
-
-  /**
-   * Callback fired before the component fades in
-   */
-  onEnter: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the component starts to fade in
-   */
-  onEntering: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the has component faded in
-   */
-  onEntered: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired before the component fades out
-   */
-  onExit: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the component starts to fade out
-   */
-  onExiting: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the component has faded out
-   */
-  onExited: _react2['default'].PropTypes.func
-};
-
-Fade.defaultProps = {
-  'in': false,
-  duration: 300,
-  unmountOnExit: false,
-  transitionAppear: false
-};
-
-exports['default'] = Fade;
-module.exports = exports['default'];
-},{"./Transition":122,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"react":371}],76:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsDomUtils = require('./utils/domUtils');
-
-var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
-
-var _utilsDeprecationWarning = require('./utils/deprecationWarning');
-
-var _utilsDeprecationWarning2 = _interopRequireDefault(_utilsDeprecationWarning);
-
-// TODO: listen for onTransitionEnd to remove el
-function getElementsAndSelf(root, classes) {
-  var els = root.querySelectorAll('.' + classes.join('.'));
-
-  els = [].map.call(els, function (e) {
-    return e;
-  });
-
-  for (var i = 0; i < classes.length; i++) {
-    if (!root.className.match(new RegExp('\\b' + classes[i] + '\\b'))) {
-      return els;
-    }
-  }
-  els.unshift(root);
-  return els;
-}
-
-exports['default'] = {
-  componentWillMount: function componentWillMount() {
-    _utilsDeprecationWarning2['default']('FadeMixin', 'Fade Component');
-  },
-
-  _fadeIn: function _fadeIn() {
-    var els = undefined;
-
-    if (this.isMounted()) {
-      els = getElementsAndSelf(_react2['default'].findDOMNode(this), ['fade']);
-
-      if (els.length) {
-        els.forEach(function (el) {
-          el.className += ' in';
-        });
-      }
-    }
-  },
-
-  _fadeOut: function _fadeOut() {
-    var els = getElementsAndSelf(this._fadeOutEl, ['fade', 'in']);
-
-    if (els.length) {
-      els.forEach(function (el) {
-        el.className = el.className.replace(/\bin\b/, '');
-      });
-    }
-
-    setTimeout(this._handleFadeOutEnd, 300);
-  },
-
-  _handleFadeOutEnd: function _handleFadeOutEnd() {
-    if (this._fadeOutEl && this._fadeOutEl.parentNode) {
-      this._fadeOutEl.parentNode.removeChild(this._fadeOutEl);
-    }
-  },
-
-  componentDidMount: function componentDidMount() {
-    if (document.querySelectorAll) {
-      // Firefox needs delay for transition to be triggered
-      setTimeout(this._fadeIn, 20);
-    }
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    var els = getElementsAndSelf(_react2['default'].findDOMNode(this), ['fade']);
-    var container = this.props.container && _react2['default'].findDOMNode(this.props.container) || _utilsDomUtils2['default'].ownerDocument(this).body;
-
-    if (els.length) {
-      this._fadeOutEl = document.createElement('div');
-      container.appendChild(this._fadeOutEl);
-      this._fadeOutEl.appendChild(_react2['default'].findDOMNode(this).cloneNode(true));
-      // Firefox needs delay for transition to be triggered
-      setTimeout(this._fadeOut, 20);
-    }
-  }
-};
-module.exports = exports['default'];
-},{"./utils/deprecationWarning":134,"./utils/domUtils":135,"babel-runtime/helpers/interop-require-default":146,"react":371}],77:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _InputBase2 = require('../InputBase');
-
-var _InputBase3 = _interopRequireDefault(_InputBase2);
-
-var _utilsChildrenValueInputValidation = require('../utils/childrenValueInputValidation');
-
-var _utilsChildrenValueInputValidation2 = _interopRequireDefault(_utilsChildrenValueInputValidation);
-
-var Static = (function (_InputBase) {
-  _inherits(Static, _InputBase);
-
-  function Static() {
-    _classCallCheck(this, Static);
-
-    _InputBase.apply(this, arguments);
-  }
-
-  Static.prototype.getValue = function getValue() {
-    var _props = this.props;
-    var children = _props.children;
-    var value = _props.value;
-
-    return children ? children : value;
-  };
-
-  Static.prototype.renderInput = function renderInput() {
-    return _react2['default'].createElement(
-      'p',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'form-control-static'), ref: 'input', key: 'input' }),
-      this.getValue()
-    );
-  };
-
-  return Static;
-})(_InputBase3['default']);
-
-Static.propTypes = {
-  value: _utilsChildrenValueInputValidation2['default'],
-  children: _utilsChildrenValueInputValidation2['default']
-};
-
-exports['default'] = Static;
-module.exports = exports['default'];
-},{"../InputBase":83,"../utils/childrenValueInputValidation":130,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],78:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _Static2 = require('./Static');
-
-var _Static3 = _interopRequireDefault(_Static2);
-
-exports.Static = _Static3['default'];
-},{"./Static":77,"babel-runtime/helpers/interop-require-default":146}],79:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var FormGroup = (function (_React$Component) {
-  _inherits(FormGroup, _React$Component);
-
-  function FormGroup() {
-    _classCallCheck(this, FormGroup);
-
-    _React$Component.apply(this, arguments);
-  }
-
-  FormGroup.prototype.render = function render() {
-    var classes = {
-      'form-group': !this.props.standalone,
-      'form-group-lg': !this.props.standalone && this.props.bsSize === 'large',
-      'form-group-sm': !this.props.standalone && this.props.bsSize === 'small',
-      'has-feedback': this.props.hasFeedback,
-      'has-success': this.props.bsStyle === 'success',
-      'has-warning': this.props.bsStyle === 'warning',
-      'has-error': this.props.bsStyle === 'error'
-    };
-
-    return _react2['default'].createElement(
-      'div',
-      { className: _classnames2['default'](classes, this.props.groupClassName) },
-      this.props.children
-    );
-  };
-
-  return FormGroup;
-})(_react2['default'].Component);
-
-FormGroup.defaultProps = {
-  hasFeedback: false,
-  standalone: false
-};
-
-FormGroup.propTypes = {
-  standalone: _react2['default'].PropTypes.bool,
-  hasFeedback: _react2['default'].PropTypes.bool,
-  bsSize: function bsSize(props) {
-    if (props.standalone && props.bsSize !== undefined) {
-      return new Error('bsSize will not be used when `standalone` is set.');
-    }
-
-    return _react2['default'].PropTypes.oneOf(['small', 'medium', 'large']).apply(null, arguments);
-  },
-  bsStyle: _react2['default'].PropTypes.oneOf(['success', 'warning', 'error']),
-  groupClassName: _react2['default'].PropTypes.string
-};
-
-exports['default'] = FormGroup;
-module.exports = exports['default'];
-},{"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],80:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var Glyphicon = _react2['default'].createClass({
-  displayName: 'Glyphicon',
-
-  propTypes: {
-    /**
-     * bootstrap className
-     * @private
-     */
-    bsClass: _react2['default'].PropTypes.string,
-    /**
-     * An icon name. See e.g. http://getbootstrap.com/components/#glyphicons
-     */
-    glyph: _react2['default'].PropTypes.string.isRequired,
-    /**
-     * Adds 'form-control-feedback' class
-     * @private
-     */
-    formControlFeedback: _react2['default'].PropTypes.bool
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'glyphicon',
-      formControlFeedback: false
-    };
-  },
-
-  render: function render() {
-    var _classNames;
-
-    var className = _classnames2['default'](this.props.className, (_classNames = {}, _classNames[this.props.bsClass] = true, _classNames['glyphicon-' + this.props.glyph] = true, _classNames['form-control-feedback'] = this.props.formControlFeedback, _classNames));
-
-    return _react2['default'].createElement(
-      'span',
-      _extends({}, this.props, { className: className }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Glyphicon;
-module.exports = exports['default'];
-},{"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],81:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var Grid = _react2['default'].createClass({
-  displayName: 'Grid',
-
-  propTypes: {
-    /**
-     * Turn any fixed-width grid layout into a full-width layout by this property.
-     *
-     * Adds `container-fluid` class.
-     */
-    fluid: _react2['default'].PropTypes.bool,
-    /**
-     * You can use a custom element for this component
-     */
-    componentClass: _utilsCustomPropTypes2['default'].elementType
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      componentClass: 'div',
-      fluid: false
-    };
-  },
-
-  render: function render() {
-    var ComponentClass = this.props.componentClass;
-    var className = this.props.fluid ? 'container-fluid' : 'container';
-
-    return _react2['default'].createElement(
-      ComponentClass,
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, className) }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Grid;
-module.exports = exports['default'];
-},{"./utils/CustomPropTypes":126,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],82:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-var _interopRequireWildcard = require('babel-runtime/helpers/interop-require-wildcard')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _InputBase2 = require('./InputBase');
-
-var _InputBase3 = _interopRequireDefault(_InputBase2);
-
-var _FormControls = require('./FormControls');
-
-var FormControls = _interopRequireWildcard(_FormControls);
-
-var _utilsDeprecationWarning = require('./utils/deprecationWarning');
-
-var _utilsDeprecationWarning2 = _interopRequireDefault(_utilsDeprecationWarning);
-
-var Input = (function (_InputBase) {
-  _inherits(Input, _InputBase);
-
-  function Input() {
-    _classCallCheck(this, Input);
-
-    _InputBase.apply(this, arguments);
-  }
-
-  Input.prototype.render = function render() {
-    if (this.props.type === 'static') {
-      _utilsDeprecationWarning2['default']('Input type=static', 'StaticText');
-      return _react2['default'].createElement(FormControls.Static, this.props);
-    }
-
-    return _InputBase.prototype.render.call(this);
-  };
-
-  return Input;
-})(_InputBase3['default']);
-
-Input.propTypes = {
-  type: _react2['default'].PropTypes.string
-};
-
-exports['default'] = Input;
-module.exports = exports['default'];
-},{"./FormControls":78,"./InputBase":83,"./utils/deprecationWarning":134,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/interop-require-wildcard":147,"react":371}],83:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _FormGroup = require('./FormGroup');
-
-var _FormGroup2 = _interopRequireDefault(_FormGroup);
-
-var _Glyphicon = require('./Glyphicon');
-
-var _Glyphicon2 = _interopRequireDefault(_Glyphicon);
-
-var InputBase = (function (_React$Component) {
-  _inherits(InputBase, _React$Component);
-
-  function InputBase() {
-    _classCallCheck(this, InputBase);
-
-    _React$Component.apply(this, arguments);
-  }
-
-  InputBase.prototype.getInputDOMNode = function getInputDOMNode() {
-    return _react2['default'].findDOMNode(this.refs.input);
-  };
-
-  InputBase.prototype.getValue = function getValue() {
-    if (this.props.type === 'static') {
-      return this.props.value;
-    } else if (this.props.type) {
-      if (this.props.type === 'select' && this.props.multiple) {
-        return this.getSelectedOptions();
-      } else {
-        return this.getInputDOMNode().value;
-      }
-    } else {
-      throw 'Cannot use getValue without specifying input type.';
-    }
-  };
-
-  InputBase.prototype.getChecked = function getChecked() {
-    return this.getInputDOMNode().checked;
-  };
-
-  InputBase.prototype.getSelectedOptions = function getSelectedOptions() {
-    var values = [];
-
-    Array.prototype.forEach.call(this.getInputDOMNode().getElementsByTagName('option'), function (option) {
-      if (option.selected) {
-        var value = option.getAttribute('value') || option.innerHtml;
-        values.push(value);
-      }
-    });
-
-    return values;
-  };
-
-  InputBase.prototype.isCheckboxOrRadio = function isCheckboxOrRadio() {
-    return this.props.type === 'checkbox' || this.props.type === 'radio';
-  };
-
-  InputBase.prototype.isFile = function isFile() {
-    return this.props.type === 'file';
-  };
-
-  InputBase.prototype.renderInputGroup = function renderInputGroup(children) {
-    var addonBefore = this.props.addonBefore ? _react2['default'].createElement(
-      'span',
-      { className: 'input-group-addon', key: 'addonBefore' },
-      this.props.addonBefore
-    ) : null;
-
-    var addonAfter = this.props.addonAfter ? _react2['default'].createElement(
-      'span',
-      { className: 'input-group-addon', key: 'addonAfter' },
-      this.props.addonAfter
-    ) : null;
-
-    var buttonBefore = this.props.buttonBefore ? _react2['default'].createElement(
-      'span',
-      { className: 'input-group-btn' },
-      this.props.buttonBefore
-    ) : null;
-
-    var buttonAfter = this.props.buttonAfter ? _react2['default'].createElement(
-      'span',
-      { className: 'input-group-btn' },
-      this.props.buttonAfter
-    ) : null;
-
-    var inputGroupClassName = undefined;
-    switch (this.props.bsSize) {
-      case 'small':
-        inputGroupClassName = 'input-group-sm';break;
-      case 'large':
-        inputGroupClassName = 'input-group-lg';break;
-    }
-
-    return addonBefore || addonAfter || buttonBefore || buttonAfter ? _react2['default'].createElement(
-      'div',
-      { className: _classnames2['default'](inputGroupClassName, 'input-group'), key: 'input-group' },
-      addonBefore,
-      buttonBefore,
-      children,
-      addonAfter,
-      buttonAfter
-    ) : children;
-  };
-
-  InputBase.prototype.renderIcon = function renderIcon() {
-    if (this.props.hasFeedback) {
-      if (this.props.feedbackIcon) {
-        return _react2['default'].cloneElement(this.props.feedbackIcon, { formControlFeedback: true });
-      }
-
-      switch (this.props.bsStyle) {
-        case 'success':
-          return _react2['default'].createElement(_Glyphicon2['default'], { formControlFeedback: true, glyph: 'ok', key: 'icon' });
-        case 'warning':
-          return _react2['default'].createElement(_Glyphicon2['default'], { formControlFeedback: true, glyph: 'warning-sign', key: 'icon' });
-        case 'error':
-          return _react2['default'].createElement(_Glyphicon2['default'], { formControlFeedback: true, glyph: 'remove', key: 'icon' });
-        default:
-          return _react2['default'].createElement('span', { className: 'form-control-feedback', key: 'icon' });
-      }
-    } else {
-      return null;
-    }
-  };
-
-  InputBase.prototype.renderHelp = function renderHelp() {
-    return this.props.help ? _react2['default'].createElement(
-      'span',
-      { className: 'help-block', key: 'help' },
-      this.props.help
-    ) : null;
-  };
-
-  InputBase.prototype.renderCheckboxAndRadioWrapper = function renderCheckboxAndRadioWrapper(children) {
-    var classes = {
-      'checkbox': this.props.type === 'checkbox',
-      'radio': this.props.type === 'radio'
-    };
-
-    return _react2['default'].createElement(
-      'div',
-      { className: _classnames2['default'](classes), key: 'checkboxRadioWrapper' },
-      children
-    );
-  };
-
-  InputBase.prototype.renderWrapper = function renderWrapper(children) {
-    return this.props.wrapperClassName ? _react2['default'].createElement(
-      'div',
-      { className: this.props.wrapperClassName, key: 'wrapper' },
-      children
-    ) : children;
-  };
-
-  InputBase.prototype.renderLabel = function renderLabel(children) {
-    var classes = {
-      'control-label': !this.isCheckboxOrRadio()
-    };
-    classes[this.props.labelClassName] = this.props.labelClassName;
-
-    return this.props.label ? _react2['default'].createElement(
-      'label',
-      { htmlFor: this.props.id, className: _classnames2['default'](classes), key: 'label' },
-      children,
-      this.props.label
-    ) : children;
-  };
-
-  InputBase.prototype.renderInput = function renderInput() {
-    if (!this.props.type) {
-      return this.props.children;
-    }
-
-    switch (this.props.type) {
-      case 'select':
-        return _react2['default'].createElement(
-          'select',
-          _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'form-control'), ref: 'input', key: 'input' }),
-          this.props.children
-        );
-      case 'textarea':
-        return _react2['default'].createElement('textarea', _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'form-control'), ref: 'input', key: 'input' }));
-      case 'static':
-        return _react2['default'].createElement(
-          'p',
-          _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'form-control-static'), ref: 'input', key: 'input' }),
-          this.props.value
-        );
-    }
-
-    var className = this.isCheckboxOrRadio() || this.isFile() ? '' : 'form-control';
-    return _react2['default'].createElement('input', _extends({}, this.props, { className: _classnames2['default'](this.props.className, className), ref: 'input', key: 'input' }));
-  };
-
-  InputBase.prototype.renderFormGroup = function renderFormGroup(children) {
-    return _react2['default'].createElement(
-      _FormGroup2['default'],
-      this.props,
-      children
-    );
-  };
-
-  InputBase.prototype.renderChildren = function renderChildren() {
-    return !this.isCheckboxOrRadio() ? [this.renderLabel(), this.renderWrapper([this.renderInputGroup(this.renderInput()), this.renderIcon(), this.renderHelp()])] : this.renderWrapper([this.renderCheckboxAndRadioWrapper(this.renderLabel(this.renderInput())), this.renderHelp()]);
-  };
-
-  InputBase.prototype.render = function render() {
-    var children = this.renderChildren();
-    return this.renderFormGroup(children);
-  };
-
-  return InputBase;
-})(_react2['default'].Component);
-
-InputBase.propTypes = {
-  type: _react2['default'].PropTypes.string,
-  label: _react2['default'].PropTypes.node,
-  help: _react2['default'].PropTypes.node,
-  addonBefore: _react2['default'].PropTypes.node,
-  addonAfter: _react2['default'].PropTypes.node,
-  buttonBefore: _react2['default'].PropTypes.node,
-  buttonAfter: _react2['default'].PropTypes.node,
-  bsSize: _react2['default'].PropTypes.oneOf(['small', 'medium', 'large']),
-  bsStyle: _react2['default'].PropTypes.oneOf(['success', 'warning', 'error']),
-  hasFeedback: _react2['default'].PropTypes.bool,
-  feedbackIcon: _react2['default'].PropTypes.node,
-  id: _react2['default'].PropTypes.string,
-  groupClassName: _react2['default'].PropTypes.string,
-  wrapperClassName: _react2['default'].PropTypes.string,
-  labelClassName: _react2['default'].PropTypes.string,
-  multiple: _react2['default'].PropTypes.bool,
-  disabled: _react2['default'].PropTypes.bool,
-  value: _react2['default'].PropTypes.any
-};
-
-InputBase.defaultProps = {
-  disabled: false,
-  hasFeedback: false,
-  multiple: false
-};
-
-exports['default'] = InputBase;
-module.exports = exports['default'];
-},{"./FormGroup":79,"./Glyphicon":80,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],84:[function(require,module,exports){
-// https://www.npmjs.org/package/react-interpolate-component
-// TODO: Drop this in favor of es6 string interpolation
-
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var REGEXP = /\%\((.+?)\)s/;
-
-var Interpolate = _react2['default'].createClass({
-  displayName: 'Interpolate',
-
-  propTypes: {
-    component: _react2['default'].PropTypes.node,
-    format: _react2['default'].PropTypes.string,
-    unsafe: _react2['default'].PropTypes.bool
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      component: 'span',
-      unsafe: false
-    };
-  },
-
-  render: function render() {
-    var format = _utilsValidComponentChildren2['default'].hasValidComponent(this.props.children) || typeof this.props.children === 'string' ? this.props.children : this.props.format;
-    var parent = this.props.component;
-    var unsafe = this.props.unsafe === true;
-    var props = _extends({}, this.props);
-
-    delete props.children;
-    delete props.format;
-    delete props.component;
-    delete props.unsafe;
-
-    if (unsafe) {
-      var content = format.split(REGEXP).reduce(function (memo, match, index) {
-        var html = undefined;
-
-        if (index % 2 === 0) {
-          html = match;
-        } else {
-          html = props[match];
-          delete props[match];
-        }
-
-        if (_react2['default'].isValidElement(html)) {
-          throw new Error('cannot interpolate a React component into unsafe text');
-        }
-
-        memo += html;
-
-        return memo;
-      }, '');
-
-      props.dangerouslySetInnerHTML = { __html: content };
-
-      return _react2['default'].createElement(parent, props);
-    } else {
-      var kids = format.split(REGEXP).reduce(function (memo, match, index) {
-        var child = undefined;
-
-        if (index % 2 === 0) {
-          if (match.length === 0) {
-            return memo;
-          }
-
-          child = match;
-        } else {
-          child = props[match];
-          delete props[match];
-        }
-
-        memo.push(child);
-
-        return memo;
-      }, []);
-
-      return _react2['default'].createElement(parent, props, kids);
-    }
-  }
-});
-
-exports['default'] = Interpolate;
-module.exports = exports['default'];
-},{"./utils/ValidComponentChildren":129,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"react":371}],85:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var Jumbotron = _react2['default'].createClass({
-  displayName: 'Jumbotron',
-
-  propTypes: {
-    /**
-     * You can use a custom element for this component
-     */
-    componentClass: _utilsCustomPropTypes2['default'].elementType
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return { componentClass: 'div' };
-  },
-
-  render: function render() {
-    var ComponentClass = this.props.componentClass;
-
-    return _react2['default'].createElement(
-      ComponentClass,
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'jumbotron') }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Jumbotron;
-module.exports = exports['default'];
-},{"./utils/CustomPropTypes":126,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],86:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var Label = _react2['default'].createClass({
-  displayName: 'Label',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'label',
-      bsStyle: 'default'
-    };
-  },
-
-  render: function render() {
-    var classes = this.getBsClassSet();
-
-    return _react2['default'].createElement(
-      'span',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Label;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],87:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var ListGroup = (function (_React$Component) {
-  _inherits(ListGroup, _React$Component);
-
-  function ListGroup() {
-    _classCallCheck(this, ListGroup);
-
-    _React$Component.apply(this, arguments);
-  }
-
-  ListGroup.prototype.render = function render() {
-    var _this = this;
-
-    var items = _utilsValidComponentChildren2['default'].map(this.props.children, function (item, index) {
-      return _react.cloneElement(item, { key: item.key ? item.key : index });
-    });
-
-    var childrenAnchors = false;
-
-    if (!this.props.children) {
-      return this.renderDiv(items);
-    } else {
-      _react2['default'].Children.forEach(this.props.children, function (child) {
-        if (_this.isAnchor(child.props)) {
-          childrenAnchors = true;
-        }
-      });
-    }
-
-    if (childrenAnchors) {
-      return this.renderDiv(items);
-    } else {
-      return this.renderUL(items);
-    }
-  };
-
-  ListGroup.prototype.isAnchor = function isAnchor(props) {
-    return props.href || props.onClick;
-  };
-
-  ListGroup.prototype.renderUL = function renderUL(items) {
-    var listItems = _utilsValidComponentChildren2['default'].map(items, function (item, index) {
-      return _react.cloneElement(item, { listItem: true });
-    });
-
-    return _react2['default'].createElement(
-      'ul',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, 'list-group') }),
-      listItems
-    );
-  };
-
-  ListGroup.prototype.renderDiv = function renderDiv(items) {
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, 'list-group') }),
-      items
-    );
-  };
-
-  return ListGroup;
-})(_react2['default'].Component);
-
-ListGroup.propTypes = {
-  className: _react2['default'].PropTypes.string,
-  id: _react2['default'].PropTypes.string
-};
-
-exports['default'] = ListGroup;
-module.exports = exports['default'];
-},{"./utils/ValidComponentChildren":129,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],88:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _SafeAnchor = require('./SafeAnchor');
-
-var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
-
-var ListGroupItem = _react2['default'].createClass({
-  displayName: 'ListGroupItem',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    bsStyle: _react2['default'].PropTypes.oneOf(['danger', 'info', 'success', 'warning']),
-    className: _react2['default'].PropTypes.string,
-    active: _react2['default'].PropTypes.any,
-    disabled: _react2['default'].PropTypes.any,
-    header: _react2['default'].PropTypes.node,
-    listItem: _react2['default'].PropTypes.bool,
-    onClick: _react2['default'].PropTypes.func,
-    eventKey: _react2['default'].PropTypes.any,
-    href: _react2['default'].PropTypes.string,
-    target: _react2['default'].PropTypes.string
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'list-group-item',
-      listItem: false
-    };
-  },
-
-  render: function render() {
-    var classes = this.getBsClassSet();
-
-    classes.active = this.props.active;
-    classes.disabled = this.props.disabled;
-
-    if (this.props.href || this.props.onClick) {
-      return this.renderAnchor(classes);
-    } else if (this.props.listItem) {
-      return this.renderLi(classes);
-    } else {
-      return this.renderSpan(classes);
-    }
-  },
-
-  renderLi: function renderLi(classes) {
-    return _react2['default'].createElement(
-      'li',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-      this.props.header ? this.renderStructuredContent() : this.props.children
-    );
-  },
-
-  renderAnchor: function renderAnchor(classes) {
-    return _react2['default'].createElement(
-      _SafeAnchor2['default'],
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, classes)
-      }),
-      this.props.header ? this.renderStructuredContent() : this.props.children
-    );
-  },
-
-  renderSpan: function renderSpan(classes) {
-    return _react2['default'].createElement(
-      'span',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-      this.props.header ? this.renderStructuredContent() : this.props.children
-    );
-  },
-
-  renderStructuredContent: function renderStructuredContent() {
-    var header = undefined;
-    if (_react2['default'].isValidElement(this.props.header)) {
-      header = _react.cloneElement(this.props.header, {
-        key: 'header',
-        className: _classnames2['default'](this.props.header.props.className, 'list-group-item-heading')
-      });
-    } else {
-      header = _react2['default'].createElement(
-        'h4',
-        { key: 'header', className: 'list-group-item-heading' },
-        this.props.header
-      );
-    }
-
-    var content = _react2['default'].createElement(
-      'p',
-      { key: 'content', className: 'list-group-item-text' },
-      this.props.children
-    );
-
-    return [header, content];
-  }
-});
-
-exports['default'] = ListGroupItem;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./SafeAnchor":114,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],89:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _SafeAnchor = require('./SafeAnchor');
-
-var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
-
-var MenuItem = _react2['default'].createClass({
-  displayName: 'MenuItem',
-
-  propTypes: {
-    header: _react2['default'].PropTypes.bool,
-    divider: _react2['default'].PropTypes.bool,
-    href: _react2['default'].PropTypes.string,
-    title: _react2['default'].PropTypes.string,
-    target: _react2['default'].PropTypes.string,
-    onSelect: _react2['default'].PropTypes.func,
-    eventKey: _react2['default'].PropTypes.any,
-    active: _react2['default'].PropTypes.bool,
-    disabled: _react2['default'].PropTypes.bool
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      active: false,
-      divider: false,
-      disabled: false,
-      header: false
-    };
-  },
-
-  handleClick: function handleClick(e) {
-    if (this.props.disabled) {
-      e.preventDefault();
-      return;
-    }
-    if (this.props.onSelect) {
-      e.preventDefault();
-      this.props.onSelect(this.props.eventKey, this.props.href, this.props.target);
-    }
-  },
-
-  renderAnchor: function renderAnchor() {
-    return _react2['default'].createElement(
-      _SafeAnchor2['default'],
-      { onClick: this.handleClick, href: this.props.href, target: this.props.target, title: this.props.title, tabIndex: '-1' },
-      this.props.children
-    );
-  },
-
-  render: function render() {
-    var classes = {
-      'dropdown-header': this.props.header,
-      'divider': this.props.divider,
-      'active': this.props.active,
-      'disabled': this.props.disabled
-    };
-
-    var children = null;
-    if (this.props.header) {
-      children = this.props.children;
-    } else if (!this.props.divider) {
-      children = this.renderAnchor();
-    }
-
-    return _react2['default'].createElement(
-      'li',
-      _extends({}, this.props, { role: 'presentation', title: null, href: null,
-        className: _classnames2['default'](this.props.className, classes) }),
-      children
-    );
-  }
-});
-
-exports['default'] = MenuItem;
-module.exports = exports['default'];
-},{"./SafeAnchor":114,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],90:[function(require,module,exports){
-/*eslint-disable react/prop-types */
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-
-var _Object$isFrozen = require('babel-runtime/core-js/object/is-frozen')['default'];
-
-var _Object$keys = require('babel-runtime/core-js/object/keys')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsDomUtils = require('./utils/domUtils');
-
-var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
-
-var _utilsEventListener = require('./utils/EventListener');
-
-var _utilsEventListener2 = _interopRequireDefault(_utilsEventListener);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var _Portal = require('./Portal');
-
-var _Portal2 = _interopRequireDefault(_Portal);
-
-var _Fade = require('./Fade');
-
-var _Fade2 = _interopRequireDefault(_Fade);
-
-var _ModalDialog = require('./ModalDialog');
-
-var _ModalDialog2 = _interopRequireDefault(_ModalDialog);
-
-var _ModalBody = require('./ModalBody');
-
-var _ModalBody2 = _interopRequireDefault(_ModalBody);
-
-var _ModalHeader = require('./ModalHeader');
-
-var _ModalHeader2 = _interopRequireDefault(_ModalHeader);
-
-var _ModalTitle = require('./ModalTitle');
-
-var _ModalTitle2 = _interopRequireDefault(_ModalTitle);
-
-var _ModalFooter = require('./ModalFooter');
-
-var _ModalFooter2 = _interopRequireDefault(_ModalFooter);
-
-/**
- * Gets the correct clientHeight of the modal container
- * when the body/window/document you need to use the docElement clientHeight
- * @param  {HTMLElement} container
- * @param  {ReactElement|HTMLElement} context
- * @return {Number}
- */
-function containerClientHeight(container, context) {
-  var doc = _utilsDomUtils2['default'].ownerDocument(context);
-
-  return container === doc.body || container === doc.documentElement ? doc.documentElement.clientHeight : container.clientHeight;
-}
-
-function getContainer(context) {
-  return context.props.container && _react2['default'].findDOMNode(context.props.container) || _utilsDomUtils2['default'].ownerDocument(context).body;
-}
-
-var currentFocusListener = undefined;
-
-/**
- * Firefox doesn't have a focusin event so using capture is easiest way to get bubbling
- * IE8 can't do addEventListener, but does have onfocusin, so we use that in ie8
- *
- * We only allow one Listener at a time to avoid stack overflows
- *
- * @param  {ReactElement|HTMLElement} context
- * @param  {Function} handler
- */
-function onFocus(context, handler) {
-  var doc = _utilsDomUtils2['default'].ownerDocument(context);
-  var useFocusin = !doc.addEventListener;
-  var remove = undefined;
-
-  if (currentFocusListener) {
-    currentFocusListener.remove();
-  }
-
-  if (useFocusin) {
-    document.attachEvent('onfocusin', handler);
-    remove = function () {
-      return document.detachEvent('onfocusin', handler);
-    };
-  } else {
-    document.addEventListener('focus', handler, true);
-    remove = function () {
-      return document.removeEventListener('focus', handler, true);
-    };
-  }
-
-  currentFocusListener = { remove: remove };
-
-  return currentFocusListener;
-}
-
-var scrollbarSize = undefined;
-
-function getScrollbarSize() {
-  if (scrollbarSize !== undefined) {
-    return scrollbarSize;
-  }
-
-  var scrollDiv = document.createElement('div');
-
-  scrollDiv.style.position = 'absolute';
-  scrollDiv.style.top = '-9999px';
-  scrollDiv.style.width = '50px';
-  scrollDiv.style.height = '50px';
-  scrollDiv.style.overflow = 'scroll';
-
-  document.body.appendChild(scrollDiv);
-  scrollbarSize = scrollDiv.offsetWidth - scrollDiv.clientWidth;
-  document.body.removeChild(scrollDiv);
-
-  scrollDiv = null;
-  return scrollbarSize;
-}
-
-var Modal = _react2['default'].createClass({
-  displayName: 'Modal',
-
-  propTypes: _extends({}, _Portal2['default'].propTypes, _ModalDialog2['default'].propTypes, {
-
-    /**
-     * Include a backdrop component. Specify 'static' for a backdrop that doesn't trigger an "onHide" when clicked.
-     */
-    backdrop: _react2['default'].PropTypes.oneOf(['static', true, false]),
-
-    /**
-     * Close the modal when escape key is pressed
-     */
-    keyboard: _react2['default'].PropTypes.bool,
-
-    /**
-     * Open and close the Modal with a slide and fade animation.
-     */
-    animation: _react2['default'].PropTypes.bool,
-
-    /**
-     * A Component type that provides the modal content Markup. This is a useful prop when you want to use your own
-     * styles and markup to create a custom modal component.
-     */
-    dialogComponent: _utilsCustomPropTypes2['default'].elementType,
-
-    /**
-     * When `true` The modal will automatically shift focus to itself when it opens, and replace it to the last focused element when it closes.
-     * Generally this should never be set to false as it makes the Modal less accessible to assistive technologies, like screen-readers.
-     */
-    autoFocus: _react2['default'].PropTypes.bool,
-
-    /**
-     * When `true` The modal will prevent focus from leaving the Modal while open.
-     * Consider leaving the default value here, as it is necessary to make the Modal work well with assistive technologies,
-     * such as screen readers.
-     */
-    enforceFocus: _react2['default'].PropTypes.bool,
-
-    /**
-     * Hide this from automatic props documentation generation.
-     * @private
-     */
-    bsStyle: _react2['default'].PropTypes.string
-  }),
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'modal',
-      dialogComponent: _ModalDialog2['default'],
-      show: false,
-      animation: true,
-      backdrop: true,
-      keyboard: true,
-      autoFocus: true,
-      enforceFocus: true
-    };
-  },
-
-  getInitialState: function getInitialState() {
-    return {
-      exited: !this.props.show
-    };
-  },
-
-  render: function render() {
-    var _props = this.props;
-    var children = _props.children;
-    var animation = _props.animation;
-    var backdrop = _props.backdrop;
-
-    var props = _objectWithoutProperties(_props, ['children', 'animation', 'backdrop']);
-
-    var onExit = props.onExit;
-    var onExiting = props.onExiting;
-    var onEnter = props.onEnter;
-    var onEntering = props.onEntering;
-    var onEntered = props.onEntered;
-
-    var show = !!props.show;
-    var Dialog = props.dialogComponent;
-
-    var mountModal = show || animation && !this.state.exited;
-    if (!mountModal) {
-      return null;
-    }
-
-    var modal = _react2['default'].createElement(
-      Dialog,
-      _extends({}, props, {
-        ref: this._setDialogRef,
-        className: _classnames2['default'](this.props.className, { 'in': show && !animation }),
-        onClick: backdrop === true ? this.handleBackdropClick : null }),
-      this.renderContent()
-    );
-
-    if (animation) {
-      modal = _react2['default'].createElement(
-        _Fade2['default'],
-        {
-          transitionAppear: true,
-          unmountOnExit: true,
-          'in': show,
-          duration: Modal.TRANSITION_DURATION,
-          onExit: onExit,
-          onExiting: onExiting,
-          onExited: this.handleHidden,
-          onEnter: onEnter,
-          onEntering: onEntering,
-          onEntered: onEntered },
-        modal
-      );
-    }
-
-    if (backdrop) {
-      modal = this.renderBackdrop(modal);
-    }
-
-    return _react2['default'].createElement(
-      _Portal2['default'],
-      { container: props.container },
-      modal
-    );
-  },
-
-  renderContent: function renderContent() {
-    var _this = this;
-
-    return _react2['default'].Children.map(this.props.children, function (child) {
-      // TODO: use context in 0.14
-      if (child && child.type && child.type.__isModalHeader) {
-        return _react.cloneElement(child, {
-          onHide: _utilsCreateChainedFunction2['default'](_this.props.onHide, child.props.onHide)
-        });
-      }
-      return child;
-    });
-  },
-
-  renderBackdrop: function renderBackdrop(modal) {
-    var _props2 = this.props;
-    var animation = _props2.animation;
-    var bsClass = _props2.bsClass;
-
-    var duration = Modal.BACKDROP_TRANSITION_DURATION;
-
-    // Don't handle clicks for "static" backdrops
-    var onClick = this.props.backdrop === true ? this.handleBackdropClick : null;
-
-    var backdrop = _react2['default'].createElement('div', {
-      ref: 'backdrop',
-      className: _classnames2['default'](bsClass + '-backdrop', { 'in': this.props.show && !animation }),
-      onClick: onClick });
-
-    return _react2['default'].createElement(
-      'div',
-      {
-        ref: 'modal' },
-      animation ? _react2['default'].createElement(
-        _Fade2['default'],
-        { transitionAppear: true, 'in': this.props.show, duration: duration },
-        backdrop
-      ) : backdrop,
-      modal
-    );
-  },
-
-  _setDialogRef: function _setDialogRef(ref) {
-    // issue #1074
-    // due to: https://github.com/facebook/react/blob/v0.13.3/src/core/ReactCompositeComponent.js#L842
-    //
-    // when backdrop is `false` react hasn't had a chance to reassign the refs to a usable object, b/c there are no other
-    // "classic" refs on the component (or they haven't been processed yet)
-    // TODO: Remove the need for this in next breaking release
-    if (_Object$isFrozen(this.refs) && !_Object$keys(this.refs).length) {
-      this.refs = {};
-    }
-
-    this.refs.dialog = ref;
-
-    //maintains backwards compat with older component breakdown
-    if (!this.props.backdrop) {
-      this.refs.modal = ref;
-    }
-  },
-
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    if (nextProps.show) {
-      this.setState({ exited: false });
-    } else if (!nextProps.animation) {
-      // Otherwise let handleHidden take care of marking exited.
-      this.setState({ exited: true });
-    }
-  },
-
-  componentWillUpdate: function componentWillUpdate(nextProps) {
-    if (nextProps.show) {
-      this.checkForFocus();
-    }
-  },
-
-  componentDidMount: function componentDidMount() {
-    if (this.props.show) {
-      this.onShow();
-    }
-  },
-
-  componentDidUpdate: function componentDidUpdate(prevProps) {
-    var animation = this.props.animation;
-
-    if (prevProps.show && !this.props.show && !animation) {
-      //otherwise handleHidden will call this.
-      this.onHide();
-    } else if (!prevProps.show && this.props.show) {
-      this.onShow();
-    }
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    if (this.props.show) {
-      this.onHide();
-    }
-  },
-
-  onShow: function onShow() {
-    var _this2 = this;
-
-    var doc = _utilsDomUtils2['default'].ownerDocument(this);
-    var win = _utilsDomUtils2['default'].ownerWindow(this);
-
-    this._onDocumentKeyupListener = _utilsEventListener2['default'].listen(doc, 'keyup', this.handleDocumentKeyUp);
-
-    this._onWindowResizeListener = _utilsEventListener2['default'].listen(win, 'resize', this.handleWindowResize);
-
-    if (this.props.enforceFocus) {
-      this._onFocusinListener = onFocus(this, this.enforceFocus);
-    }
-
-    var container = getContainer(this);
-
-    container.className += container.className.length ? ' modal-open' : 'modal-open';
-
-    this._containerIsOverflowing = container.scrollHeight > containerClientHeight(container, this);
-
-    this._originalPadding = container.style.paddingRight;
-
-    if (this._containerIsOverflowing) {
-      container.style.paddingRight = parseInt(this._originalPadding || 0, 10) + getScrollbarSize() + 'px';
-    }
-
-    if (this.props.backdrop) {
-      this.iosClickHack();
-    }
-
-    this.setState(this._getStyles(), //eslint-disable-line react/no-did-mount-set-state
-    function () {
-      return _this2.focusModalContent();
-    });
-  },
-
-  onHide: function onHide() {
-    this._onDocumentKeyupListener.remove();
-    this._onWindowResizeListener.remove();
-
-    if (this._onFocusinListener) {
-      this._onFocusinListener.remove();
-    }
-
-    var container = getContainer(this);
-
-    container.style.paddingRight = this._originalPadding;
-
-    container.className = container.className.replace(/ ?modal-open/, '');
-
-    this.restoreLastFocus();
-  },
-
-  handleHidden: function handleHidden() {
-    this.setState({ exited: true });
-
-    this.onHide();
-
-    if (this.props.onExited) {
-      var _props3;
-
-      (_props3 = this.props).onExited.apply(_props3, arguments);
-    }
-  },
-
-  handleBackdropClick: function handleBackdropClick(e) {
-    if (e.target !== e.currentTarget) {
-      return;
-    }
-
-    this.props.onHide();
-  },
-
-  handleDocumentKeyUp: function handleDocumentKeyUp(e) {
-    if (this.props.keyboard && e.keyCode === 27) {
-      this.props.onHide();
-    }
-  },
-
-  handleWindowResize: function handleWindowResize() {
-    this.setState(this._getStyles());
-  },
-
-  checkForFocus: function checkForFocus() {
-    if (_utilsDomUtils2['default'].canUseDom) {
-      try {
-        this.lastFocus = document.activeElement;
-      } catch (e) {} // eslint-disable-line no-empty
-    }
-  },
-
-  focusModalContent: function focusModalContent() {
-    var modalContent = _react2['default'].findDOMNode(this.refs.dialog);
-    var current = _utilsDomUtils2['default'].activeElement(this);
-    var focusInModal = current && _utilsDomUtils2['default'].contains(modalContent, current);
-
-    if (modalContent && this.props.autoFocus && !focusInModal) {
-      this.lastFocus = current;
-      modalContent.focus();
-    }
-  },
-
-  restoreLastFocus: function restoreLastFocus() {
-    if (this.lastFocus && this.lastFocus.focus) {
-      this.lastFocus.focus();
-      this.lastFocus = null;
-    }
-  },
-
-  enforceFocus: function enforceFocus() {
-    if (!this.isMounted()) {
-      return;
-    }
-
-    var active = _utilsDomUtils2['default'].activeElement(this);
-    var modal = _react2['default'].findDOMNode(this.refs.dialog);
-
-    if (modal && modal !== active && !_utilsDomUtils2['default'].contains(modal, active)) {
-      modal.focus();
-    }
-  },
-
-  iosClickHack: function iosClickHack() {
-    // IOS only allows click events to be delegated to the document on elements
-    // it considers 'clickable' - anchors, buttons, etc. We fake a click handler on the
-    // DOM nodes themselves. Remove if handled by React: https://github.com/facebook/react/issues/1169
-    _react2['default'].findDOMNode(this.refs.modal).onclick = function () {};
-    _react2['default'].findDOMNode(this.refs.backdrop).onclick = function () {};
-  },
-
-  _getStyles: function _getStyles() {
-    if (!_utilsDomUtils2['default'].canUseDom) {
-      return {};
-    }
-
-    var node = _react2['default'].findDOMNode(this.refs.modal);
-    var scrollHt = node.scrollHeight;
-    var container = getContainer(this);
-    var containerIsOverflowing = this._containerIsOverflowing;
-    var modalIsOverflowing = scrollHt > containerClientHeight(container, this);
-
-    return {
-      dialogStyles: {
-        paddingRight: containerIsOverflowing && !modalIsOverflowing ? getScrollbarSize() : void 0,
-        paddingLeft: !containerIsOverflowing && modalIsOverflowing ? getScrollbarSize() : void 0
-      }
-    };
-  }
-
-});
-
-Modal.Body = _ModalBody2['default'];
-Modal.Header = _ModalHeader2['default'];
-Modal.Title = _ModalTitle2['default'];
-Modal.Footer = _ModalFooter2['default'];
-
-Modal.Dialog = _ModalDialog2['default'];
-
-Modal.TRANSITION_DURATION = 300;
-Modal.BACKDROP_TRANSITION_DURATION = 150;
-
-exports['default'] = Modal;
-module.exports = exports['default'];
-},{"./Fade":75,"./ModalBody":91,"./ModalDialog":92,"./ModalFooter":93,"./ModalHeader":94,"./ModalTitle":95,"./Portal":109,"./utils/CustomPropTypes":126,"./utils/EventListener":127,"./utils/createChainedFunction":131,"./utils/domUtils":135,"babel-runtime/core-js/object/is-frozen":140,"babel-runtime/core-js/object/keys":141,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/object-without-properties":148,"classnames":176,"react":371}],91:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var ModalBody = (function (_React$Component) {
-  _inherits(ModalBody, _React$Component);
-
-  function ModalBody() {
-    _classCallCheck(this, ModalBody);
-
-    _React$Component.apply(this, arguments);
-  }
-
-  ModalBody.prototype.render = function render() {
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, this.props.modalClassName) }),
-      this.props.children
-    );
-  };
-
-  return ModalBody;
-})(_react2['default'].Component);
-
-ModalBody.propTypes = {
-  /**
-   * A css class applied to the Component
-   */
-  modalClassName: _react2['default'].PropTypes.string
-};
-
-ModalBody.defaultProps = {
-  modalClassName: 'modal-body'
-};
-
-exports['default'] = ModalBody;
-module.exports = exports['default'];
-},{"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],92:[function(require,module,exports){
-/*eslint-disable react/prop-types */
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var ModalDialog = _react2['default'].createClass({
-  displayName: 'ModalDialog',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    /**
-     * A Callback fired when the header closeButton or non-static backdrop is clicked.
-     * @type {function}
-     * @required
-     */
-    onHide: _react2['default'].PropTypes.func.isRequired,
-
-    /**
-     * A css class to apply to the Modal dialog DOM node.
-     */
-    dialogClassName: _react2['default'].PropTypes.string
-
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'modal',
-      closeButton: true
-    };
-  },
-
-  render: function render() {
-    var modalStyle = _extends({
-      display: 'block'
-    }, this.props.style);
-    var bsClass = this.props.bsClass;
-    var dialogClasses = this.getBsClassSet();
-
-    delete dialogClasses.modal;
-    dialogClasses[bsClass + '-dialog'] = true;
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        title: null,
-        tabIndex: '-1',
-        role: 'dialog',
-        style: modalStyle,
-        className: _classnames2['default'](this.props.className, bsClass) }),
-      _react2['default'].createElement(
-        'div',
-        { className: _classnames2['default'](this.props.dialogClassName, dialogClasses) },
-        _react2['default'].createElement(
-          'div',
-          { className: bsClass + '-content', role: 'document' },
-          this.props.children
-        )
-      )
-    );
-  }
-});
-
-exports['default'] = ModalDialog;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],93:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var ModalFooter = (function (_React$Component) {
-  _inherits(ModalFooter, _React$Component);
-
-  function ModalFooter() {
-    _classCallCheck(this, ModalFooter);
-
-    _React$Component.apply(this, arguments);
-  }
-
-  ModalFooter.prototype.render = function render() {
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, this.props.modalClassName) }),
-      this.props.children
-    );
-  };
-
-  return ModalFooter;
-})(_react2['default'].Component);
-
-ModalFooter.propTypes = {
-  /**
-   * A css class applied to the Component
-   */
-  modalClassName: _react2['default'].PropTypes.string
-};
-
-ModalFooter.defaultProps = {
-  modalClassName: 'modal-footer'
-};
-
-exports['default'] = ModalFooter;
-module.exports = exports['default'];
-},{"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],94:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var ModalHeader = (function (_React$Component) {
-  _inherits(ModalHeader, _React$Component);
-
-  function ModalHeader() {
-    _classCallCheck(this, ModalHeader);
-
-    _React$Component.apply(this, arguments);
-  }
-
-  //used in liue of parent contexts right now to auto wire the close button
-
-  ModalHeader.prototype.render = function render() {
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, this.props.modalClassName) }),
-      this.props.closeButton && _react2['default'].createElement(
-        'button',
-        {
-          className: 'close',
-          onClick: this.props.onHide },
-        _react2['default'].createElement(
-          'span',
-          { 'aria-hidden': 'true' },
-          '×'
-        )
-      ),
-      this.props.children
-    );
-  };
-
-  return ModalHeader;
-})(_react2['default'].Component);
-
-ModalHeader.__isModalHeader = true;
-
-ModalHeader.propTypes = {
-  /**
-   * The 'aria-label' attribute is used to define a string that labels the current element.
-   * It is used for Assistive Technology when the label text is not visible on screen.
-   */
-  'aria-label': _react2['default'].PropTypes.string,
-
-  /**
-   * A css class applied to the Component
-   */
-  modalClassName: _react2['default'].PropTypes.string,
-
-  /**
-   * Specify whether the Component should contain a close button
-   */
-  closeButton: _react2['default'].PropTypes.bool,
-
-  /**
-   * A Callback fired when the close button is clicked. If used directly inside a Modal component, the onHide will automatically
-   * be propagated up to the parent Modal `onHide`.
-   */
-  onHide: _react2['default'].PropTypes.func
-};
-
-ModalHeader.defaultProps = {
-  'aria-label': 'Close',
-  modalClassName: 'modal-header',
-  closeButton: false
-};
-
-exports['default'] = ModalHeader;
-module.exports = exports['default'];
-},{"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],95:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var ModalTitle = (function (_React$Component) {
-  _inherits(ModalTitle, _React$Component);
-
-  function ModalTitle() {
-    _classCallCheck(this, ModalTitle);
-
-    _React$Component.apply(this, arguments);
-  }
-
-  ModalTitle.prototype.render = function render() {
-    return _react2['default'].createElement(
-      'h4',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, this.props.modalClassName) }),
-      this.props.children
-    );
-  };
-
-  return ModalTitle;
-})(_react2['default'].Component);
-
-ModalTitle.propTypes = {
-  /**
-   * A css class applied to the Component
-   */
-  modalClassName: _react2['default'].PropTypes.string
-};
-
-ModalTitle.defaultProps = {
-  modalClassName: 'modal-title'
-};
-
-exports['default'] = ModalTitle;
-module.exports = exports['default'];
-},{"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],96:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _Collapse = require('./Collapse');
-
-var _Collapse2 = _interopRequireDefault(_Collapse);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var Nav = _react2['default'].createClass({
-  displayName: 'Nav',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    activeHref: _react2['default'].PropTypes.string,
-    activeKey: _react2['default'].PropTypes.any,
-    bsStyle: _react2['default'].PropTypes.oneOf(['tabs', 'pills']),
-    stacked: _react2['default'].PropTypes.bool,
-    justified: _react2['default'].PropTypes.bool,
-    onSelect: _react2['default'].PropTypes.func,
-    collapsible: _react2['default'].PropTypes.bool,
-    /**
-     * CSS classes for the wrapper `nav` element
-     */
-    className: _react2['default'].PropTypes.string,
-    /**
-     * HTML id for the wrapper `nav` element
-     */
-    id: _react2['default'].PropTypes.string,
-    /**
-     * CSS classes for the inner `ul` element
-     */
-    ulClassName: _react2['default'].PropTypes.string,
-    /**
-     * HTML id for the inner `ul` element
-     */
-    ulId: _react2['default'].PropTypes.string,
-    expanded: _react2['default'].PropTypes.bool,
-    navbar: _react2['default'].PropTypes.bool,
-    eventKey: _react2['default'].PropTypes.any,
-    pullRight: _react2['default'].PropTypes.bool,
-    right: _react2['default'].PropTypes.bool
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'nav',
-      collapsible: false,
-      expanded: true,
-      justified: false,
-      navbar: false,
-      pullRight: false,
-      right: false,
-      stacked: false
-    };
-  },
-
-  render: function render() {
-    var classes = this.props.collapsible ? 'navbar-collapse' : null;
-
-    if (this.props.navbar && !this.props.collapsible) {
-      return this.renderUl();
-    }
-
-    return _react2['default'].createElement(
-      _Collapse2['default'],
-      { 'in': this.props.expanded },
-      _react2['default'].createElement(
-        'nav',
-        _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-        this.renderUl()
-      )
-    );
-  },
-
-  renderUl: function renderUl() {
-    var classes = this.getBsClassSet();
-
-    classes['nav-stacked'] = this.props.stacked;
-    classes['nav-justified'] = this.props.justified;
-    classes['navbar-nav'] = this.props.navbar;
-    classes['pull-right'] = this.props.pullRight;
-    classes['navbar-right'] = this.props.right;
-
-    return _react2['default'].createElement(
-      'ul',
-      _extends({}, this.props, {
-        role: this.props.bsStyle === 'tabs' ? 'tablist' : null,
-        className: _classnames2['default'](this.props.ulClassName, classes),
-        id: this.props.ulId,
-        ref: 'ul'
-      }),
-      _utilsValidComponentChildren2['default'].map(this.props.children, this.renderNavItem)
-    );
-  },
-
-  getChildActiveProp: function getChildActiveProp(child) {
-    if (child.props.active) {
-      return true;
-    }
-    if (this.props.activeKey != null) {
-      if (child.props.eventKey === this.props.activeKey) {
-        return true;
-      }
-    }
-    if (this.props.activeHref != null) {
-      if (child.props.href === this.props.activeHref) {
-        return true;
-      }
-    }
-
-    return child.props.active;
-  },
-
-  renderNavItem: function renderNavItem(child, index) {
-    return _react.cloneElement(child, {
-      role: this.props.bsStyle === 'tabs' ? 'tab' : null,
-      active: this.getChildActiveProp(child),
-      activeKey: this.props.activeKey,
-      activeHref: this.props.activeHref,
-      onSelect: _utilsCreateChainedFunction2['default'](child.props.onSelect, this.props.onSelect),
-      key: child.key ? child.key : index,
-      navItem: true
-    });
-  }
-});
-
-exports['default'] = Nav;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./Collapse":69,"./utils/ValidComponentChildren":129,"./utils/createChainedFunction":131,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],97:[function(require,module,exports){
-'use strict';
-
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _SafeAnchor = require('./SafeAnchor');
-
-var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
-
-var NavItem = _react2['default'].createClass({
-  displayName: 'NavItem',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    linkId: _react2['default'].PropTypes.string,
-    onSelect: _react2['default'].PropTypes.func,
-    active: _react2['default'].PropTypes.bool,
-    disabled: _react2['default'].PropTypes.bool,
-    href: _react2['default'].PropTypes.string,
-    role: _react2['default'].PropTypes.string,
-    title: _react2['default'].PropTypes.node,
-    eventKey: _react2['default'].PropTypes.any,
-    target: _react2['default'].PropTypes.string,
-    'aria-controls': _react2['default'].PropTypes.string
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      active: false,
-      disabled: false
-    };
-  },
-
-  render: function render() {
-    var _props = this.props;
-    var role = _props.role;
-    var linkId = _props.linkId;
-    var disabled = _props.disabled;
-    var active = _props.active;
-    var href = _props.href;
-    var title = _props.title;
-    var target = _props.target;
-    var children = _props.children;
-    var ariaControls = _props['aria-controls'];
-
-    var props = _objectWithoutProperties(_props, ['role', 'linkId', 'disabled', 'active', 'href', 'title', 'target', 'children', 'aria-controls']);
-
-    var classes = {
-      active: active,
-      disabled: disabled
-    };
-    var linkProps = {
-      role: role,
-      href: href,
-      title: title,
-      target: target,
-      id: linkId,
-      onClick: this.handleClick
-    };
-
-    if (!role && href === '#') {
-      linkProps.role = 'button';
-    }
-
-    return _react2['default'].createElement(
-      'li',
-      _extends({}, props, { role: 'presentation', className: _classnames2['default'](props.className, classes) }),
-      _react2['default'].createElement(
-        _SafeAnchor2['default'],
-        _extends({}, linkProps, { 'aria-selected': active, 'aria-controls': ariaControls }),
-        children
-      )
-    );
-  },
-
-  handleClick: function handleClick(e) {
-    if (this.props.onSelect) {
-      e.preventDefault();
-
-      if (!this.props.disabled) {
-        this.props.onSelect(this.props.eventKey, this.props.href, this.props.target);
-      }
-    }
-  }
-});
-
-exports['default'] = NavItem;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./SafeAnchor":114,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/object-without-properties":148,"classnames":176,"react":371}],98:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var Navbar = _react2['default'].createClass({
-  displayName: 'Navbar',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    fixedTop: _react2['default'].PropTypes.bool,
-    fixedBottom: _react2['default'].PropTypes.bool,
-    staticTop: _react2['default'].PropTypes.bool,
-    inverse: _react2['default'].PropTypes.bool,
-    fluid: _react2['default'].PropTypes.bool,
-    role: _react2['default'].PropTypes.string,
-    /**
-     * You can use a custom element for this component
-     */
-    componentClass: _utilsCustomPropTypes2['default'].elementType,
-    brand: _react2['default'].PropTypes.node,
-    toggleButton: _react2['default'].PropTypes.node,
-    toggleNavKey: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
-    onToggle: _react2['default'].PropTypes.func,
-    navExpanded: _react2['default'].PropTypes.bool,
-    defaultNavExpanded: _react2['default'].PropTypes.bool
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'navbar',
-      bsStyle: 'default',
-      role: 'navigation',
-      componentClass: 'nav',
-      fixedTop: false,
-      fixedBottom: false,
-      staticTop: false,
-      inverse: false,
-      fluid: false,
-      defaultNavExpanded: false
-    };
-  },
-
-  getInitialState: function getInitialState() {
-    return {
-      navExpanded: this.props.defaultNavExpanded
-    };
-  },
-
-  shouldComponentUpdate: function shouldComponentUpdate() {
-    // Defer any updates to this component during the `onSelect` handler.
-    return !this._isChanging;
-  },
-
-  handleToggle: function handleToggle() {
-    if (this.props.onToggle) {
-      this._isChanging = true;
-      this.props.onToggle();
-      this._isChanging = false;
-    }
-
-    this.setState({
-      navExpanded: !this.state.navExpanded
-    });
-  },
-
-  isNavExpanded: function isNavExpanded() {
-    return this.props.navExpanded != null ? this.props.navExpanded : this.state.navExpanded;
-  },
-
-  render: function render() {
-    var classes = this.getBsClassSet();
-    var ComponentClass = this.props.componentClass;
-
-    classes['navbar-fixed-top'] = this.props.fixedTop;
-    classes['navbar-fixed-bottom'] = this.props.fixedBottom;
-    classes['navbar-static-top'] = this.props.staticTop;
-    classes['navbar-inverse'] = this.props.inverse;
-
-    return _react2['default'].createElement(
-      ComponentClass,
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-      _react2['default'].createElement(
-        'div',
-        { className: this.props.fluid ? 'container-fluid' : 'container' },
-        this.props.brand || this.props.toggleButton || this.props.toggleNavKey != null ? this.renderHeader() : null,
-        _utilsValidComponentChildren2['default'].map(this.props.children, this.renderChild)
-      )
-    );
-  },
-
-  renderChild: function renderChild(child, index) {
-    return _react.cloneElement(child, {
-      navbar: true,
-      collapsible: this.props.toggleNavKey != null && this.props.toggleNavKey === child.props.eventKey,
-      expanded: this.props.toggleNavKey != null && this.props.toggleNavKey === child.props.eventKey && this.isNavExpanded(),
-      key: child.key ? child.key : index
-    });
-  },
-
-  renderHeader: function renderHeader() {
-    var brand = undefined;
-
-    if (this.props.brand) {
-      if (_react2['default'].isValidElement(this.props.brand)) {
-        brand = _react.cloneElement(this.props.brand, {
-          className: _classnames2['default'](this.props.brand.props.className, 'navbar-brand')
-        });
-      } else {
-        brand = _react2['default'].createElement(
-          'span',
-          { className: 'navbar-brand' },
-          this.props.brand
-        );
-      }
-    }
-
-    return _react2['default'].createElement(
-      'div',
-      { className: 'navbar-header' },
-      brand,
-      this.props.toggleButton || this.props.toggleNavKey != null ? this.renderToggleButton() : null
-    );
-  },
-
-  renderToggleButton: function renderToggleButton() {
-    var children = undefined;
-
-    if (_react2['default'].isValidElement(this.props.toggleButton)) {
-
-      return _react.cloneElement(this.props.toggleButton, {
-        className: _classnames2['default'](this.props.toggleButton.props.className, 'navbar-toggle'),
-        onClick: _utilsCreateChainedFunction2['default'](this.handleToggle, this.props.toggleButton.props.onClick)
-      });
-    }
-
-    children = this.props.toggleButton != null ? this.props.toggleButton : [_react2['default'].createElement(
-      'span',
-      { className: 'sr-only', key: 0 },
-      'Toggle navigation'
-    ), _react2['default'].createElement('span', { className: 'icon-bar', key: 1 }), _react2['default'].createElement('span', { className: 'icon-bar', key: 2 }), _react2['default'].createElement('span', { className: 'icon-bar', key: 3 })];
-
-    return _react2['default'].createElement(
-      'button',
-      { className: 'navbar-toggle', type: 'button', onClick: this.handleToggle },
-      children
-    );
-  }
-});
-
-exports['default'] = Navbar;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./utils/CustomPropTypes":126,"./utils/ValidComponentChildren":129,"./utils/createChainedFunction":131,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],99:[function(require,module,exports){
-/* eslint react/prop-types: [2, {ignore: ["container", "containerPadding", "target", "placement", "children"] }] */
-/* These properties are validated in 'Portal' and 'Position' components */
-
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Portal = require('./Portal');
-
-var _Portal2 = _interopRequireDefault(_Portal);
-
-var _Position = require('./Position');
-
-var _Position2 = _interopRequireDefault(_Position);
-
-var _RootCloseWrapper = require('./RootCloseWrapper');
-
-var _RootCloseWrapper2 = _interopRequireDefault(_RootCloseWrapper);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var _Fade = require('./Fade');
-
-var _Fade2 = _interopRequireDefault(_Fade);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var Overlay = (function (_React$Component) {
-  _inherits(Overlay, _React$Component);
-
-  function Overlay(props, context) {
-    _classCallCheck(this, Overlay);
-
-    _React$Component.call(this, props, context);
-
-    this.state = { exited: !props.show };
-    this.onHiddenListener = this.handleHidden.bind(this);
-  }
-
-  Overlay.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    if (nextProps.show) {
-      this.setState({ exited: false });
-    } else if (!nextProps.animation) {
-      // Otherwise let handleHidden take care of marking exited.
-      this.setState({ exited: true });
-    }
-  };
-
-  Overlay.prototype.render = function render() {
-    var _props = this.props;
-    var container = _props.container;
-    var containerPadding = _props.containerPadding;
-    var target = _props.target;
-    var placement = _props.placement;
-    var rootClose = _props.rootClose;
-    var children = _props.children;
-    var Transition = _props.animation;
-
-    var props = _objectWithoutProperties(_props, ['container', 'containerPadding', 'target', 'placement', 'rootClose', 'children', 'animation']);
-
-    if (Transition === true) {
-      Transition = _Fade2['default'];
-    }
-
-    // Don't un-render the overlay while it's transitioning out.
-    var mountOverlay = props.show || Transition && !this.state.exited;
-    if (!mountOverlay) {
-      // Don't bother showing anything if we don't have to.
-      return null;
-    }
-
-    var child = children;
-
-    // Position is be inner-most because it adds inline styles into the child,
-    // which the other wrappers don't forward correctly.
-    child = _react2['default'].createElement(
-      _Position2['default'],
-      { container: container, containerPadding: containerPadding, target: target, placement: placement },
-      child
-    );
-
-    if (Transition) {
-      var onExit = props.onExit;
-      var onExiting = props.onExiting;
-      var onEnter = props.onEnter;
-      var onEntering = props.onEntering;
-      var onEntered = props.onEntered;
-
-      // This animates the child node by injecting props, so it must precede
-      // anything that adds a wrapping div.
-      child = _react2['default'].createElement(
-        Transition,
-        {
-          'in': props.show,
-          transitionAppear: true,
-          onExit: onExit,
-          onExiting: onExiting,
-          onExited: this.onHiddenListener,
-          onEnter: onEnter,
-          onEntering: onEntering,
-          onEntered: onEntered
-        },
-        child
-      );
-    } else {
-      child = _react.cloneElement(child, {
-        className: _classnames2['default']('in', child.props.className)
-      });
-    }
-
-    // This goes after everything else because it adds a wrapping div.
-    if (rootClose) {
-      child = _react2['default'].createElement(
-        _RootCloseWrapper2['default'],
-        { onRootClose: props.onHide },
-        child
-      );
-    }
-
-    return _react2['default'].createElement(
-      _Portal2['default'],
-      { container: container },
-      child
-    );
-  };
-
-  Overlay.prototype.handleHidden = function handleHidden() {
-    this.setState({ exited: true });
-
-    if (this.props.onExited) {
-      var _props2;
-
-      (_props2 = this.props).onExited.apply(_props2, arguments);
-    }
-  };
-
-  return Overlay;
-})(_react2['default'].Component);
-
-Overlay.propTypes = _extends({}, _Portal2['default'].propTypes, _Position2['default'].propTypes, {
-  /**
-   * Set the visibility of the Overlay
-   */
-  show: _react2['default'].PropTypes.bool,
-  /**
-   * Specify whether the overlay should trigger onHide when the user clicks outside the overlay
-   */
-  rootClose: _react2['default'].PropTypes.bool,
-  /**
-   * A Callback fired by the Overlay when it wishes to be hidden.
-   */
-  onHide: _react2['default'].PropTypes.func,
-
-  /**
-   * Use animation
-   */
-  animation: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.bool, _utilsCustomPropTypes2['default'].elementType]),
-
-  /**
-   * Callback fired before the Overlay transitions in
-   */
-  onEnter: _react2['default'].PropTypes.func,
-
-  /**
-   * Callback fired as the Overlay begins to transition in
-   */
-  onEntering: _react2['default'].PropTypes.func,
-
-  /**
-   * Callback fired after the Overlay finishes transitioning in
-   */
-  onEntered: _react2['default'].PropTypes.func,
-
-  /**
-   * Callback fired right before the Overlay transitions out
-   */
-  onExit: _react2['default'].PropTypes.func,
-
-  /**
-   * Callback fired as the Overlay begins to transition out
-   */
-  onExiting: _react2['default'].PropTypes.func,
-
-  /**
-   * Callback fired after the Overlay finishes transitioning out
-   */
-  onExited: _react2['default'].PropTypes.func
-});
-
-Overlay.defaultProps = {
-  animation: _Fade2['default'],
-  rootClose: false,
-  show: false
-};
-
-exports['default'] = Overlay;
-module.exports = exports['default'];
-},{"./Fade":75,"./Portal":109,"./Position":110,"./RootCloseWrapper":112,"./utils/CustomPropTypes":126,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/object-without-properties":148,"classnames":176,"react":371}],100:[function(require,module,exports){
-/*eslint-disable react/prop-types */
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _Object$keys = require('babel-runtime/core-js/object/keys')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var _utilsCreateContextWrapper = require('./utils/createContextWrapper');
-
-var _utilsCreateContextWrapper2 = _interopRequireDefault(_utilsCreateContextWrapper);
-
-var _Overlay = require('./Overlay');
-
-var _Overlay2 = _interopRequireDefault(_Overlay);
-
-var _reactLibWarning = require('react/lib/warning');
-
-var _reactLibWarning2 = _interopRequireDefault(_reactLibWarning);
-
-var _lodashObjectPick = require('lodash/object/pick');
-
-var _lodashObjectPick2 = _interopRequireDefault(_lodashObjectPick);
-
-/**
- * Check if value one is inside or equal to the of value
- *
- * @param {string} one
- * @param {string|array} of
- * @returns {boolean}
- */
-function isOneOf(one, of) {
-  if (Array.isArray(of)) {
-    return of.indexOf(one) >= 0;
-  }
-  return one === of;
-}
-
-var OverlayTrigger = _react2['default'].createClass({
-  displayName: 'OverlayTrigger',
-
-  propTypes: _extends({}, _Overlay2['default'].propTypes, {
-
-    /**
-    * Specify which action or actions trigger Overlay visibility
-    */
-    trigger: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.oneOf(['click', 'hover', 'focus']), _react2['default'].PropTypes.arrayOf(_react2['default'].PropTypes.oneOf(['click', 'hover', 'focus']))]),
-
-    /**
-     * A millisecond delay amount to show and hide the Overlay once triggered
-     */
-    delay: _react2['default'].PropTypes.number,
-    /**
-     * A millisecond delay amount before showing the Overlay once triggered.
-     */
-    delayShow: _react2['default'].PropTypes.number,
-    /**
-     * A millisecond delay amount before hiding the Overlay once triggered.
-     */
-    delayHide: _react2['default'].PropTypes.number,
-
-    /**
-     * The initial visibility state of the Overlay, for more nuanced visibility controll consider
-     * using the Overlay component directly.
-     */
-    defaultOverlayShown: _react2['default'].PropTypes.bool,
-
-    /**
-     * An element or text to overlay next to the target.
-     */
-    overlay: _react2['default'].PropTypes.node.isRequired,
-
-    /**
-     * @private
-     */
-    onBlur: _react2['default'].PropTypes.func,
-    /**
-     * @private
-     */
-    onClick: _react2['default'].PropTypes.func,
-    /**
-     * @private
-     */
-    onFocus: _react2['default'].PropTypes.func,
-    /**
-     * @private
-     */
-    onMouseEnter: _react2['default'].PropTypes.func,
-    /**
-     * @private
-     */
-    onMouseLeave: _react2['default'].PropTypes.func,
-
-    //override specific overlay props
-    /**
-     * @private
-     */
-    target: function target() {},
-    /**
-    * @private
-    */
-    onHide: function onHide() {},
-    /**
-     * @private
-     */
-    show: function show() {}
-  }),
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      defaultOverlayShown: false,
-      trigger: ['hover', 'focus']
-    };
-  },
-
-  getInitialState: function getInitialState() {
-    return {
-      isOverlayShown: this.props.defaultOverlayShown
-    };
-  },
-
-  show: function show() {
-    this.setState({
-      isOverlayShown: true
-    });
-  },
-
-  hide: function hide() {
-    this.setState({
-      isOverlayShown: false
-    });
-  },
-
-  toggle: function toggle() {
-    if (this.state.isOverlayShown) {
-      this.hide();
-    } else {
-      this.show();
-    }
-  },
-
-  componentDidMount: function componentDidMount() {
-    this._mountNode = document.createElement('div');
-    _react2['default'].render(this._overlay, this._mountNode);
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    _react2['default'].unmountComponentAtNode(this._mountNode);
-    this._mountNode = null;
-    clearTimeout(this._hoverDelay);
-  },
-
-  componentDidUpdate: function componentDidUpdate() {
-    if (this._mountNode) {
-      _react2['default'].render(this._overlay, this._mountNode);
-    }
-  },
-
-  getOverlayTarget: function getOverlayTarget() {
-    return _react2['default'].findDOMNode(this);
-  },
-
-  getOverlay: function getOverlay() {
-    var overlayProps = _extends({}, _lodashObjectPick2['default'](this.props, _Object$keys(_Overlay2['default'].propTypes)), {
-      show: this.state.isOverlayShown,
-      onHide: this.hide,
-      target: this.getOverlayTarget,
-      onExit: this.props.onExit,
-      onExiting: this.props.onExiting,
-      onExited: this.props.onExited,
-      onEnter: this.props.onEnter,
-      onEntering: this.props.onEntering,
-      onEntered: this.props.onEntered
-    });
-
-    var overlay = _react.cloneElement(this.props.overlay, {
-      placement: overlayProps.placement,
-      container: overlayProps.container
-    });
-
-    return _react2['default'].createElement(
-      _Overlay2['default'],
-      overlayProps,
-      overlay
-    );
-  },
-
-  render: function render() {
-    var trigger = _react2['default'].Children.only(this.props.children);
-
-    var props = {
-      'aria-describedby': this.props.overlay.props.id
-    };
-
-    // create in render otherwise owner is lost...
-    this._overlay = this.getOverlay();
-
-    props.onClick = _utilsCreateChainedFunction2['default'](trigger.props.onClick, this.props.onClick);
-
-    if (isOneOf('click', this.props.trigger)) {
-      props.onClick = _utilsCreateChainedFunction2['default'](this.toggle, props.onClick);
-    }
-
-    if (isOneOf('hover', this.props.trigger)) {
-      _reactLibWarning2['default'](!(this.props.trigger === 'hover'), '[react-bootstrap] Specifying only the `"hover"` trigger limits the visibilty of the overlay to just mouse users. ' + 'Consider also including the `"focus"` trigger so that touch and keyboard only users can see the overlay as well.');
-
-      props.onMouseOver = _utilsCreateChainedFunction2['default'](this.handleDelayedShow, this.props.onMouseOver);
-      props.onMouseOut = _utilsCreateChainedFunction2['default'](this.handleDelayedHide, this.props.onMouseOut);
-    }
-
-    if (isOneOf('focus', this.props.trigger)) {
-      props.onFocus = _utilsCreateChainedFunction2['default'](this.handleDelayedShow, this.props.onFocus);
-      props.onBlur = _utilsCreateChainedFunction2['default'](this.handleDelayedHide, this.props.onBlur);
-    }
-
-    return _react.cloneElement(trigger, props);
-  },
-
-  handleDelayedShow: function handleDelayedShow() {
-    var _this = this;
-
-    if (this._hoverDelay != null) {
-      clearTimeout(this._hoverDelay);
-      this._hoverDelay = null;
-      return;
-    }
-
-    var delay = this.props.delayShow != null ? this.props.delayShow : this.props.delay;
-
-    if (!delay) {
-      this.show();
-      return;
-    }
-
-    this._hoverDelay = setTimeout(function () {
-      _this._hoverDelay = null;
-      _this.show();
-    }, delay);
-  },
-
-  handleDelayedHide: function handleDelayedHide() {
-    var _this2 = this;
-
-    if (this._hoverDelay != null) {
-      clearTimeout(this._hoverDelay);
-      this._hoverDelay = null;
-      return;
-    }
-
-    var delay = this.props.delayHide != null ? this.props.delayHide : this.props.delay;
-
-    if (!delay) {
-      this.hide();
-      return;
-    }
-
-    this._hoverDelay = setTimeout(function () {
-      _this2._hoverDelay = null;
-      _this2.hide();
-    }, delay);
-  }
-
-});
-
-/**
- * Creates a new OverlayTrigger class that forwards the relevant context
- *
- * This static method should only be called at the module level, instead of in
- * e.g. a render() method, because it's expensive to create new classes.
- *
- * For example, you would want to have:
- *
- * > export default OverlayTrigger.withContext({
- * >   myContextKey: React.PropTypes.object
- * > });
- *
- * and import this when needed.
- */
-OverlayTrigger.withContext = _utilsCreateContextWrapper2['default'](OverlayTrigger, 'overlay');
-
-exports['default'] = OverlayTrigger;
-module.exports = exports['default'];
-},{"./Overlay":99,"./utils/createChainedFunction":131,"./utils/createContextWrapper":132,"babel-runtime/core-js/object/keys":141,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"lodash/object/pick":53,"react":371,"react/lib/warning":370}],101:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var PageHeader = _react2['default'].createClass({
-  displayName: 'PageHeader',
-
-  render: function render() {
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'page-header') }),
-      _react2['default'].createElement(
-        'h1',
-        null,
-        this.props.children
-      )
-    );
-  }
-});
-
-exports['default'] = PageHeader;
-module.exports = exports['default'];
-},{"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],102:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _SafeAnchor = require('./SafeAnchor');
-
-var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
-
-var PageItem = _react2['default'].createClass({
-  displayName: 'PageItem',
-
-  propTypes: {
-    href: _react2['default'].PropTypes.string,
-    target: _react2['default'].PropTypes.string,
-    title: _react2['default'].PropTypes.string,
-    disabled: _react2['default'].PropTypes.bool,
-    previous: _react2['default'].PropTypes.bool,
-    next: _react2['default'].PropTypes.bool,
-    onSelect: _react2['default'].PropTypes.func,
-    eventKey: _react2['default'].PropTypes.any
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      disabled: false,
-      previous: false,
-      next: false
-    };
-  },
-
-  render: function render() {
-    var classes = {
-      'disabled': this.props.disabled,
-      'previous': this.props.previous,
-      'next': this.props.next
-    };
-
-    return _react2['default'].createElement(
-      'li',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, classes) }),
-      _react2['default'].createElement(
-        _SafeAnchor2['default'],
-        {
-          href: this.props.href,
-          title: this.props.title,
-          target: this.props.target,
-          onClick: this.handleSelect },
-        this.props.children
-      )
-    );
-  },
-
-  handleSelect: function handleSelect(e) {
-    if (this.props.onSelect || this.props.disabled) {
-      e.preventDefault();
-
-      if (!this.props.disabled) {
-        this.props.onSelect(this.props.eventKey, this.props.href, this.props.target);
-      }
-    }
-  }
-});
-
-exports['default'] = PageItem;
-module.exports = exports['default'];
-},{"./SafeAnchor":114,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],103:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var Pager = _react2['default'].createClass({
-  displayName: 'Pager',
-
-  propTypes: {
-    onSelect: _react2['default'].PropTypes.func
-  },
-
-  render: function render() {
-    return _react2['default'].createElement(
-      'ul',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, 'pager') }),
-      _utilsValidComponentChildren2['default'].map(this.props.children, this.renderPageItem)
-    );
-  },
-
-  renderPageItem: function renderPageItem(child, index) {
-    return _react.cloneElement(child, {
-      onSelect: _utilsCreateChainedFunction2['default'](child.props.onSelect, this.props.onSelect),
-      key: child.key ? child.key : index
-    });
-  }
-});
-
-exports['default'] = Pager;
-module.exports = exports['default'];
-},{"./utils/ValidComponentChildren":129,"./utils/createChainedFunction":131,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],104:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _PaginationButton = require('./PaginationButton');
-
-var _PaginationButton2 = _interopRequireDefault(_PaginationButton);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var _SafeAnchor = require('./SafeAnchor');
-
-var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
-
-var Pagination = _react2['default'].createClass({
-  displayName: 'Pagination',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    activePage: _react2['default'].PropTypes.number,
-    items: _react2['default'].PropTypes.number,
-    maxButtons: _react2['default'].PropTypes.number,
-    ellipsis: _react2['default'].PropTypes.bool,
-    first: _react2['default'].PropTypes.bool,
-    last: _react2['default'].PropTypes.bool,
-    prev: _react2['default'].PropTypes.bool,
-    next: _react2['default'].PropTypes.bool,
-    onSelect: _react2['default'].PropTypes.func,
-    /**
-     * You can use a custom element for the buttons
-     */
-    buttonComponentClass: _utilsCustomPropTypes2['default'].elementType
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      activePage: 1,
-      items: 1,
-      maxButtons: 0,
-      first: false,
-      last: false,
-      prev: false,
-      next: false,
-      ellipsis: true,
-      buttonComponentClass: _SafeAnchor2['default'],
-      bsClass: 'pagination'
-    };
-  },
-
-  renderPageButtons: function renderPageButtons() {
-    var pageButtons = [];
-    var startPage = undefined,
-        endPage = undefined,
-        hasHiddenPagesAfter = undefined;
-    var _props = this.props;
-    var maxButtons = _props.maxButtons;
-    var activePage = _props.activePage;
-    var items = _props.items;
-    var onSelect = _props.onSelect;
-    var ellipsis = _props.ellipsis;
-    var buttonComponentClass = _props.buttonComponentClass;
-
-    if (maxButtons) {
-      var hiddenPagesBefore = activePage - parseInt(maxButtons / 2);
-      startPage = hiddenPagesBefore > 1 ? hiddenPagesBefore : 1;
-      hasHiddenPagesAfter = startPage + maxButtons <= items;
-
-      if (!hasHiddenPagesAfter) {
-        endPage = items;
-        startPage = items - maxButtons + 1;
-        if (startPage < 1) {
-          startPage = 1;
-        }
-      } else {
-        endPage = startPage + maxButtons - 1;
-      }
-    } else {
-      startPage = 1;
-      endPage = items;
-    }
-
-    for (var pagenumber = startPage; pagenumber <= endPage; pagenumber++) {
-      pageButtons.push(_react2['default'].createElement(
-        _PaginationButton2['default'],
-        {
-          key: pagenumber,
-          eventKey: pagenumber,
-          active: pagenumber === activePage,
-          onSelect: onSelect,
-          buttonComponentClass: buttonComponentClass },
-        pagenumber
-      ));
-    }
-
-    if (maxButtons && hasHiddenPagesAfter && ellipsis) {
-      pageButtons.push(_react2['default'].createElement(
-        _PaginationButton2['default'],
-        {
-          key: 'ellipsis',
-          disabled: true,
-          buttonComponentClass: buttonComponentClass },
-        _react2['default'].createElement(
-          'span',
-          { 'aria-label': 'More' },
-          '...'
-        )
-      ));
-    }
-
-    return pageButtons;
-  },
-
-  renderPrev: function renderPrev() {
-    if (!this.props.prev) {
-      return null;
-    }
-
-    return _react2['default'].createElement(
-      _PaginationButton2['default'],
-      {
-        key: 'prev',
-        eventKey: this.props.activePage - 1,
-        disabled: this.props.activePage === 1,
-        onSelect: this.props.onSelect,
-        buttonComponentClass: this.props.buttonComponentClass },
-      _react2['default'].createElement(
-        'span',
-        { 'aria-label': 'Previous' },
-        '‹'
-      )
-    );
-  },
-
-  renderNext: function renderNext() {
-    if (!this.props.next) {
-      return null;
-    }
-
-    return _react2['default'].createElement(
-      _PaginationButton2['default'],
-      {
-        key: 'next',
-        eventKey: this.props.activePage + 1,
-        disabled: this.props.activePage >= this.props.items,
-        onSelect: this.props.onSelect,
-        buttonComponentClass: this.props.buttonComponentClass },
-      _react2['default'].createElement(
-        'span',
-        { 'aria-label': 'Next' },
-        '›'
-      )
-    );
-  },
-
-  renderFirst: function renderFirst() {
-    if (!this.props.first) {
-      return null;
-    }
-
-    return _react2['default'].createElement(
-      _PaginationButton2['default'],
-      {
-        key: 'first',
-        eventKey: 1,
-        disabled: this.props.activePage === 1,
-        onSelect: this.props.onSelect,
-        buttonComponentClass: this.props.buttonComponentClass },
-      _react2['default'].createElement(
-        'span',
-        { 'aria-label': 'First' },
-        '«'
-      )
-    );
-  },
-
-  renderLast: function renderLast() {
-    if (!this.props.last) {
-      return null;
-    }
-
-    return _react2['default'].createElement(
-      _PaginationButton2['default'],
-      {
-        key: 'last',
-        eventKey: this.props.items,
-        disabled: this.props.activePage >= this.props.items,
-        onSelect: this.props.onSelect,
-        buttonComponentClass: this.props.buttonComponentClass },
-      _react2['default'].createElement(
-        'span',
-        { 'aria-label': 'Last' },
-        '»'
-      )
-    );
-  },
-
-  render: function render() {
-    return _react2['default'].createElement(
-      'ul',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, this.getBsClassSet()) }),
-      this.renderFirst(),
-      this.renderPrev(),
-      this.renderPageButtons(),
-      this.renderNext(),
-      this.renderLast()
-    );
-  }
-});
-
-exports['default'] = Pagination;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./PaginationButton":105,"./SafeAnchor":114,"./utils/CustomPropTypes":126,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],105:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _utilsCreateSelectedEvent = require('./utils/createSelectedEvent');
-
-var _utilsCreateSelectedEvent2 = _interopRequireDefault(_utilsCreateSelectedEvent);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var PaginationButton = _react2['default'].createClass({
-  displayName: 'PaginationButton',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    className: _react2['default'].PropTypes.string,
-    eventKey: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.number]),
-    onSelect: _react2['default'].PropTypes.func,
-    disabled: _react2['default'].PropTypes.bool,
-    active: _react2['default'].PropTypes.bool,
-    /**
-     * You can use a custom element for this component
-     */
-    buttonComponentClass: _utilsCustomPropTypes2['default'].elementType
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      active: false,
-      disabled: false
-    };
-  },
-
-  handleClick: function handleClick(event) {
-    if (this.props.disabled) {
-      return;
-    }
-
-    if (this.props.onSelect) {
-      var selectedEvent = _utilsCreateSelectedEvent2['default'](this.props.eventKey);
-      this.props.onSelect(event, selectedEvent);
-    }
-  },
-
-  render: function render() {
-    var classes = _extends({
-      active: this.props.active,
-      disabled: this.props.disabled
-    }, this.getBsClassSet());
-
-    var _props = this.props;
-    var className = _props.className;
-
-    var anchorProps = _objectWithoutProperties(_props, ['className']);
-
-    var ButtonComponentClass = this.props.buttonComponentClass;
-
-    return _react2['default'].createElement(
-      'li',
-      { className: _classnames2['default'](className, classes) },
-      _react2['default'].createElement(ButtonComponentClass, _extends({}, anchorProps, {
-        onClick: this.handleClick }))
-    );
-  }
-});
-
-exports['default'] = PaginationButton;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./utils/CustomPropTypes":126,"./utils/createSelectedEvent":133,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/object-without-properties":148,"classnames":176,"react":371}],106:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _Collapse = require('./Collapse');
-
-var _Collapse2 = _interopRequireDefault(_Collapse);
-
-var Panel = _react2['default'].createClass({
-  displayName: 'Panel',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    collapsible: _react2['default'].PropTypes.bool,
-    onSelect: _react2['default'].PropTypes.func,
-    header: _react2['default'].PropTypes.node,
-    id: _react2['default'].PropTypes.string,
-    footer: _react2['default'].PropTypes.node,
-    defaultExpanded: _react2['default'].PropTypes.bool,
-    expanded: _react2['default'].PropTypes.bool,
-    eventKey: _react2['default'].PropTypes.any
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'panel',
-      bsStyle: 'default',
-      defaultExpanded: false
-    };
-  },
-
-  getInitialState: function getInitialState() {
-    return {
-      expanded: this.props.defaultExpanded
-    };
-  },
-
-  handleSelect: function handleSelect(e) {
-    e.selected = true;
-
-    if (this.props.onSelect) {
-      this.props.onSelect(e, this.props.eventKey);
-    } else {
-      e.preventDefault();
-    }
-
-    if (e.selected) {
-      this.handleToggle();
-    }
-  },
-
-  handleToggle: function handleToggle() {
-    this.setState({ expanded: !this.state.expanded });
-  },
-
-  isExpanded: function isExpanded() {
-    return this.props.expanded != null ? this.props.expanded : this.state.expanded;
-  },
-
-  render: function render() {
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        className: _classnames2['default'](this.props.className, this.getBsClassSet()),
-        id: this.props.collapsible ? null : this.props.id, onSelect: null }),
-      this.renderHeading(),
-      this.props.collapsible ? this.renderCollapsibleBody() : this.renderBody(),
-      this.renderFooter()
-    );
-  },
-
-  renderCollapsibleBody: function renderCollapsibleBody() {
-    var collapseClass = this.prefixClass('collapse');
-
-    return _react2['default'].createElement(
-      _Collapse2['default'],
-      { 'in': this.isExpanded() },
-      _react2['default'].createElement(
-        'div',
-        {
-          className: collapseClass,
-          id: this.props.id,
-          ref: 'panel' },
-        this.renderBody()
-      )
-    );
-  },
-
-  renderBody: function renderBody() {
-    var allChildren = this.props.children;
-    var bodyElements = [];
-    var panelBodyChildren = [];
-    var bodyClass = this.prefixClass('body');
-
-    function getProps() {
-      return { key: bodyElements.length };
-    }
-
-    function addPanelChild(child) {
-      bodyElements.push(_react.cloneElement(child, getProps()));
-    }
-
-    function addPanelBody(children) {
-      bodyElements.push(_react2['default'].createElement(
-        'div',
-        _extends({ className: bodyClass }, getProps()),
-        children
-      ));
-    }
-
-    function maybeRenderPanelBody() {
-      if (panelBodyChildren.length === 0) {
-        return;
-      }
-
-      addPanelBody(panelBodyChildren);
-      panelBodyChildren = [];
-    }
-
-    // Handle edge cases where we should not iterate through children.
-    if (!Array.isArray(allChildren) || allChildren.length === 0) {
-      if (this.shouldRenderFill(allChildren)) {
-        addPanelChild(allChildren);
-      } else {
-        addPanelBody(allChildren);
-      }
-    } else {
-
-      allChildren.forEach((function (child) {
-        if (this.shouldRenderFill(child)) {
-          maybeRenderPanelBody();
-
-          // Separately add the filled element.
-          addPanelChild(child);
-        } else {
-          panelBodyChildren.push(child);
-        }
-      }).bind(this));
-
-      maybeRenderPanelBody();
-    }
-
-    return bodyElements;
-  },
-
-  shouldRenderFill: function shouldRenderFill(child) {
-    return _react2['default'].isValidElement(child) && child.props.fill != null;
-  },
-
-  renderHeading: function renderHeading() {
-    var header = this.props.header;
-
-    if (!header) {
-      return null;
-    }
-
-    if (!_react2['default'].isValidElement(header) || Array.isArray(header)) {
-      header = this.props.collapsible ? this.renderCollapsibleTitle(header) : header;
-    } else {
-      var className = _classnames2['default'](this.prefixClass('title'), header.props.className);
-
-      if (this.props.collapsible) {
-        header = _react.cloneElement(header, {
-          className: className,
-          children: this.renderAnchor(header.props.children)
-        });
-      } else {
-        header = _react.cloneElement(header, { className: className });
-      }
-    }
-
-    return _react2['default'].createElement(
-      'div',
-      { className: this.prefixClass('heading') },
-      header
-    );
-  },
-
-  renderAnchor: function renderAnchor(header) {
-    return _react2['default'].createElement(
-      'a',
-      {
-        href: '#' + (this.props.id || ''),
-        'aria-controls': this.props.collapsible ? this.props.id : null,
-        className: this.isExpanded() ? null : 'collapsed',
-        'aria-expanded': this.isExpanded(),
-        onClick: this.handleSelect },
-      header
-    );
-  },
-
-  renderCollapsibleTitle: function renderCollapsibleTitle(header) {
-    return _react2['default'].createElement(
-      'h4',
-      { className: this.prefixClass('title') },
-      this.renderAnchor(header)
-    );
-  },
-
-  renderFooter: function renderFooter() {
-    if (!this.props.footer) {
-      return null;
-    }
-
-    return _react2['default'].createElement(
-      'div',
-      { className: this.prefixClass('footer') },
-      this.props.footer
-    );
-  }
-});
-
-exports['default'] = Panel;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./Collapse":69,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],107:[function(require,module,exports){
-/* eslint react/prop-types: [2, {ignore: "bsStyle"}] */
-/* BootstrapMixin contains `bsStyle` type validation */
-
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var PanelGroup = _react2['default'].createClass({
-  displayName: 'PanelGroup',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    accordion: _react2['default'].PropTypes.bool,
-    activeKey: _react2['default'].PropTypes.any,
-    className: _react2['default'].PropTypes.string,
-    children: _react2['default'].PropTypes.node,
-    defaultActiveKey: _react2['default'].PropTypes.any,
-    onSelect: _react2['default'].PropTypes.func
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      accordion: false,
-      bsClass: 'panel-group'
-    };
-  },
-
-  getInitialState: function getInitialState() {
-    var defaultActiveKey = this.props.defaultActiveKey;
-
-    return {
-      activeKey: defaultActiveKey
-    };
-  },
-
-  render: function render() {
-    var classes = this.getBsClassSet();
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes), onSelect: null }),
-      _utilsValidComponentChildren2['default'].map(this.props.children, this.renderPanel)
-    );
-  },
-
-  renderPanel: function renderPanel(child, index) {
-    var activeKey = this.props.activeKey != null ? this.props.activeKey : this.state.activeKey;
-
-    var props = {
-      bsStyle: child.props.bsStyle || this.props.bsStyle,
-      key: child.key ? child.key : index,
-      ref: child.ref
-    };
-
-    if (this.props.accordion) {
-      props.collapsible = true;
-      props.expanded = child.props.eventKey === activeKey;
-      props.onSelect = this.handleSelect;
-    }
-
-    return _react.cloneElement(child, props);
-  },
-
-  shouldComponentUpdate: function shouldComponentUpdate() {
-    // Defer any updates to this component during the `onSelect` handler.
-    return !this._isChanging;
-  },
-
-  handleSelect: function handleSelect(e, key) {
-    e.preventDefault();
-
-    if (this.props.onSelect) {
-      this._isChanging = true;
-      this.props.onSelect(key);
-      this._isChanging = false;
-    }
-
-    if (this.state.activeKey === key) {
-      key = null;
-    }
-
-    this.setState({
-      activeKey: key
-    });
-  }
-});
-
-exports['default'] = PanelGroup;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./utils/ValidComponentChildren":129,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],108:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var Popover = _react2['default'].createClass({
-  displayName: 'Popover',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    /**
-     * An html id attribute, necessary for accessibility
-     * @type {string}
-     * @required
-     */
-    id: _utilsCustomPropTypes2['default'].isRequiredForA11y(_react2['default'].PropTypes.string),
-
-    /**
-     * Sets the direction the Popover is positioned towards.
-     */
-    placement: _react2['default'].PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
-
-    /**
-     * The "left" position value for the Popover.
-     */
-    positionLeft: _react2['default'].PropTypes.number,
-    /**
-     * The "top" position value for the Popover.
-     */
-    positionTop: _react2['default'].PropTypes.number,
-    /**
-     * The "left" position value for the Popover arrow.
-     */
-    arrowOffsetLeft: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.string]),
-    /**
-     * The "top" position value for the Popover arrow.
-     */
-    arrowOffsetTop: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.string]),
-    /**
-     * Title text
-     */
-    title: _react2['default'].PropTypes.node
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      placement: 'right'
-    };
-  },
-
-  render: function render() {
-    var _classes;
-
-    var classes = (_classes = {
-      'popover': true
-    }, _classes[this.props.placement] = true, _classes);
-
-    var style = _extends({
-      'left': this.props.positionLeft,
-      'top': this.props.positionTop,
-      'display': 'block'
-    }, this.props.style);
-
-    // eslint-disable-line react/prop-types
-    var arrowStyle = {
-      'left': this.props.arrowOffsetLeft,
-      'top': this.props.arrowOffsetTop
-    };
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({ role: 'tooltip' }, this.props, { className: _classnames2['default'](this.props.className, classes), style: style, title: null }),
-      _react2['default'].createElement('div', { className: 'arrow', style: arrowStyle }),
-      this.props.title ? this.renderTitle() : null,
-      _react2['default'].createElement(
-        'div',
-        { className: 'popover-content' },
-        this.props.children
-      )
-    );
-  },
-
-  renderTitle: function renderTitle() {
-    return _react2['default'].createElement(
-      'h3',
-      { className: 'popover-title' },
-      this.props.title
-    );
-  }
-});
-
-exports['default'] = Popover;
-module.exports = exports['default'];
-// we don't want to expose the `style` property
-},{"./BootstrapMixin":61,"./utils/CustomPropTypes":126,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],109:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var _utilsDomUtils = require('./utils/domUtils');
-
-var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
-
-var Portal = _react2['default'].createClass({
-
-  displayName: 'Portal',
-
-  propTypes: {
-    /**
-     * The DOM Node that the Component will render it's children into
-     */
-    container: _utilsCustomPropTypes2['default'].mountable
-  },
-
-  componentDidMount: function componentDidMount() {
-    this._renderOverlay();
-  },
-
-  componentDidUpdate: function componentDidUpdate() {
-    this._renderOverlay();
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    this._unrenderOverlay();
-    this._unmountOverlayTarget();
-  },
-
-  _mountOverlayTarget: function _mountOverlayTarget() {
-    if (!this._overlayTarget) {
-      this._overlayTarget = document.createElement('div');
-      this.getContainerDOMNode().appendChild(this._overlayTarget);
-    }
-  },
-
-  _unmountOverlayTarget: function _unmountOverlayTarget() {
-    if (this._overlayTarget) {
-      this.getContainerDOMNode().removeChild(this._overlayTarget);
-      this._overlayTarget = null;
-    }
-  },
-
-  _renderOverlay: function _renderOverlay() {
-    var overlay = !this.props.children ? null : _react2['default'].Children.only(this.props.children);
-
-    // Save reference for future access.
-    if (overlay !== null) {
-      this._mountOverlayTarget();
-      this._overlayInstance = _react2['default'].render(overlay, this._overlayTarget);
-    } else {
-      // Unrender if the component is null for transitions to null
-      this._unrenderOverlay();
-      this._unmountOverlayTarget();
-    }
-  },
-
-  _unrenderOverlay: function _unrenderOverlay() {
-    if (this._overlayTarget) {
-      _react2['default'].unmountComponentAtNode(this._overlayTarget);
-      this._overlayInstance = null;
-    }
-  },
-
-  render: function render() {
-    return null;
-  },
-
-  getOverlayDOMNode: function getOverlayDOMNode() {
-    if (!this.isMounted()) {
-      throw new Error('getOverlayDOMNode(): A component must be mounted to have a DOM node.');
-    }
-
-    if (this._overlayInstance) {
-      if (this._overlayInstance.getWrappedDOMNode) {
-        return this._overlayInstance.getWrappedDOMNode();
-      } else {
-        return _react2['default'].findDOMNode(this._overlayInstance);
-      }
-    }
-
-    return null;
-  },
-
-  getContainerDOMNode: function getContainerDOMNode() {
-    return _react2['default'].findDOMNode(this.props.container) || _utilsDomUtils2['default'].ownerDocument(this).body;
-  }
-});
-
-exports['default'] = Portal;
-module.exports = exports['default'];
-},{"./utils/CustomPropTypes":126,"./utils/domUtils":135,"babel-runtime/helpers/interop-require-default":146,"react":371}],110:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsDomUtils = require('./utils/domUtils');
-
-var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
-
-var _utilsOverlayPositionUtils = require('./utils/overlayPositionUtils');
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var Position = (function (_React$Component) {
-  _inherits(Position, _React$Component);
-
-  function Position(props, context) {
-    _classCallCheck(this, Position);
-
-    _React$Component.call(this, props, context);
-
-    this.state = {
-      positionLeft: null,
-      positionTop: null,
-      arrowOffsetLeft: null,
-      arrowOffsetTop: null
-    };
-
-    this._needsFlush = false;
-    this._lastTarget = null;
-  }
-
-  Position.prototype.componentDidMount = function componentDidMount() {
-    this.updatePosition();
-  };
-
-  Position.prototype.componentWillReceiveProps = function componentWillReceiveProps() {
-    this._needsFlush = true;
-  };
-
-  Position.prototype.componentDidUpdate = function componentDidUpdate() {
-    if (this._needsFlush) {
-      this._needsFlush = false;
-      this.updatePosition();
-    }
-  };
-
-  Position.prototype.componentWillUnmount = function componentWillUnmount() {
-    // Probably not necessary, but just in case holding a reference to the
-    // target causes problems somewhere.
-    this._lastTarget = null;
-  };
-
-  Position.prototype.render = function render() {
-    var _props = this.props;
-    var children = _props.children;
-    var className = _props.className;
-
-    var props = _objectWithoutProperties(_props, ['children', 'className']);
-
-    var _state = this.state;
-    var positionLeft = _state.positionLeft;
-    var positionTop = _state.positionTop;
-
-    var arrowPosition = _objectWithoutProperties(_state, ['positionLeft', 'positionTop']);
-
-    var child = _react2['default'].Children.only(children);
-    return _react.cloneElement(child, _extends({}, props, arrowPosition, {
-      positionTop: positionTop,
-      positionLeft: positionLeft,
-      className: _classnames2['default'](className, child.props.className),
-      style: _extends({}, child.props.style, {
-        left: positionLeft,
-        top: positionTop
-      })
-    }));
-  };
-
-  Position.prototype.getTargetSafe = function getTargetSafe() {
-    if (!this.props.target) {
-      return null;
-    }
-
-    var target = this.props.target(this.props);
-    if (!target) {
-      // This is so we can just use === check below on all falsy targets.
-      return null;
-    }
-
-    return target;
-  };
-
-  Position.prototype.updatePosition = function updatePosition() {
-    var target = this.getTargetSafe();
-    if (target === this._lastTarget) {
-      return;
-    }
-    this._lastTarget = target;
-
-    if (!target) {
-      this.setState({
-        positionLeft: null,
-        positionTop: null,
-        arrowOffsetLeft: null,
-        arrowOffsetTop: null
-      });
-
-      return;
-    }
-
-    var overlay = _react2['default'].findDOMNode(this);
-    var container = _react2['default'].findDOMNode(this.props.container) || _utilsDomUtils2['default'].ownerDocument(this).body;
-
-    this.setState(_utilsOverlayPositionUtils.calcOverlayPosition(this.props.placement, overlay, target, container, this.props.containerPadding));
-  };
-
-  return Position;
-})(_react2['default'].Component);
-
-Position.propTypes = {
-  /**
-   * Function mapping props to DOM node the component is positioned next to
-   */
-  target: _react2['default'].PropTypes.func,
-  /**
-   * "offsetParent" of the component
-   */
-  container: _utilsCustomPropTypes2['default'].mountable,
-  /**
-   * Minimum spacing in pixels between container border and component border
-   */
-  containerPadding: _react2['default'].PropTypes.number,
-  /**
-   * How to position the component relative to the target
-   */
-  placement: _react2['default'].PropTypes.oneOf(['top', 'right', 'bottom', 'left'])
-};
-
-Position.defaultProps = {
-  containerPadding: 0,
-  placement: 'right'
-};
-
-exports['default'] = Position;
-module.exports = exports['default'];
-},{"./utils/CustomPropTypes":126,"./utils/domUtils":135,"./utils/overlayPositionUtils":137,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/object-without-properties":148,"classnames":176,"react":371}],111:[function(require,module,exports){
-/* eslint react/prop-types: [2, {ignore: "bsStyle"}] */
-/* BootstrapMixin contains `bsStyle` type validation */
-
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Interpolate = require('./Interpolate');
-
-var _Interpolate2 = _interopRequireDefault(_Interpolate);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var ProgressBar = _react2['default'].createClass({
-  displayName: 'ProgressBar',
-
-  propTypes: {
-    min: _react.PropTypes.number,
-    now: _react.PropTypes.number,
-    max: _react.PropTypes.number,
-    label: _react.PropTypes.node,
-    srOnly: _react.PropTypes.bool,
-    striped: _react.PropTypes.bool,
-    active: _react.PropTypes.bool,
-    children: onlyProgressBar,
-    className: _react2['default'].PropTypes.string,
-    interpolateClass: _react.PropTypes.node,
-    /**
-     * @private
-     */
-    isChild: _react.PropTypes.bool
-  },
-
-  mixins: [_BootstrapMixin2['default']],
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'progress-bar',
-      min: 0,
-      max: 100,
-      active: false,
-      isChild: false,
-      srOnly: false,
-      striped: false
-    };
-  },
-
-  getPercentage: function getPercentage(now, min, max) {
-    var roundPrecision = 1000;
-    return Math.round((now - min) / (max - min) * 100 * roundPrecision) / roundPrecision;
-  },
-
-  render: function render() {
-    if (this.props.isChild) {
-      return this.renderProgressBar();
-    }
-
-    var content = undefined;
-
-    if (this.props.children) {
-      content = _utilsValidComponentChildren2['default'].map(this.props.children, this.renderChildBar);
-    } else {
-      content = this.renderProgressBar();
-    }
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'progress') }),
-      content
-    );
-  },
-
-  renderChildBar: function renderChildBar(child, index) {
-    return _react.cloneElement(child, {
-      isChild: true,
-      key: child.key ? child.key : index
-    });
-  },
-
-  renderProgressBar: function renderProgressBar() {
-    var percentage = this.getPercentage(this.props.now, this.props.min, this.props.max);
-
-    var label = undefined;
-
-    if (typeof this.props.label === 'string') {
-      label = this.renderLabel(percentage);
-    } else {
-      label = this.props.label;
-    }
-
-    if (this.props.srOnly) {
-      label = _react2['default'].createElement(
-        'span',
-        { className: 'sr-only' },
-        label
-      );
-    }
-
-    var classes = _classnames2['default'](this.props.className, this.getBsClassSet(), {
-      active: this.props.active,
-      'progress-bar-striped': this.props.active || this.props.striped
-    });
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        className: classes,
-        role: 'progressbar',
-        style: { width: percentage + '%' },
-        'aria-valuenow': this.props.now,
-        'aria-valuemin': this.props.min,
-        'aria-valuemax': this.props.max }),
-      label
-    );
-  },
-
-  renderLabel: function renderLabel(percentage) {
-    var InterpolateClass = this.props.interpolateClass || _Interpolate2['default'];
-
-    return _react2['default'].createElement(
-      InterpolateClass,
-      {
-        now: this.props.now,
-        min: this.props.min,
-        max: this.props.max,
-        percent: percentage,
-        bsStyle: this.props.bsStyle },
-      this.props.label
-    );
-  }
-});
-
-/**
- * Custom propTypes checker
- */
-function onlyProgressBar(props, propName, componentName) {
-  if (props[propName]) {
-    var _ret = (function () {
-      var error = undefined,
-          childIdentifier = undefined;
-
-      _react2['default'].Children.forEach(props[propName], function (child) {
-        if (child.type !== ProgressBar) {
-          childIdentifier = child.type.displayName ? child.type.displayName : child.type;
-          error = new Error('Children of ' + componentName + ' can contain only ProgressBar components. Found ' + childIdentifier);
-        }
-      });
-
-      return {
-        v: error
-      };
-    })();
-
-    if (typeof _ret === 'object') return _ret.v;
-  }
-}
-
-exports['default'] = ProgressBar;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./Interpolate":84,"./utils/ValidComponentChildren":129,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],112:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsDomUtils = require('./utils/domUtils');
-
-var _utilsDomUtils2 = _interopRequireDefault(_utilsDomUtils);
-
-var _utilsEventListener = require('./utils/EventListener');
-
-var _utilsEventListener2 = _interopRequireDefault(_utilsEventListener);
-
-// TODO: Merge this logic with dropdown logic once #526 is done.
-
-// TODO: Consider using an ES6 symbol here, once we use babel-runtime.
-var CLICK_WAS_INSIDE = '__click_was_inside';
-
-function suppressRootClose(event) {
-  // Tag the native event to prevent the root close logic on document click.
-  // This seems safer than using event.nativeEvent.stopImmediatePropagation(),
-  // which is only supported in IE >= 9.
-  event.nativeEvent[CLICK_WAS_INSIDE] = true;
-}
-
-var RootCloseWrapper = (function (_React$Component) {
-  _inherits(RootCloseWrapper, _React$Component);
-
-  function RootCloseWrapper(props) {
-    _classCallCheck(this, RootCloseWrapper);
-
-    _React$Component.call(this, props);
-
-    this.handleDocumentClick = this.handleDocumentClick.bind(this);
-    this.handleDocumentKeyUp = this.handleDocumentKeyUp.bind(this);
-  }
-
-  RootCloseWrapper.prototype.bindRootCloseHandlers = function bindRootCloseHandlers() {
-    var doc = _utilsDomUtils2['default'].ownerDocument(this);
-
-    this._onDocumentClickListener = _utilsEventListener2['default'].listen(doc, 'click', this.handleDocumentClick);
-    this._onDocumentKeyupListener = _utilsEventListener2['default'].listen(doc, 'keyup', this.handleDocumentKeyUp);
-  };
-
-  RootCloseWrapper.prototype.handleDocumentClick = function handleDocumentClick(e) {
-    // This is now the native event.
-    if (e[CLICK_WAS_INSIDE]) {
-      return;
-    }
-
-    this.props.onRootClose();
-  };
-
-  RootCloseWrapper.prototype.handleDocumentKeyUp = function handleDocumentKeyUp(e) {
-    if (e.keyCode === 27) {
-      this.props.onRootClose();
-    }
-  };
-
-  RootCloseWrapper.prototype.unbindRootCloseHandlers = function unbindRootCloseHandlers() {
-    if (this._onDocumentClickListener) {
-      this._onDocumentClickListener.remove();
-    }
-
-    if (this._onDocumentKeyupListener) {
-      this._onDocumentKeyupListener.remove();
-    }
-  };
-
-  RootCloseWrapper.prototype.componentDidMount = function componentDidMount() {
-    this.bindRootCloseHandlers();
-  };
-
-  RootCloseWrapper.prototype.render = function render() {
-    // Wrap the child in a new element, so the child won't have to handle
-    // potentially combining multiple onClick listeners.
-    return _react2['default'].createElement(
-      'div',
-      { onClick: suppressRootClose },
-      _react2['default'].Children.only(this.props.children)
-    );
-  };
-
-  RootCloseWrapper.prototype.getWrappedDOMNode = function getWrappedDOMNode() {
-    // We can't use a ref to identify the wrapped child, since we might be
-    // stealing the ref from the owner, but we know exactly the DOM structure
-    // that will be rendered, so we can just do this to get the child's DOM
-    // node for doing size calculations in OverlayMixin.
-    return _react2['default'].findDOMNode(this).children[0];
-  };
-
-  RootCloseWrapper.prototype.componentWillUnmount = function componentWillUnmount() {
-    this.unbindRootCloseHandlers();
-  };
-
-  return RootCloseWrapper;
-})(_react2['default'].Component);
-
-exports['default'] = RootCloseWrapper;
-
-RootCloseWrapper.propTypes = {
-  onRootClose: _react2['default'].PropTypes.func.isRequired
-};
-module.exports = exports['default'];
-},{"./utils/EventListener":127,"./utils/domUtils":135,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"react":371}],113:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var Row = _react2['default'].createClass({
-  displayName: 'Row',
-
-  propTypes: {
-    /**
-     * You can use a custom element for this component
-     */
-    componentClass: _utilsCustomPropTypes2['default'].elementType
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      componentClass: 'div'
-    };
-  },
-
-  render: function render() {
-    var ComponentClass = this.props.componentClass;
-
-    return _react2['default'].createElement(
-      ComponentClass,
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, 'row') }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Row;
-module.exports = exports['default'];
-},{"./utils/CustomPropTypes":126,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],114:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-/**
- * Note: This is intended as a stop-gap for accessibility concerns that the
- * Bootstrap CSS does not address as they have styled anchors and not buttons
- * in many cases.
- */
-
-var SafeAnchor = (function (_React$Component) {
-  _inherits(SafeAnchor, _React$Component);
-
-  function SafeAnchor(props) {
-    _classCallCheck(this, SafeAnchor);
-
-    _React$Component.call(this, props);
-
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  SafeAnchor.prototype.handleClick = function handleClick(event) {
-    if (this.props.href === undefined) {
-      event.preventDefault();
-    }
-  };
-
-  SafeAnchor.prototype.render = function render() {
-    return _react2['default'].createElement('a', _extends({ role: this.props.href ? undefined : 'button'
-    }, this.props, {
-      onClick: _utilsCreateChainedFunction2['default'](this.props.onClick, this.handleClick),
-      href: this.props.href || '' }));
-  };
-
-  return SafeAnchor;
-})(_react2['default'].Component);
-
-exports['default'] = SafeAnchor;
-
-SafeAnchor.propTypes = {
-  href: _react2['default'].PropTypes.string,
-  onClick: _react2['default'].PropTypes.func
-};
-module.exports = exports['default'];
-},{"./utils/createChainedFunction":131,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"react":371}],115:[function(require,module,exports){
-/* eslint react/prop-types: [2, {ignore: "bsSize"}] */
-/* BootstrapMixin contains `bsSize` type validation */
-
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _DropdownStateMixin = require('./DropdownStateMixin');
-
-var _DropdownStateMixin2 = _interopRequireDefault(_DropdownStateMixin);
-
-var _Button = require('./Button');
-
-var _Button2 = _interopRequireDefault(_Button);
-
-var _ButtonGroup = require('./ButtonGroup');
-
-var _ButtonGroup2 = _interopRequireDefault(_ButtonGroup);
-
-var _DropdownMenu = require('./DropdownMenu');
-
-var _DropdownMenu2 = _interopRequireDefault(_DropdownMenu);
-
-var SplitButton = _react2['default'].createClass({
-  displayName: 'SplitButton',
-
-  mixins: [_BootstrapMixin2['default'], _DropdownStateMixin2['default']],
-
-  propTypes: {
-    pullRight: _react2['default'].PropTypes.bool,
-    title: _react2['default'].PropTypes.node,
-    href: _react2['default'].PropTypes.string,
-    id: _react2['default'].PropTypes.string,
-    target: _react2['default'].PropTypes.string,
-    dropdownTitle: _react2['default'].PropTypes.node,
-    dropup: _react2['default'].PropTypes.bool,
-    onClick: _react2['default'].PropTypes.func,
-    onSelect: _react2['default'].PropTypes.func,
-    disabled: _react2['default'].PropTypes.bool,
-    className: _react2['default'].PropTypes.string,
-    children: _react2['default'].PropTypes.node
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      dropdownTitle: 'Toggle dropdown',
-      disabled: false,
-      dropup: false,
-      pullRight: false
-    };
-  },
-
-  render: function render() {
-    var groupClasses = {
-      'open': this.state.open,
-      'dropup': this.props.dropup
-    };
-
-    var button = _react2['default'].createElement(
-      _Button2['default'],
-      _extends({}, this.props, {
-        ref: 'button',
-        onClick: this.handleButtonClick,
-        title: null,
-        id: null }),
-      this.props.title
-    );
-
-    var dropdownButton = _react2['default'].createElement(
-      _Button2['default'],
-      _extends({}, this.props, {
-        ref: 'dropdownButton',
-        className: _classnames2['default'](this.props.className, 'dropdown-toggle'),
-        onClick: this.handleDropdownClick,
-        title: null,
-        href: null,
-        target: null,
-        id: null }),
-      _react2['default'].createElement(
-        'span',
-        { className: 'sr-only' },
-        this.props.dropdownTitle
-      ),
-      _react2['default'].createElement('span', { className: 'caret' }),
-      _react2['default'].createElement(
-        'span',
-        { style: { letterSpacing: '-.3em' } },
-        ' '
-      )
-    );
-
-    return _react2['default'].createElement(
-      _ButtonGroup2['default'],
-      {
-        bsSize: this.props.bsSize,
-        className: _classnames2['default'](groupClasses),
-        id: this.props.id },
-      button,
-      dropdownButton,
-      _react2['default'].createElement(
-        _DropdownMenu2['default'],
-        {
-          ref: 'menu',
-          onSelect: this.handleOptionSelect,
-          'aria-labelledby': this.props.id,
-          pullRight: this.props.pullRight },
-        this.props.children
-      )
-    );
-  },
-
-  handleButtonClick: function handleButtonClick(e) {
-    if (this.state.open) {
-      this.setDropdownState(false);
-    }
-
-    if (this.props.onClick) {
-      this.props.onClick(e, this.props.href, this.props.target);
-    }
-  },
-
-  handleDropdownClick: function handleDropdownClick(e) {
-    e.preventDefault();
-
-    this.setDropdownState(!this.state.open);
-  },
-
-  handleOptionSelect: function handleOptionSelect(key) {
-    if (this.props.onSelect) {
-      this.props.onSelect(key);
-    }
-
-    this.setDropdownState(false);
-  }
-});
-
-exports['default'] = SplitButton;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./Button":62,"./ButtonGroup":63,"./DropdownMenu":73,"./DropdownStateMixin":74,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],116:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var _utilsCreateChainedFunction = require('./utils/createChainedFunction');
-
-var _utilsCreateChainedFunction2 = _interopRequireDefault(_utilsCreateChainedFunction);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _SafeAnchor = require('./SafeAnchor');
-
-var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
-
-var SubNav = _react2['default'].createClass({
-  displayName: 'SubNav',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    onSelect: _react2['default'].PropTypes.func,
-    active: _react2['default'].PropTypes.bool,
-    activeHref: _react2['default'].PropTypes.string,
-    activeKey: _react2['default'].PropTypes.any,
-    disabled: _react2['default'].PropTypes.bool,
-    eventKey: _react2['default'].PropTypes.any,
-    href: _react2['default'].PropTypes.string,
-    title: _react2['default'].PropTypes.string,
-    text: _react2['default'].PropTypes.node,
-    target: _react2['default'].PropTypes.string
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'nav',
-      active: false,
-      disabled: false
-    };
-  },
-
-  handleClick: function handleClick(e) {
-    if (this.props.onSelect) {
-      e.preventDefault();
-
-      if (!this.props.disabled) {
-        this.props.onSelect(this.props.eventKey, this.props.href, this.props.target);
-      }
-    }
-  },
-
-  isActive: function isActive() {
-    return this.isChildActive(this);
-  },
-
-  isChildActive: function isChildActive(child) {
-    if (child.props.active) {
-      return true;
-    }
-
-    if (this.props.activeKey != null && this.props.activeKey === child.props.eventKey) {
-      return true;
-    }
-
-    if (this.props.activeHref != null && this.props.activeHref === child.props.href) {
-      return true;
-    }
-
-    if (child.props.children) {
-      var isActive = false;
-
-      _utilsValidComponentChildren2['default'].forEach(child.props.children, function (grandchild) {
-        if (this.isChildActive(grandchild)) {
-          isActive = true;
-        }
-      }, this);
-
-      return isActive;
-    }
-
-    return false;
-  },
-
-  getChildActiveProp: function getChildActiveProp(child) {
-    if (child.props.active) {
-      return true;
-    }
-    if (this.props.activeKey != null) {
-      if (child.props.eventKey === this.props.activeKey) {
-        return true;
-      }
-    }
-    if (this.props.activeHref != null) {
-      if (child.props.href === this.props.activeHref) {
-        return true;
-      }
-    }
-
-    return child.props.active;
-  },
-
-  render: function render() {
-    var classes = {
-      'active': this.isActive(),
-      'disabled': this.props.disabled
-    };
-
-    return _react2['default'].createElement(
-      'li',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-      _react2['default'].createElement(
-        _SafeAnchor2['default'],
-        {
-          href: this.props.href,
-          title: this.props.title,
-          target: this.props.target,
-          onClick: this.handleClick },
-        this.props.text
-      ),
-      _react2['default'].createElement(
-        'ul',
-        { className: 'nav' },
-        _utilsValidComponentChildren2['default'].map(this.props.children, this.renderNavItem)
-      )
-    );
-  },
-
-  renderNavItem: function renderNavItem(child, index) {
-    return _react.cloneElement(child, {
-      active: this.getChildActiveProp(child),
-      onSelect: _utilsCreateChainedFunction2['default'](child.props.onSelect, this.props.onSelect),
-      key: child.key ? child.key : index
-    });
-  }
-});
-
-exports['default'] = SubNav;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./SafeAnchor":114,"./utils/ValidComponentChildren":129,"./utils/createChainedFunction":131,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],117:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _utilsTransitionEvents = require('./utils/TransitionEvents');
-
-var _utilsTransitionEvents2 = _interopRequireDefault(_utilsTransitionEvents);
-
-var TabPane = _react2['default'].createClass({
-  displayName: 'TabPane',
-
-  propTypes: {
-    active: _react2['default'].PropTypes.bool,
-    animation: _react2['default'].PropTypes.bool,
-    onAnimateOutEnd: _react2['default'].PropTypes.func,
-    disabled: _react2['default'].PropTypes.bool
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      animation: true
-    };
-  },
-
-  getInitialState: function getInitialState() {
-    return {
-      animateIn: false,
-      animateOut: false
-    };
-  },
-
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    if (this.props.animation) {
-      if (!this.state.animateIn && nextProps.active && !this.props.active) {
-        this.setState({
-          animateIn: true
-        });
-      } else if (!this.state.animateOut && !nextProps.active && this.props.active) {
-        this.setState({
-          animateOut: true
-        });
-      }
-    }
-  },
-
-  componentDidUpdate: function componentDidUpdate() {
-    if (this.state.animateIn) {
-      setTimeout(this.startAnimateIn, 0);
-    }
-    if (this.state.animateOut) {
-      _utilsTransitionEvents2['default'].addEndEventListener(_react2['default'].findDOMNode(this), this.stopAnimateOut);
-    }
-  },
-
-  startAnimateIn: function startAnimateIn() {
-    if (this.isMounted()) {
-      this.setState({
-        animateIn: false
-      });
-    }
-  },
-
-  stopAnimateOut: function stopAnimateOut() {
-    if (this.isMounted()) {
-      this.setState({
-        animateOut: false
-      });
-
-      if (this.props.onAnimateOutEnd) {
-        this.props.onAnimateOutEnd();
-      }
-    }
-  },
-
-  render: function render() {
-    var classes = {
-      'tab-pane': true,
-      'fade': true,
-      'active': this.props.active || this.state.animateOut,
-      'in': this.props.active && !this.state.animateIn
-    };
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, {
-        role: 'tabpanel',
-        'aria-hidden': !this.props.active,
-        className: _classnames2['default'](this.props.className, classes)
-      }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = TabPane;
-module.exports = exports['default'];
-},{"./utils/TransitionEvents":128,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],118:[function(require,module,exports){
-'use strict';
-
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _utilsValidComponentChildren = require('./utils/ValidComponentChildren');
-
-var _utilsValidComponentChildren2 = _interopRequireDefault(_utilsValidComponentChildren);
-
-var _Nav = require('./Nav');
-
-var _Nav2 = _interopRequireDefault(_Nav);
-
-var _NavItem = require('./NavItem');
-
-var _NavItem2 = _interopRequireDefault(_NavItem);
-
-var panelId = function panelId(props, child) {
-  return child.props.id ? child.props.id : props.id && props.id + '___panel___' + child.props.eventKey;
-};
-var tabId = function tabId(props, child) {
-  return child.props.id ? child.props.id + '___tab' : props.id && props.id + '___tab___' + child.props.eventKey;
-};
-
-function getDefaultActiveKeyFromChildren(children) {
-  var defaultActiveKey = undefined;
-
-  _utilsValidComponentChildren2['default'].forEach(children, function (child) {
-    if (defaultActiveKey == null) {
-      defaultActiveKey = child.props.eventKey;
-    }
-  });
-
-  return defaultActiveKey;
-}
-
-var TabbedArea = _react2['default'].createClass({
-  displayName: 'TabbedArea',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    activeKey: _react2['default'].PropTypes.any,
-    defaultActiveKey: _react2['default'].PropTypes.any,
-    bsStyle: _react2['default'].PropTypes.oneOf(['tabs', 'pills']),
-    animation: _react2['default'].PropTypes.bool,
-    id: _react2['default'].PropTypes.string,
-    onSelect: _react2['default'].PropTypes.func
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsStyle: 'tabs',
-      animation: true
-    };
-  },
-
-  getInitialState: function getInitialState() {
-    var defaultActiveKey = this.props.defaultActiveKey != null ? this.props.defaultActiveKey : getDefaultActiveKeyFromChildren(this.props.children);
-
-    return {
-      activeKey: defaultActiveKey,
-      previousActiveKey: null
-    };
-  },
-
-  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-    var _this = this;
-
-    if (nextProps.activeKey != null && nextProps.activeKey !== this.props.activeKey) {
-      (function () {
-        // check if the 'previousActiveKey' child still exists
-        var previousActiveKey = _this.props.activeKey;
-        _react2['default'].Children.forEach(nextProps.children, function (child) {
-          if (_react2['default'].isValidElement(child)) {
-            if (child.props.eventKey === previousActiveKey) {
-              _this.setState({
-                previousActiveKey: previousActiveKey
-              });
-              return;
-            }
-          }
-        });
-
-        // if the 'previousActiveKey' child does not exist anymore
-        _this.setState({
-          previousActiveKey: null
-        });
-      })();
-    }
-  },
-
-  handlePaneAnimateOutEnd: function handlePaneAnimateOutEnd() {
-    this.setState({
-      previousActiveKey: null
-    });
-  },
-
-  render: function render() {
-    var _props = this.props;
-    var id = _props.id;
-
-    var props = _objectWithoutProperties(_props, ['id']);
-
-    function renderTabIfSet(child) {
-      return child.props.tab != null ? this.renderTab(child) : null;
-    }
-
-    var nav = _react2['default'].createElement(
-      _Nav2['default'],
-      _extends({}, props, { activeKey: this.getActiveKey(), onSelect: this.handleSelect, ref: 'tabs' }),
-      _utilsValidComponentChildren2['default'].map(this.props.children, renderTabIfSet, this)
-    );
-
-    return _react2['default'].createElement(
-      'div',
-      null,
-      nav,
-      _react2['default'].createElement(
-        'div',
-        { id: id, className: 'tab-content', ref: 'panes' },
-        _utilsValidComponentChildren2['default'].map(this.props.children, this.renderPane)
-      )
-    );
-  },
-
-  getActiveKey: function getActiveKey() {
-    return this.props.activeKey != null ? this.props.activeKey : this.state.activeKey;
-  },
-
-  renderPane: function renderPane(child, index) {
-    var previousActiveKey = this.state.previousActiveKey;
-
-    var shouldPaneBeSetActive = child.props.eventKey === this.getActiveKey();
-    var thereIsNoActivePane = previousActiveKey == null;
-
-    var paneIsAlreadyActive = previousActiveKey != null && child.props.eventKey === previousActiveKey;
-
-    return _react.cloneElement(child, {
-      active: shouldPaneBeSetActive && (thereIsNoActivePane || !this.props.animation),
-      id: panelId(this.props, child),
-      'aria-labelledby': tabId(this.props, child),
-      key: child.key ? child.key : index,
-      animation: this.props.animation,
-      onAnimateOutEnd: paneIsAlreadyActive ? this.handlePaneAnimateOutEnd : null
-    });
-  },
-
-  renderTab: function renderTab(child) {
-    var _child$props = child.props;
-    var eventKey = _child$props.eventKey;
-    var className = _child$props.className;
-    var tab = _child$props.tab;
-    var disabled = _child$props.disabled;
-
-    return _react2['default'].createElement(
-      _NavItem2['default'],
-      {
-        linkId: tabId(this.props, child),
-        ref: 'tab' + eventKey,
-        'aria-controls': panelId(this.props, child),
-        eventKey: eventKey,
-        className: className,
-        disabled: disabled },
-      tab
-    );
-  },
-
-  shouldComponentUpdate: function shouldComponentUpdate() {
-    // Defer any updates to this component during the `onSelect` handler.
-    return !this._isChanging;
-  },
-
-  handleSelect: function handleSelect(selectedKey) {
-    if (this.props.onSelect) {
-      this._isChanging = true;
-      this.props.onSelect(selectedKey);
-      this._isChanging = false;
-      return;
-    }
-
-    // if there is no external handler, then use embedded one
-    var previousActiveKey = this.getActiveKey();
-    if (selectedKey !== previousActiveKey) {
-      this.setState({
-        activeKey: selectedKey,
-        previousActiveKey: previousActiveKey
-      });
-    }
-  }
-});
-
-exports['default'] = TabbedArea;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./Nav":96,"./NavItem":97,"./utils/ValidComponentChildren":129,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/object-without-properties":148,"react":371}],119:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var Table = _react2['default'].createClass({
-  displayName: 'Table',
-
-  propTypes: {
-    striped: _react2['default'].PropTypes.bool,
-    bordered: _react2['default'].PropTypes.bool,
-    condensed: _react2['default'].PropTypes.bool,
-    hover: _react2['default'].PropTypes.bool,
-    responsive: _react2['default'].PropTypes.bool
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bordered: false,
-      condensed: false,
-      hover: false,
-      responsive: false,
-      striped: false
-    };
-  },
-
-  render: function render() {
-    var classes = {
-      'table': true,
-      'table-striped': this.props.striped,
-      'table-bordered': this.props.bordered,
-      'table-condensed': this.props.condensed,
-      'table-hover': this.props.hover
-    };
-    var table = _react2['default'].createElement(
-      'table',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-      this.props.children
-    );
-
-    return this.props.responsive ? _react2['default'].createElement(
-      'div',
-      { className: 'table-responsive' },
-      table
-    ) : table;
-  }
-});
-
-exports['default'] = Table;
-module.exports = exports['default'];
-},{"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],120:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _SafeAnchor = require('./SafeAnchor');
-
-var _SafeAnchor2 = _interopRequireDefault(_SafeAnchor);
-
-var Thumbnail = _react2['default'].createClass({
-  displayName: 'Thumbnail',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    alt: _react2['default'].PropTypes.string,
-    href: _react2['default'].PropTypes.string,
-    src: _react2['default'].PropTypes.string
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'thumbnail'
-    };
-  },
-
-  render: function render() {
-    var classes = this.getBsClassSet();
-
-    if (this.props.href) {
-      return _react2['default'].createElement(
-        _SafeAnchor2['default'],
-        _extends({}, this.props, { href: this.props.href, className: _classnames2['default'](this.props.className, classes) }),
-        _react2['default'].createElement('img', { src: this.props.src, alt: this.props.alt })
-      );
-    } else {
-      if (this.props.children) {
-        return _react2['default'].createElement(
-          'div',
-          _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-          _react2['default'].createElement('img', { src: this.props.src, alt: this.props.alt }),
-          _react2['default'].createElement(
-            'div',
-            { className: 'caption' },
-            this.props.children
-          )
-        );
-      } else {
-        return _react2['default'].createElement(
-          'div',
-          _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-          _react2['default'].createElement('img', { src: this.props.src, alt: this.props.alt })
-        );
-      }
-    }
-  }
-});
-
-exports['default'] = Thumbnail;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"./SafeAnchor":114,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],121:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var _utilsCustomPropTypes = require('./utils/CustomPropTypes');
-
-var _utilsCustomPropTypes2 = _interopRequireDefault(_utilsCustomPropTypes);
-
-var Tooltip = _react2['default'].createClass({
-  displayName: 'Tooltip',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  propTypes: {
-    /**
-     * An html id attribute, necessary for accessibility
-     * @type {string}
-     * @required
-     */
-    id: _utilsCustomPropTypes2['default'].isRequiredForA11y(_react2['default'].PropTypes.string),
-
-    /**
-     * Sets the direction the Tooltip is positioned towards.
-     */
-    placement: _react2['default'].PropTypes.oneOf(['top', 'right', 'bottom', 'left']),
-
-    /**
-     * The "left" position value for the Tooltip.
-     */
-    positionLeft: _react2['default'].PropTypes.number,
-    /**
-     * The "top" position value for the Tooltip.
-     */
-    positionTop: _react2['default'].PropTypes.number,
-    /**
-     * The "left" position value for the Tooltip arrow.
-     */
-    arrowOffsetLeft: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.string]),
-    /**
-     * The "top" position value for the Tooltip arrow.
-     */
-    arrowOffsetTop: _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.string]),
-    /**
-     * Title text
-     */
-    title: _react2['default'].PropTypes.node
-  },
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      placement: 'right'
-    };
-  },
-
-  render: function render() {
-    var _classes;
-
-    var classes = (_classes = {
-      'tooltip': true
-    }, _classes[this.props.placement] = true, _classes);
-
-    var style = _extends({
-      'left': this.props.positionLeft,
-      'top': this.props.positionTop
-    }, this.props.style);
-
-    // eslint-disable-line react/prop-types
-    var arrowStyle = {
-      'left': this.props.arrowOffsetLeft,
-      'top': this.props.arrowOffsetTop
-    };
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({ role: 'tooltip' }, this.props, { className: _classnames2['default'](this.props.className, classes), style: style }),
-      _react2['default'].createElement('div', { className: 'tooltip-arrow', style: arrowStyle }),
-      _react2['default'].createElement(
-        'div',
-        { className: 'tooltip-inner' },
-        this.props.children
-      )
-    );
-  }
-});
-
-exports['default'] = Tooltip;
-module.exports = exports['default'];
-// we don't want to expose the `style` property
-},{"./BootstrapMixin":61,"./utils/CustomPropTypes":126,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],122:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-
-var _Object$keys = require('babel-runtime/core-js/object/keys')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _utilsTransitionEvents = require('./utils/TransitionEvents');
-
-var _utilsTransitionEvents2 = _interopRequireDefault(_utilsTransitionEvents);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var UNMOUNTED = 0;
-exports.UNMOUNTED = UNMOUNTED;
-var EXITED = 1;
-exports.EXITED = EXITED;
-var ENTERING = 2;
-exports.ENTERING = ENTERING;
-var ENTERED = 3;
-exports.ENTERED = ENTERED;
-var EXITING = 4;
-
-exports.EXITING = EXITING;
-
-var Transition = (function (_React$Component) {
-  _inherits(Transition, _React$Component);
-
-  function Transition(props, context) {
-    _classCallCheck(this, Transition);
-
-    _React$Component.call(this, props, context);
-
-    var initialStatus = undefined;
-    if (props['in']) {
-      // Start enter transition in componentDidMount.
-      initialStatus = props.transitionAppear ? EXITED : ENTERED;
-    } else {
-      initialStatus = props.unmountOnExit ? UNMOUNTED : EXITED;
-    }
-    this.state = { status: initialStatus };
-
-    this.nextCallback = null;
-  }
-
-  Transition.prototype.componentDidMount = function componentDidMount() {
-    if (this.props.transitionAppear && this.props['in']) {
-      this.performEnter(this.props);
-    }
-  };
-
-  Transition.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var status = this.state.status;
-    if (nextProps['in']) {
-      if (status === EXITING) {
-        this.performEnter(nextProps);
-      } else if (this.props.unmountOnExit) {
-        if (status === UNMOUNTED) {
-          // Start enter transition in componentDidUpdate.
-          this.setState({ status: EXITED });
-        }
-      } else if (status === EXITED) {
-        this.performEnter(nextProps);
-      }
-
-      // Otherwise we're already entering or entered.
-    } else {
-        if (status === ENTERING || status === ENTERED) {
-          this.performExit(nextProps);
-        }
-
-        // Otherwise we're already exited or exiting.
-      }
-  };
-
-  Transition.prototype.componentDidUpdate = function componentDidUpdate() {
-    if (this.props.unmountOnExit && this.state.status === EXITED) {
-      // EXITED is always a transitional state to either ENTERING or UNMOUNTED
-      // when using unmountOnExit.
-      if (this.props['in']) {
-        this.performEnter(this.props);
-      } else {
-        this.setState({ status: UNMOUNTED });
-      }
-    }
-  };
-
-  Transition.prototype.componentWillUnmount = function componentWillUnmount() {
-    this.cancelNextCallback();
-  };
-
-  Transition.prototype.performEnter = function performEnter(props) {
-    var _this = this;
-
-    this.cancelNextCallback();
-    var node = _react2['default'].findDOMNode(this);
-
-    // Not this.props, because we might be about to receive new props.
-    props.onEnter(node);
-
-    this.safeSetState({ status: ENTERING }, function () {
-      _this.props.onEntering(node);
-
-      _this.onTransitionEnd(node, function () {
-        _this.safeSetState({ status: ENTERED }, function () {
-          _this.props.onEntered(node);
-        });
-      });
-    });
-  };
-
-  Transition.prototype.performExit = function performExit(props) {
-    var _this2 = this;
-
-    this.cancelNextCallback();
-    var node = _react2['default'].findDOMNode(this);
-
-    // Not this.props, because we might be about to receive new props.
-    props.onExit(node);
-
-    this.safeSetState({ status: EXITING }, function () {
-      _this2.props.onExiting(node);
-
-      _this2.onTransitionEnd(node, function () {
-        _this2.safeSetState({ status: EXITED }, function () {
-          _this2.props.onExited(node);
-        });
-      });
-    });
-  };
-
-  Transition.prototype.cancelNextCallback = function cancelNextCallback() {
-    if (this.nextCallback !== null) {
-      this.nextCallback.cancel();
-      this.nextCallback = null;
-    }
-  };
-
-  Transition.prototype.safeSetState = function safeSetState(nextState, callback) {
-    // This shouldn't be necessary, but there are weird race conditions with
-    // setState callbacks and unmounting in testing, so always make sure that
-    // we can cancel any pending setState callbacks after we unmount.
-    this.setState(nextState, this.setNextCallback(callback));
-  };
-
-  Transition.prototype.setNextCallback = function setNextCallback(callback) {
-    var _this3 = this;
-
-    var active = true;
-
-    this.nextCallback = function (event) {
-      if (active) {
-        active = false;
-        _this3.nextCallback = null;
-
-        callback(event);
-      }
-    };
-
-    this.nextCallback.cancel = function () {
-      active = false;
-    };
-
-    return this.nextCallback;
-  };
-
-  Transition.prototype.onTransitionEnd = function onTransitionEnd(node, handler) {
-    this.setNextCallback(handler);
-
-    if (node) {
-      _utilsTransitionEvents2['default'].addEndEventListener(node, this.nextCallback);
-      setTimeout(this.nextCallback, this.props.duration);
-    } else {
-      setTimeout(this.nextCallback, 0);
-    }
-  };
-
-  Transition.prototype.render = function render() {
-    var status = this.state.status;
-    if (status === UNMOUNTED) {
-      return null;
-    }
-
-    var _props = this.props;
-    var children = _props.children;
-    var className = _props.className;
-
-    var childProps = _objectWithoutProperties(_props, ['children', 'className']);
-
-    _Object$keys(Transition.propTypes).forEach(function (key) {
-      return delete childProps[key];
-    });
-
-    var transitionClassName = undefined;
-    if (status === EXITED) {
-      transitionClassName = this.props.exitedClassName;
-    } else if (status === ENTERING) {
-      transitionClassName = this.props.enteringClassName;
-    } else if (status === ENTERED) {
-      transitionClassName = this.props.enteredClassName;
-    } else if (status === EXITING) {
-      transitionClassName = this.props.exitingClassName;
-    }
-
-    var child = _react2['default'].Children.only(children);
-    return _react2['default'].cloneElement(child, _extends({}, childProps, {
-      className: _classnames2['default'](child.props.className, className, transitionClassName)
-    }));
-  };
-
-  return Transition;
-})(_react2['default'].Component);
-
-Transition.propTypes = {
-  /**
-   * Show the component; triggers the enter or exit animation
-   */
-  'in': _react2['default'].PropTypes.bool,
-
-  /**
-   * Unmount the component (remove it from the DOM) when it is not shown
-   */
-  unmountOnExit: _react2['default'].PropTypes.bool,
-
-  /**
-   * Run the enter animation when the component mounts, if it is initially
-   * shown
-   */
-  transitionAppear: _react2['default'].PropTypes.bool,
-
-  /**
-   * Duration of the animation in milliseconds, to ensure that finishing
-   * callbacks are fired even if the original browser transition end events are
-   * canceled
-   */
-  duration: _react2['default'].PropTypes.number,
-
-  /**
-   * CSS class or classes applied when the component is exited
-   */
-  exitedClassName: _react2['default'].PropTypes.string,
-  /**
-   * CSS class or classes applied while the component is exiting
-   */
-  exitingClassName: _react2['default'].PropTypes.string,
-  /**
-   * CSS class or classes applied when the component is entered
-   */
-  enteredClassName: _react2['default'].PropTypes.string,
-  /**
-   * CSS class or classes applied while the component is entering
-   */
-  enteringClassName: _react2['default'].PropTypes.string,
-
-  /**
-   * Callback fired before the "entering" classes are applied
-   */
-  onEnter: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the "entering" classes are applied
-   */
-  onEntering: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the "enter" classes are applied
-   */
-  onEntered: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired before the "exiting" classes are applied
-   */
-  onExit: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the "exiting" classes are applied
-   */
-  onExiting: _react2['default'].PropTypes.func,
-  /**
-   * Callback fired after the "exited" classes are applied
-   */
-  onExited: _react2['default'].PropTypes.func
-};
-
-// Name the function so it is clearer in the documentation
-function noop() {}
-
-Transition.defaultProps = {
-  'in': false,
-  duration: 300,
-  unmountOnExit: false,
-  transitionAppear: false,
-
-  onEnter: noop,
-  onEntering: noop,
-  onEntered: noop,
-
-  onExit: noop,
-  onExiting: noop,
-  onExited: noop
-};
-
-exports['default'] = Transition;
-},{"./utils/TransitionEvents":128,"babel-runtime/core-js/object/keys":141,"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/object-without-properties":148,"classnames":176,"react":371}],123:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _classnames = require('classnames');
-
-var _classnames2 = _interopRequireDefault(_classnames);
-
-var _BootstrapMixin = require('./BootstrapMixin');
-
-var _BootstrapMixin2 = _interopRequireDefault(_BootstrapMixin);
-
-var Well = _react2['default'].createClass({
-  displayName: 'Well',
-
-  mixins: [_BootstrapMixin2['default']],
-
-  getDefaultProps: function getDefaultProps() {
-    return {
-      bsClass: 'well'
-    };
-  },
-
-  render: function render() {
-    var classes = this.getBsClassSet();
-
-    return _react2['default'].createElement(
-      'div',
-      _extends({}, this.props, { className: _classnames2['default'](this.props.className, classes) }),
-      this.props.children
-    );
-  }
-});
-
-exports['default'] = Well;
-module.exports = exports['default'];
-},{"./BootstrapMixin":61,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146,"classnames":176,"react":371}],124:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-var _interopRequireWildcard = require('babel-runtime/helpers/interop-require-wildcard')['default'];
-
-exports.__esModule = true;
-
-var _Accordion2 = require('./Accordion');
-
-var _Accordion3 = _interopRequireDefault(_Accordion2);
-
-exports.Accordion = _Accordion3['default'];
-
-var _Affix2 = require('./Affix');
-
-var _Affix3 = _interopRequireDefault(_Affix2);
-
-exports.Affix = _Affix3['default'];
-
-var _AffixMixin2 = require('./AffixMixin');
-
-var _AffixMixin3 = _interopRequireDefault(_AffixMixin2);
-
-exports.AffixMixin = _AffixMixin3['default'];
-
-var _Alert2 = require('./Alert');
-
-var _Alert3 = _interopRequireDefault(_Alert2);
-
-exports.Alert = _Alert3['default'];
-
-var _Badge2 = require('./Badge');
-
-var _Badge3 = _interopRequireDefault(_Badge2);
-
-exports.Badge = _Badge3['default'];
-
-var _BootstrapMixin2 = require('./BootstrapMixin');
-
-var _BootstrapMixin3 = _interopRequireDefault(_BootstrapMixin2);
-
-exports.BootstrapMixin = _BootstrapMixin3['default'];
-
-var _Button2 = require('./Button');
-
-var _Button3 = _interopRequireDefault(_Button2);
-
-exports.Button = _Button3['default'];
-
-var _ButtonGroup2 = require('./ButtonGroup');
-
-var _ButtonGroup3 = _interopRequireDefault(_ButtonGroup2);
-
-exports.ButtonGroup = _ButtonGroup3['default'];
-
-var _ButtonInput2 = require('./ButtonInput');
-
-var _ButtonInput3 = _interopRequireDefault(_ButtonInput2);
-
-exports.ButtonInput = _ButtonInput3['default'];
-
-var _ButtonToolbar2 = require('./ButtonToolbar');
-
-var _ButtonToolbar3 = _interopRequireDefault(_ButtonToolbar2);
-
-exports.ButtonToolbar = _ButtonToolbar3['default'];
-
-var _Carousel2 = require('./Carousel');
-
-var _Carousel3 = _interopRequireDefault(_Carousel2);
-
-exports.Carousel = _Carousel3['default'];
-
-var _CarouselItem2 = require('./CarouselItem');
-
-var _CarouselItem3 = _interopRequireDefault(_CarouselItem2);
-
-exports.CarouselItem = _CarouselItem3['default'];
-
-var _Col2 = require('./Col');
-
-var _Col3 = _interopRequireDefault(_Col2);
-
-exports.Col = _Col3['default'];
-
-var _CollapsibleMixin2 = require('./CollapsibleMixin');
-
-var _CollapsibleMixin3 = _interopRequireDefault(_CollapsibleMixin2);
-
-exports.CollapsibleMixin = _CollapsibleMixin3['default'];
-
-var _CollapsibleNav2 = require('./CollapsibleNav');
-
-var _CollapsibleNav3 = _interopRequireDefault(_CollapsibleNav2);
-
-exports.CollapsibleNav = _CollapsibleNav3['default'];
-
-var _DropdownButton2 = require('./DropdownButton');
-
-var _DropdownButton3 = _interopRequireDefault(_DropdownButton2);
-
-exports.DropdownButton = _DropdownButton3['default'];
-
-var _DropdownMenu2 = require('./DropdownMenu');
-
-var _DropdownMenu3 = _interopRequireDefault(_DropdownMenu2);
-
-exports.DropdownMenu = _DropdownMenu3['default'];
-
-var _DropdownStateMixin2 = require('./DropdownStateMixin');
-
-var _DropdownStateMixin3 = _interopRequireDefault(_DropdownStateMixin2);
-
-exports.DropdownStateMixin = _DropdownStateMixin3['default'];
-
-var _FadeMixin2 = require('./FadeMixin');
-
-var _FadeMixin3 = _interopRequireDefault(_FadeMixin2);
-
-exports.FadeMixin = _FadeMixin3['default'];
-
-var _Glyphicon2 = require('./Glyphicon');
-
-var _Glyphicon3 = _interopRequireDefault(_Glyphicon2);
-
-exports.Glyphicon = _Glyphicon3['default'];
-
-var _Grid2 = require('./Grid');
-
-var _Grid3 = _interopRequireDefault(_Grid2);
-
-exports.Grid = _Grid3['default'];
-
-var _Input2 = require('./Input');
-
-var _Input3 = _interopRequireDefault(_Input2);
-
-exports.Input = _Input3['default'];
-
-var _Interpolate2 = require('./Interpolate');
-
-var _Interpolate3 = _interopRequireDefault(_Interpolate2);
-
-exports.Interpolate = _Interpolate3['default'];
-
-var _Jumbotron2 = require('./Jumbotron');
-
-var _Jumbotron3 = _interopRequireDefault(_Jumbotron2);
-
-exports.Jumbotron = _Jumbotron3['default'];
-
-var _Label2 = require('./Label');
-
-var _Label3 = _interopRequireDefault(_Label2);
-
-exports.Label = _Label3['default'];
-
-var _ListGroup2 = require('./ListGroup');
-
-var _ListGroup3 = _interopRequireDefault(_ListGroup2);
-
-exports.ListGroup = _ListGroup3['default'];
-
-var _ListGroupItem2 = require('./ListGroupItem');
-
-var _ListGroupItem3 = _interopRequireDefault(_ListGroupItem2);
-
-exports.ListGroupItem = _ListGroupItem3['default'];
-
-var _MenuItem2 = require('./MenuItem');
-
-var _MenuItem3 = _interopRequireDefault(_MenuItem2);
-
-exports.MenuItem = _MenuItem3['default'];
-
-var _Modal2 = require('./Modal');
-
-var _Modal3 = _interopRequireDefault(_Modal2);
-
-exports.Modal = _Modal3['default'];
-
-var _ModalHeader2 = require('./ModalHeader');
-
-var _ModalHeader3 = _interopRequireDefault(_ModalHeader2);
-
-exports.ModalHeader = _ModalHeader3['default'];
-
-var _ModalTitle2 = require('./ModalTitle');
-
-var _ModalTitle3 = _interopRequireDefault(_ModalTitle2);
-
-exports.ModalTitle = _ModalTitle3['default'];
-
-var _ModalBody2 = require('./ModalBody');
-
-var _ModalBody3 = _interopRequireDefault(_ModalBody2);
-
-exports.ModalBody = _ModalBody3['default'];
-
-var _ModalFooter2 = require('./ModalFooter');
-
-var _ModalFooter3 = _interopRequireDefault(_ModalFooter2);
-
-exports.ModalFooter = _ModalFooter3['default'];
-
-var _Nav2 = require('./Nav');
-
-var _Nav3 = _interopRequireDefault(_Nav2);
-
-exports.Nav = _Nav3['default'];
-
-var _Navbar2 = require('./Navbar');
-
-var _Navbar3 = _interopRequireDefault(_Navbar2);
-
-exports.Navbar = _Navbar3['default'];
-
-var _NavItem2 = require('./NavItem');
-
-var _NavItem3 = _interopRequireDefault(_NavItem2);
-
-exports.NavItem = _NavItem3['default'];
-
-var _Overlay2 = require('./Overlay');
-
-var _Overlay3 = _interopRequireDefault(_Overlay2);
-
-exports.Overlay = _Overlay3['default'];
-
-var _OverlayTrigger2 = require('./OverlayTrigger');
-
-var _OverlayTrigger3 = _interopRequireDefault(_OverlayTrigger2);
-
-exports.OverlayTrigger = _OverlayTrigger3['default'];
-
-var _PageHeader2 = require('./PageHeader');
-
-var _PageHeader3 = _interopRequireDefault(_PageHeader2);
-
-exports.PageHeader = _PageHeader3['default'];
-
-var _PageItem2 = require('./PageItem');
-
-var _PageItem3 = _interopRequireDefault(_PageItem2);
-
-exports.PageItem = _PageItem3['default'];
-
-var _Pager2 = require('./Pager');
-
-var _Pager3 = _interopRequireDefault(_Pager2);
-
-exports.Pager = _Pager3['default'];
-
-var _Pagination2 = require('./Pagination');
-
-var _Pagination3 = _interopRequireDefault(_Pagination2);
-
-exports.Pagination = _Pagination3['default'];
-
-var _Panel2 = require('./Panel');
-
-var _Panel3 = _interopRequireDefault(_Panel2);
-
-exports.Panel = _Panel3['default'];
-
-var _PanelGroup2 = require('./PanelGroup');
-
-var _PanelGroup3 = _interopRequireDefault(_PanelGroup2);
-
-exports.PanelGroup = _PanelGroup3['default'];
-
-var _Popover2 = require('./Popover');
-
-var _Popover3 = _interopRequireDefault(_Popover2);
-
-exports.Popover = _Popover3['default'];
-
-var _ProgressBar2 = require('./ProgressBar');
-
-var _ProgressBar3 = _interopRequireDefault(_ProgressBar2);
-
-exports.ProgressBar = _ProgressBar3['default'];
-
-var _Row2 = require('./Row');
-
-var _Row3 = _interopRequireDefault(_Row2);
-
-exports.Row = _Row3['default'];
-
-var _SafeAnchor2 = require('./SafeAnchor');
-
-var _SafeAnchor3 = _interopRequireDefault(_SafeAnchor2);
-
-exports.SafeAnchor = _SafeAnchor3['default'];
-
-var _SplitButton2 = require('./SplitButton');
-
-var _SplitButton3 = _interopRequireDefault(_SplitButton2);
-
-exports.SplitButton = _SplitButton3['default'];
-
-var _styleMaps2 = require('./styleMaps');
-
-var _styleMaps3 = _interopRequireDefault(_styleMaps2);
-
-exports.styleMaps = _styleMaps3['default'];
-
-var _SubNav2 = require('./SubNav');
-
-var _SubNav3 = _interopRequireDefault(_SubNav2);
-
-exports.SubNav = _SubNav3['default'];
-
-var _TabbedArea2 = require('./TabbedArea');
-
-var _TabbedArea3 = _interopRequireDefault(_TabbedArea2);
-
-exports.TabbedArea = _TabbedArea3['default'];
-
-var _Table2 = require('./Table');
-
-var _Table3 = _interopRequireDefault(_Table2);
-
-exports.Table = _Table3['default'];
-
-var _TabPane2 = require('./TabPane');
-
-var _TabPane3 = _interopRequireDefault(_TabPane2);
-
-exports.TabPane = _TabPane3['default'];
-
-var _Thumbnail2 = require('./Thumbnail');
-
-var _Thumbnail3 = _interopRequireDefault(_Thumbnail2);
-
-exports.Thumbnail = _Thumbnail3['default'];
-
-var _Tooltip2 = require('./Tooltip');
-
-var _Tooltip3 = _interopRequireDefault(_Tooltip2);
-
-exports.Tooltip = _Tooltip3['default'];
-
-var _Well2 = require('./Well');
-
-var _Well3 = _interopRequireDefault(_Well2);
-
-exports.Well = _Well3['default'];
-
-var _Portal2 = require('./Portal');
-
-var _Portal3 = _interopRequireDefault(_Portal2);
-
-exports.Portal = _Portal3['default'];
-
-var _Position2 = require('./Position');
-
-var _Position3 = _interopRequireDefault(_Position2);
-
-exports.Position = _Position3['default'];
-
-var _Collapse2 = require('./Collapse');
-
-var _Collapse3 = _interopRequireDefault(_Collapse2);
-
-exports.Collapse = _Collapse3['default'];
-
-var _Fade2 = require('./Fade');
-
-var _Fade3 = _interopRequireDefault(_Fade2);
-
-exports.Fade = _Fade3['default'];
-
-var _FormControls2 = require('./FormControls');
-
-var _FormControls = _interopRequireWildcard(_FormControls2);
-
-exports.FormControls = _FormControls;
-
-var _utils2 = require('./utils');
-
-var _utils = _interopRequireWildcard(_utils2);
-
-exports.utils = _utils;
-},{"./Accordion":56,"./Affix":57,"./AffixMixin":58,"./Alert":59,"./Badge":60,"./BootstrapMixin":61,"./Button":62,"./ButtonGroup":63,"./ButtonInput":64,"./ButtonToolbar":65,"./Carousel":66,"./CarouselItem":67,"./Col":68,"./Collapse":69,"./CollapsibleMixin":70,"./CollapsibleNav":71,"./DropdownButton":72,"./DropdownMenu":73,"./DropdownStateMixin":74,"./Fade":75,"./FadeMixin":76,"./FormControls":78,"./Glyphicon":80,"./Grid":81,"./Input":82,"./Interpolate":84,"./Jumbotron":85,"./Label":86,"./ListGroup":87,"./ListGroupItem":88,"./MenuItem":89,"./Modal":90,"./ModalBody":91,"./ModalFooter":93,"./ModalHeader":94,"./ModalTitle":95,"./Nav":96,"./NavItem":97,"./Navbar":98,"./Overlay":99,"./OverlayTrigger":100,"./PageHeader":101,"./PageItem":102,"./Pager":103,"./Pagination":104,"./Panel":106,"./PanelGroup":107,"./Popover":108,"./Portal":109,"./Position":110,"./ProgressBar":111,"./Row":113,"./SafeAnchor":114,"./SplitButton":115,"./SubNav":116,"./TabPane":117,"./TabbedArea":118,"./Table":119,"./Thumbnail":120,"./Tooltip":121,"./Well":123,"./styleMaps":125,"./utils":136,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/interop-require-wildcard":147}],125:[function(require,module,exports){
-'use strict';
-
-exports.__esModule = true;
-var styleMaps = {
-  CLASSES: {
-    'alert': 'alert',
-    'button': 'btn',
-    'button-group': 'btn-group',
-    'button-toolbar': 'btn-toolbar',
-    'column': 'col',
-    'input-group': 'input-group',
-    'form': 'form',
-    'glyphicon': 'glyphicon',
-    'label': 'label',
-    'thumbnail': 'thumbnail',
-    'list-group-item': 'list-group-item',
-    'panel': 'panel',
-    'panel-group': 'panel-group',
-    'pagination': 'pagination',
-    'progress-bar': 'progress-bar',
-    'nav': 'nav',
-    'navbar': 'navbar',
-    'modal': 'modal',
-    'row': 'row',
-    'well': 'well'
-  },
-  STYLES: ['default', 'primary', 'success', 'info', 'warning', 'danger', 'link', 'inline', 'tabs', 'pills'],
-  addStyle: function addStyle(name) {
-    styleMaps.STYLES.push(name);
-  },
-  SIZES: {
-    'large': 'lg',
-    'medium': 'md',
-    'small': 'sm',
-    'xsmall': 'xs',
-    'lg': 'lg',
-    'md': 'md',
-    'sm': 'sm',
-    'xs': 'xs'
-  }
-};
-
-exports['default'] = styleMaps;
-module.exports = exports['default'];
-},{}],126:[function(require,module,exports){
-'use strict';
-
-var _Object$keys = require('babel-runtime/core-js/object/keys')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var ANONYMOUS = '<<anonymous>>';
-
-var CustomPropTypes = {
-
-  isRequiredForA11y: function isRequiredForA11y(propType) {
-    return function (props, propName, componentName) {
-      if (props[propName] === null) {
-        return new Error('The prop `' + propName + '` is required to make ' + componentName + ' accessible ' + 'for users using assistive technologies such as screen readers `');
-      }
-
-      return propType(props, propName, componentName);
-    };
-  },
-
-  /**
-   * Checks whether a prop provides a DOM element
-   *
-   * The element can be provided in two forms:
-   * - Directly passed
-   * - Or passed an object that has a `render` method
-   *
-   * @param props
-   * @param propName
-   * @param componentName
-   * @returns {Error|undefined}
-   */
-  mountable: createMountableChecker(),
-
-  /**
-   * Checks whether a prop provides a type of element.
-   *
-   * The type of element can be provided in two forms:
-   * - tag name (string)
-   * - a return value of React.createClass(...)
-   *
-   * @param props
-   * @param propName
-   * @param componentName
-   * @returns {Error|undefined}
-   */
-  elementType: createElementTypeChecker(),
-
-  /**
-   * Checks whether a prop matches a key of an associated object
-   *
-   * @param props
-   * @param propName
-   * @param componentName
-   * @returns {Error|undefined}
-   */
-  keyOf: createKeyOfChecker,
-  /**
-   * Checks if only one of the listed properties is in use. An error is given
-   * if multiple have a value
-   *
-   * @param props
-   * @param propName
-   * @param componentName
-   * @returns {Error|undefined}
-   */
-  singlePropFrom: createSinglePropFromChecker,
-
-  all: all
-};
-
-function errMsg(props, propName, componentName, msgContinuation) {
-  return 'Invalid prop \'' + propName + '\' of value \'' + props[propName] + '\'' + (' supplied to \'' + componentName + '\'' + msgContinuation);
-}
-
-/**
- * Create chain-able isRequired validator
- *
- * Largely copied directly from:
- *  https://github.com/facebook/react/blob/0.11-stable/src/core/ReactPropTypes.js#L94
- */
-function createChainableTypeChecker(validate) {
-  function checkType(isRequired, props, propName, componentName) {
-    componentName = componentName || ANONYMOUS;
-    if (props[propName] == null) {
-      if (isRequired) {
-        return new Error('Required prop \'' + propName + '\' was not specified in \'' + componentName + '\'.');
-      }
-    } else {
-      return validate(props, propName, componentName);
-    }
-  }
-
-  var chainedCheckType = checkType.bind(null, false);
-  chainedCheckType.isRequired = checkType.bind(null, true);
-
-  return chainedCheckType;
-}
-
-function createMountableChecker() {
-  function validate(props, propName, componentName) {
-    if (typeof props[propName] !== 'object' || typeof props[propName].render !== 'function' && props[propName].nodeType !== 1) {
-      return new Error(errMsg(props, propName, componentName, ', expected a DOM element or an object that has a `render` method'));
-    }
-  }
-
-  return createChainableTypeChecker(validate);
-}
-
-function createKeyOfChecker(obj) {
-  function validate(props, propName, componentName) {
-    var propValue = props[propName];
-    if (!obj.hasOwnProperty(propValue)) {
-      var valuesString = JSON.stringify(_Object$keys(obj));
-      return new Error(errMsg(props, propName, componentName, ', expected one of ' + valuesString + '.'));
-    }
-  }
-  return createChainableTypeChecker(validate);
-}
-
-function createSinglePropFromChecker(arrOfProps) {
-  function validate(props, propName, componentName) {
-    var usedPropCount = arrOfProps.map(function (listedProp) {
-      return props[listedProp];
-    }).reduce(function (acc, curr) {
-      return acc + (curr !== undefined ? 1 : 0);
-    }, 0);
-
-    if (usedPropCount > 1) {
-      var first = arrOfProps[0];
-      var others = arrOfProps.slice(1);
-
-      var message = others.join(', ') + ' and ' + first;
-      return new Error('Invalid prop \'' + propName + '\', only one of the following ' + ('may be provided: ' + message));
-    }
-  }
-  return validate;
-}
-
-function all(propTypes) {
-  if (propTypes === undefined) {
-    throw new Error('No validations provided');
-  }
-
-  if (!(propTypes instanceof Array)) {
-    throw new Error('Invalid argument must be an array');
-  }
-
-  if (propTypes.length === 0) {
-    throw new Error('No validations provided');
-  }
-
-  return function (props, propName, componentName) {
-    for (var i = 0; i < propTypes.length; i++) {
-      var result = propTypes[i](props, propName, componentName);
-
-      if (result !== undefined && result !== null) {
-        return result;
-      }
-    }
-  };
-}
-
-function createElementTypeChecker() {
-  function validate(props, propName, componentName) {
-    var errBeginning = errMsg(props, propName, componentName, '. Expected an Element `type`');
-
-    if (typeof props[propName] !== 'function') {
-      if (_react2['default'].isValidElement(props[propName])) {
-        return new Error(errBeginning + ', not an actual Element');
-      }
-
-      if (typeof props[propName] !== 'string') {
-        return new Error(errBeginning + ' such as a tag name or return value of React.createClass(...)');
-      }
-    }
-  }
-
-  return createChainableTypeChecker(validate);
-}
-
-exports['default'] = CustomPropTypes;
-module.exports = exports['default'];
-},{"babel-runtime/core-js/object/keys":141,"babel-runtime/helpers/interop-require-default":146,"react":371}],127:[function(require,module,exports){
-/**
- * Copyright 2013-2014 Facebook, Inc.
- *
- * This file contains a modified version of:
- * https://github.com/facebook/react/blob/v0.12.0/src/vendor/stubs/EventListener.js
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- * TODO: remove in favour of solution provided by:
- *  https://github.com/facebook/react/issues/285
- */
-
-/**
- * Does not take into account specific nature of platform.
- */
-'use strict';
-
-exports.__esModule = true;
-var EventListener = {
-  /**
-   * Listen to DOM events during the bubble phase.
-   *
-   * @param {DOMEventTarget} target DOM element to register listener on.
-   * @param {string} eventType Event type, e.g. 'click' or 'mouseover'.
-   * @param {function} callback Callback function.
-   * @return {object} Object with a `remove` method.
-   */
-  listen: function listen(target, eventType, callback) {
-    if (target.addEventListener) {
-      target.addEventListener(eventType, callback, false);
-      return {
-        remove: function remove() {
-          target.removeEventListener(eventType, callback, false);
-        }
-      };
-    } else if (target.attachEvent) {
-      target.attachEvent('on' + eventType, callback);
-      return {
-        remove: function remove() {
-          target.detachEvent('on' + eventType, callback);
-        }
-      };
-    }
-  }
-};
-
-exports['default'] = EventListener;
-module.exports = exports['default'];
-},{}],128:[function(require,module,exports){
-/**
- * Copyright 2013-2014, Facebook, Inc.
- * All rights reserved.
- *
- * This file contains a modified version of:
- * https://github.com/facebook/react/blob/v0.12.0/src/addons/transitions/ReactTransitionEvents.js
- *
- * This source code is licensed under the BSD-style license found here:
- * https://github.com/facebook/react/blob/v0.12.0/LICENSE
- * An additional grant of patent rights can be found here:
- * https://github.com/facebook/react/blob/v0.12.0/PATENTS
- */
-
-'use strict';
-
-exports.__esModule = true;
-var canUseDOM = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-
-/**
- * EVENT_NAME_MAP is used to determine which event fired when a
- * transition/animation ends, based on the style property used to
- * define that event.
- */
-var EVENT_NAME_MAP = {
-  transitionend: {
-    'transition': 'transitionend',
-    'WebkitTransition': 'webkitTransitionEnd',
-    'MozTransition': 'mozTransitionEnd',
-    'OTransition': 'oTransitionEnd',
-    'msTransition': 'MSTransitionEnd'
-  },
-
-  animationend: {
-    'animation': 'animationend',
-    'WebkitAnimation': 'webkitAnimationEnd',
-    'MozAnimation': 'mozAnimationEnd',
-    'OAnimation': 'oAnimationEnd',
-    'msAnimation': 'MSAnimationEnd'
-  }
-};
-
-var endEvents = [];
-
-function detectEvents() {
-  var testEl = document.createElement('div');
-  var style = testEl.style;
-
-  // On some platforms, in particular some releases of Android 4.x,
-  // the un-prefixed "animation" and "transition" properties are defined on the
-  // style object but the events that fire will still be prefixed, so we need
-  // to check if the un-prefixed events are useable, and if not remove them
-  // from the map
-  if (!('AnimationEvent' in window)) {
-    delete EVENT_NAME_MAP.animationend.animation;
-  }
-
-  if (!('TransitionEvent' in window)) {
-    delete EVENT_NAME_MAP.transitionend.transition;
-  }
-
-  for (var baseEventName in EVENT_NAME_MAP) {
-    var baseEvents = EVENT_NAME_MAP[baseEventName];
-    for (var styleName in baseEvents) {
-      if (styleName in style) {
-        endEvents.push(baseEvents[styleName]);
-        break;
-      }
-    }
-  }
-}
-
-if (canUseDOM) {
-  detectEvents();
-}
-
-// We use the raw {add|remove}EventListener() call because EventListener
-// does not know how to remove event listeners and we really should
-// clean up. Also, these events are not triggered in older browsers
-// so we should be A-OK here.
-
-function addEventListener(node, eventName, eventListener) {
-  node.addEventListener(eventName, eventListener, false);
-}
-
-function removeEventListener(node, eventName, eventListener) {
-  node.removeEventListener(eventName, eventListener, false);
-}
-
-var ReactTransitionEvents = {
-  addEndEventListener: function addEndEventListener(node, eventListener) {
-    if (endEvents.length === 0) {
-      // If CSS transitions are not supported, trigger an "end animation"
-      // event immediately.
-      window.setTimeout(eventListener, 0);
-      return;
-    }
-    endEvents.forEach(function (endEvent) {
-      addEventListener(node, endEvent, eventListener);
-    });
-  },
-
-  removeEndEventListener: function removeEndEventListener(node, eventListener) {
-    if (endEvents.length === 0) {
-      return;
-    }
-    endEvents.forEach(function (endEvent) {
-      removeEventListener(node, endEvent, eventListener);
-    });
-  }
-};
-
-exports['default'] = ReactTransitionEvents;
-module.exports = exports['default'];
-},{}],129:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-/**
- * Maps children that are typically specified as `props.children`,
- * but only iterates over children that are "valid components".
- *
- * The mapFunction provided index will be normalised to the components mapped,
- * so an invalid component would not increase the index.
- *
- * @param {?*} children Children tree container.
- * @param {function(*, int)} mapFunction.
- * @param {*} mapContext Context for mapFunction.
- * @return {object} Object containing the ordered map of results.
- */
-function mapValidComponents(children, func, context) {
-  var index = 0;
-
-  return _react2['default'].Children.map(children, function (child) {
-    if (_react2['default'].isValidElement(child)) {
-      var lastIndex = index;
-      index++;
-      return func.call(context, child, lastIndex);
-    }
-
-    return child;
-  });
-}
-
-/**
- * Iterates through children that are typically specified as `props.children`,
- * but only iterates over children that are "valid components".
- *
- * The provided forEachFunc(child, index) will be called for each
- * leaf child with the index reflecting the position relative to "valid components".
- *
- * @param {?*} children Children tree container.
- * @param {function(*, int)} forEachFunc.
- * @param {*} forEachContext Context for forEachContext.
- */
-function forEachValidComponents(children, func, context) {
-  var index = 0;
-
-  return _react2['default'].Children.forEach(children, function (child) {
-    if (_react2['default'].isValidElement(child)) {
-      func.call(context, child, index);
-      index++;
-    }
-  });
-}
-
-/**
- * Count the number of "valid components" in the Children container.
- *
- * @param {?*} children Children tree container.
- * @returns {number}
- */
-function numberOfValidComponents(children) {
-  var count = 0;
-
-  _react2['default'].Children.forEach(children, function (child) {
-    if (_react2['default'].isValidElement(child)) {
-      count++;
-    }
-  });
-
-  return count;
-}
-
-/**
- * Determine if the Child container has one or more "valid components".
- *
- * @param {?*} children Children tree container.
- * @returns {boolean}
- */
-function hasValidComponent(children) {
-  var hasValid = false;
-
-  _react2['default'].Children.forEach(children, function (child) {
-    if (!hasValid && _react2['default'].isValidElement(child)) {
-      hasValid = true;
-    }
-  });
-
-  return hasValid;
-}
-
-exports['default'] = {
-  map: mapValidComponents,
-  forEach: forEachValidComponents,
-  numberOf: numberOfValidComponents,
-  hasValidComponent: hasValidComponent
-};
-module.exports = exports['default'];
-},{"babel-runtime/helpers/interop-require-default":146,"react":371}],130:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-exports['default'] = valueValidation;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var _CustomPropTypes = require('./CustomPropTypes');
-
-var propList = ['children', 'value'];
-var typeList = [_react2['default'].PropTypes.number, _react2['default'].PropTypes.string];
-
-function valueValidation(props, propName, componentName) {
-  var error = _CustomPropTypes.singlePropFrom(propList)(props, propName, componentName);
-  if (!error) {
-    var oneOfType = _react2['default'].PropTypes.oneOfType(typeList);
-    error = oneOfType(props, propName, componentName);
-  }
-  return error;
-}
-
-module.exports = exports['default'];
-},{"./CustomPropTypes":126,"babel-runtime/helpers/interop-require-default":146,"react":371}],131:[function(require,module,exports){
-/**
- * Safe chained function
- *
- * Will only create a new function if needed,
- * otherwise will pass back existing functions or null.
- *
- * @param {function} functions to chain
- * @returns {function|null}
- */
-'use strict';
-
-exports.__esModule = true;
-function createChainedFunction() {
-  for (var _len = arguments.length, funcs = Array(_len), _key = 0; _key < _len; _key++) {
-    funcs[_key] = arguments[_key];
-  }
-
-  return funcs.filter(function (f) {
-    return f != null;
-  }).reduce(function (acc, f) {
-    if (typeof f !== 'function') {
-      throw new Error('Invalid Argument Type, must only provide functions, undefined, or null.');
-    }
-
-    if (acc === null) {
-      return f;
-    }
-
-    return function chainedFunction() {
-      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
-        args[_key2] = arguments[_key2];
-      }
-
-      acc.apply(this, args);
-      f.apply(this, args);
-    };
-  }, null);
-}
-
-exports['default'] = createChainedFunction;
-module.exports = exports['default'];
-},{}],132:[function(require,module,exports){
-'use strict';
-
-var _inherits = require('babel-runtime/helpers/inherits')['default'];
-
-var _classCallCheck = require('babel-runtime/helpers/class-call-check')['default'];
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _objectWithoutProperties = require('babel-runtime/helpers/object-without-properties')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-exports['default'] = createContextWrapper;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-/**
- * Creates new trigger class that injects context into overlay.
- */
-
-function createContextWrapper(Trigger, propName) {
-  return function (contextTypes) {
-    var ContextWrapper = (function (_React$Component) {
-      _inherits(ContextWrapper, _React$Component);
-
-      function ContextWrapper() {
-        _classCallCheck(this, ContextWrapper);
-
-        _React$Component.apply(this, arguments);
-      }
-
-      ContextWrapper.prototype.getChildContext = function getChildContext() {
-        return this.props.context;
-      };
-
-      ContextWrapper.prototype.render = function render() {
-        // Strip injected props from below.
-        var _props = this.props;
-        var wrapped = _props.wrapped;
-        var context = _props.context;
-
-        var props = _objectWithoutProperties(_props, ['wrapped', 'context']);
-
-        return _react2['default'].cloneElement(wrapped, props);
-      };
-
-      return ContextWrapper;
-    })(_react2['default'].Component);
-
-    ContextWrapper.childContextTypes = contextTypes;
-
-    var TriggerWithContext = (function () {
-      function TriggerWithContext() {
-        _classCallCheck(this, TriggerWithContext);
-      }
-
-      TriggerWithContext.prototype.render = function render() {
-        var props = _extends({}, this.props);
-        props[propName] = this.getWrappedOverlay();
-
-        return _react2['default'].createElement(
-          Trigger,
-          props,
-          this.props.children
-        );
-      };
-
-      TriggerWithContext.prototype.getWrappedOverlay = function getWrappedOverlay() {
-        return _react2['default'].createElement(ContextWrapper, {
-          context: this.context,
-          wrapped: this.props[propName]
-        });
-      };
-
-      return TriggerWithContext;
-    })();
-
-    TriggerWithContext.contextTypes = contextTypes;
-
-    return TriggerWithContext;
-  };
-}
-
-module.exports = exports['default'];
-},{"babel-runtime/helpers/class-call-check":143,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/inherits":145,"babel-runtime/helpers/interop-require-default":146,"babel-runtime/helpers/object-without-properties":148,"react":371}],133:[function(require,module,exports){
-"use strict";
-
-exports.__esModule = true;
-exports["default"] = createSelectedEvent;
-
-function createSelectedEvent(eventKey) {
-  var selectionPrevented = false;
-
-  return {
-    eventKey: eventKey,
-
-    preventSelection: function preventSelection() {
-      selectionPrevented = true;
-    },
-
-    isSelectionPrevented: function isSelectionPrevented() {
-      return selectionPrevented;
-    }
-  };
-}
-
-module.exports = exports["default"];
-},{}],134:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-exports['default'] = deprecationWarning;
-
-var _reactLibWarning = require('react/lib/warning');
-
-var _reactLibWarning2 = _interopRequireDefault(_reactLibWarning);
-
-var warned = {};
-
-function deprecationWarning(oldname, newname, link) {
-  var warnKey = oldname + '\n' + newname;
-  if (warned[warnKey]) {
-    return;
-  }
-
-  var message = oldname + ' is deprecated. Use ' + newname + ' instead.';
-
-  if (link) {
-    message += '\nYou can read more about it at ' + link;
-  }
-
-  _reactLibWarning2['default'](false, message);
-  warned[warnKey] = true;
-}
-
-module.exports = exports['default'];
-},{"babel-runtime/helpers/interop-require-default":146,"react/lib/warning":370}],135:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _react = require('react');
-
-var _react2 = _interopRequireDefault(_react);
-
-var canUseDom = !!(typeof window !== 'undefined' && window.document && window.document.createElement);
-
-/**
- * Get elements owner document
- *
- * @param {ReactComponent|HTMLElement} componentOrElement
- * @returns {HTMLElement}
- */
-function ownerDocument(componentOrElement) {
-  var elem = _react2['default'].findDOMNode(componentOrElement);
-  return elem && elem.ownerDocument || document;
-}
-
-function ownerWindow(componentOrElement) {
-  var doc = ownerDocument(componentOrElement);
-  return doc.defaultView ? doc.defaultView : doc.parentWindow;
-}
-
-/**
- * get the active element, safe in IE
- * @return {HTMLElement}
- */
-function getActiveElement(componentOrElement) {
-  var doc = ownerDocument(componentOrElement);
-
-  try {
-    return doc.activeElement || doc.body;
-  } catch (e) {
-    return doc.body;
-  }
-}
-
-/**
- * Shortcut to compute element style
- *
- * @param {HTMLElement} elem
- * @returns {CssStyle}
- */
-function getComputedStyles(elem) {
-  return ownerDocument(elem).defaultView.getComputedStyle(elem, null);
-}
-
-/**
- * Get elements offset
- *
- * TODO: REMOVE JQUERY!
- *
- * @param {HTMLElement} DOMNode
- * @returns {{top: number, left: number}}
- */
-function getOffset(DOMNode) {
-  if (window.jQuery) {
-    return window.jQuery(DOMNode).offset();
-  }
-
-  var docElem = ownerDocument(DOMNode).documentElement;
-  var box = { top: 0, left: 0 };
-
-  // If we don't have gBCR, just use 0,0 rather than error
-  // BlackBerry 5, iOS 3 (original iPhone)
-  if (typeof DOMNode.getBoundingClientRect !== 'undefined') {
-    box = DOMNode.getBoundingClientRect();
-  }
-
-  return {
-    top: box.top + window.pageYOffset - docElem.clientTop,
-    left: box.left + window.pageXOffset - docElem.clientLeft
-  };
-}
-
-/**
- * Get elements position
- *
- * TODO: REMOVE JQUERY!
- *
- * @param {HTMLElement} elem
- * @param {HTMLElement?} offsetParent
- * @returns {{top: number, left: number}}
- */
-function getPosition(elem, offsetParent) {
-  var offset = undefined,
-      parentOffset = undefined;
-
-  if (window.jQuery) {
-    if (!offsetParent) {
-      return window.jQuery(elem).position();
-    }
-
-    offset = window.jQuery(elem).offset();
-    parentOffset = window.jQuery(offsetParent).offset();
-
-    // Get element offset relative to offsetParent
-    return {
-      top: offset.top - parentOffset.top,
-      left: offset.left - parentOffset.left
-    };
-  }
-
-  parentOffset = { top: 0, left: 0 };
-
-  // Fixed elements are offset from window (parentOffset = {top:0, left: 0}, because it is its only offset parent
-  if (getComputedStyles(elem).position === 'fixed') {
-    // We assume that getBoundingClientRect is available when computed position is fixed
-    offset = elem.getBoundingClientRect();
-  } else {
-    if (!offsetParent) {
-      // Get *real* offsetParent
-      offsetParent = offsetParentFunc(elem);
-    }
-
-    // Get correct offsets
-    offset = getOffset(elem);
-    if (offsetParent.nodeName !== 'HTML') {
-      parentOffset = getOffset(offsetParent);
-    }
-
-    // Add offsetParent borders
-    parentOffset.top += parseInt(getComputedStyles(offsetParent).borderTopWidth, 10);
-    parentOffset.left += parseInt(getComputedStyles(offsetParent).borderLeftWidth, 10);
-  }
-
-  // Subtract parent offsets and element margins
-  return {
-    top: offset.top - parentOffset.top - parseInt(getComputedStyles(elem).marginTop, 10),
-    left: offset.left - parentOffset.left - parseInt(getComputedStyles(elem).marginLeft, 10)
-  };
-}
-
-/**
- * Get an element's size
- *
- * @param {HTMLElement} elem
- * @returns {{width: number, height: number}}
- */
-function getSize(elem) {
-  var rect = {
-    width: elem.offsetWidth || 0,
-    height: elem.offsetHeight || 0
-  };
-  if (typeof elem.getBoundingClientRect !== 'undefined') {
-    var _elem$getBoundingClientRect = elem.getBoundingClientRect();
-
-    var width = _elem$getBoundingClientRect.width;
-    var height = _elem$getBoundingClientRect.height;
-
-    rect.width = width || rect.width;
-    rect.height = height || rect.height;
-  }
-  return rect;
-}
-
-/**
- * Get parent element
- *
- * @param {HTMLElement?} elem
- * @returns {HTMLElement}
- */
-function offsetParentFunc(elem) {
-  var docElem = ownerDocument(elem).documentElement;
-  var offsetParent = elem.offsetParent || docElem;
-
-  while (offsetParent && (offsetParent.nodeName !== 'HTML' && getComputedStyles(offsetParent).position === 'static')) {
-    offsetParent = offsetParent.offsetParent;
-  }
-
-  return offsetParent || docElem;
-}
-
-/**
- * Cross browser .contains() polyfill
- * @param  {HTMLElement} elem
- * @param  {HTMLElement} inner
- * @return {bool}
- */
-function contains(elem, inner) {
-  function ie8Contains(root, node) {
-    while (node) {
-      if (node === root) {
-        return true;
-      }
-      node = node.parentNode;
-    }
-    return false;
-  }
-
-  return elem && elem.contains ? elem.contains(inner) : elem && elem.compareDocumentPosition ? elem === inner || !!(elem.compareDocumentPosition(inner) & 16) : ie8Contains(elem, inner);
-}
-
-exports['default'] = {
-  canUseDom: canUseDom,
-  contains: contains,
-  ownerWindow: ownerWindow,
-  ownerDocument: ownerDocument,
-  getComputedStyles: getComputedStyles,
-  getOffset: getOffset,
-  getPosition: getPosition,
-  getSize: getSize,
-  activeElement: getActiveElement,
-  offsetParent: offsetParentFunc
-};
-module.exports = exports['default'];
-},{"babel-runtime/helpers/interop-require-default":146,"react":371}],136:[function(require,module,exports){
-'use strict';
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _childrenValueInputValidation2 = require('./childrenValueInputValidation');
-
-var _childrenValueInputValidation3 = _interopRequireDefault(_childrenValueInputValidation2);
-
-exports.childrenValueInputValidation = _childrenValueInputValidation3['default'];
-
-var _createChainedFunction2 = require('./createChainedFunction');
-
-var _createChainedFunction3 = _interopRequireDefault(_createChainedFunction2);
-
-exports.createChainedFunction = _createChainedFunction3['default'];
-
-var _CustomPropTypes2 = require('./CustomPropTypes');
-
-var _CustomPropTypes3 = _interopRequireDefault(_CustomPropTypes2);
-
-exports.CustomPropTypes = _CustomPropTypes3['default'];
-
-var _domUtils2 = require('./domUtils');
-
-var _domUtils3 = _interopRequireDefault(_domUtils2);
-
-exports.domUtils = _domUtils3['default'];
-
-var _ValidComponentChildren2 = require('./ValidComponentChildren');
-
-var _ValidComponentChildren3 = _interopRequireDefault(_ValidComponentChildren2);
-
-exports.ValidComponentChildren = _ValidComponentChildren3['default'];
-},{"./CustomPropTypes":126,"./ValidComponentChildren":129,"./childrenValueInputValidation":130,"./createChainedFunction":131,"./domUtils":135,"babel-runtime/helpers/interop-require-default":146}],137:[function(require,module,exports){
-'use strict';
-
-var _extends = require('babel-runtime/helpers/extends')['default'];
-
-var _interopRequireDefault = require('babel-runtime/helpers/interop-require-default')['default'];
-
-exports.__esModule = true;
-
-var _domUtils = require('./domUtils');
-
-var _domUtils2 = _interopRequireDefault(_domUtils);
-
-var utils = {
-
-  getContainerDimensions: function getContainerDimensions(containerNode) {
-    var size = undefined,
-        scroll = undefined;
-
-    if (containerNode.tagName === 'BODY') {
-      size = {
-        width: window.innerWidth,
-        height: window.innerHeight
-      };
-      scroll = _domUtils2['default'].ownerDocument(containerNode).documentElement.scrollTop || containerNode.scrollTop;
-    } else {
-      size = _domUtils2['default'].getSize(containerNode);
-      scroll = containerNode.scrollTop;
-    }
-
-    return _extends({}, size, { scroll: scroll });
-  },
-
-  getPosition: function getPosition(target, container) {
-    var offset = container.tagName === 'BODY' ? _domUtils2['default'].getOffset(target) : _domUtils2['default'].getPosition(target, container);
-    var size = _domUtils2['default'].getSize(target);
-    return _extends({}, offset, size);
-  },
-
-  calcOverlayPosition: function calcOverlayPosition(placement, overlayNode, target, container, padding) {
-    var childOffset = utils.getPosition(target, container);
-
-    var _domUtils$getSize = _domUtils2['default'].getSize(overlayNode);
-
-    var overlayHeight = _domUtils$getSize.height;
-    var overlayWidth = _domUtils$getSize.width;
-
-    var positionLeft = undefined,
-        positionTop = undefined,
-        arrowOffsetLeft = undefined,
-        arrowOffsetTop = undefined;
-
-    if (placement === 'left' || placement === 'right') {
-      positionTop = childOffset.top + (childOffset.height - overlayHeight) / 2;
-
-      if (placement === 'left') {
-        positionLeft = childOffset.left - overlayWidth;
-      } else {
-        positionLeft = childOffset.left + childOffset.width;
-      }
-
-      var topDelta = getTopDelta(positionTop, overlayHeight, container, padding);
-
-      positionTop += topDelta;
-      arrowOffsetTop = 50 * (1 - 2 * topDelta / overlayHeight) + '%';
-      arrowOffsetLeft = null;
-    } else if (placement === 'top' || placement === 'bottom') {
-      positionLeft = childOffset.left + (childOffset.width - overlayWidth) / 2;
-
-      if (placement === 'top') {
-        positionTop = childOffset.top - overlayHeight;
-      } else {
-        positionTop = childOffset.top + childOffset.height;
-      }
-
-      var leftDelta = getLeftDelta(positionLeft, overlayWidth, container, padding);
-      positionLeft += leftDelta;
-      arrowOffsetLeft = 50 * (1 - 2 * leftDelta / overlayWidth) + '%';
-      arrowOffsetTop = null;
-    } else {
-      throw new Error('calcOverlayPosition(): No such placement of "' + placement + '" found.');
-    }
-
-    return { positionLeft: positionLeft, positionTop: positionTop, arrowOffsetLeft: arrowOffsetLeft, arrowOffsetTop: arrowOffsetTop };
-  }
-};
-
-function getTopDelta(top, overlayHeight, container, padding) {
-  var containerDimensions = utils.getContainerDimensions(container);
-  var containerScroll = containerDimensions.scroll;
-  var containerHeight = containerDimensions.height;
-
-  var topEdgeOffset = top - padding - containerScroll;
-  var bottomEdgeOffset = top + padding - containerScroll + overlayHeight;
-
-  if (topEdgeOffset < 0) {
-    return -topEdgeOffset;
-  } else if (bottomEdgeOffset > containerHeight) {
-    return containerHeight - bottomEdgeOffset;
-  } else {
-    return 0;
-  }
-}
-
-function getLeftDelta(left, overlayWidth, container, padding) {
-  var containerDimensions = utils.getContainerDimensions(container);
-  var containerWidth = containerDimensions.width;
-
-  var leftEdgeOffset = left - padding;
-  var rightEdgeOffset = left + padding + overlayWidth;
-
-  if (leftEdgeOffset < 0) {
-    return -leftEdgeOffset;
-  } else if (rightEdgeOffset > containerWidth) {
-    return containerWidth - rightEdgeOffset;
-  } else {
-    return 0;
-  }
-}
-exports['default'] = utils;
-module.exports = exports['default'];
-},{"./domUtils":135,"babel-runtime/helpers/extends":144,"babel-runtime/helpers/interop-require-default":146}],138:[function(require,module,exports){
-module.exports = { "default": require("core-js/library/fn/object/assign"), __esModule: true };
-},{"core-js/library/fn/object/assign":149}],139:[function(require,module,exports){
-module.exports = { "default": require("core-js/library/fn/object/create"), __esModule: true };
-},{"core-js/library/fn/object/create":150}],140:[function(require,module,exports){
-module.exports = { "default": require("core-js/library/fn/object/is-frozen"), __esModule: true };
-},{"core-js/library/fn/object/is-frozen":151}],141:[function(require,module,exports){
-module.exports = { "default": require("core-js/library/fn/object/keys"), __esModule: true };
-},{"core-js/library/fn/object/keys":152}],142:[function(require,module,exports){
-module.exports = { "default": require("core-js/library/fn/object/set-prototype-of"), __esModule: true };
-},{"core-js/library/fn/object/set-prototype-of":153}],143:[function(require,module,exports){
-"use strict";
-
-exports["default"] = function (instance, Constructor) {
-  if (!(instance instanceof Constructor)) {
-    throw new TypeError("Cannot call a class as a function");
-  }
-};
-
-exports.__esModule = true;
-},{}],144:[function(require,module,exports){
-"use strict";
-
-var _Object$assign = require("babel-runtime/core-js/object/assign")["default"];
-
-exports["default"] = _Object$assign || function (target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i];
-
-    for (var key in source) {
-      if (Object.prototype.hasOwnProperty.call(source, key)) {
-        target[key] = source[key];
-      }
-    }
-  }
-
-  return target;
-};
-
-exports.__esModule = true;
-},{"babel-runtime/core-js/object/assign":138}],145:[function(require,module,exports){
-"use strict";
-
-var _Object$create = require("babel-runtime/core-js/object/create")["default"];
-
-var _Object$setPrototypeOf = require("babel-runtime/core-js/object/set-prototype-of")["default"];
-
-exports["default"] = function (subClass, superClass) {
-  if (typeof superClass !== "function" && superClass !== null) {
-    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
-  }
-
-  subClass.prototype = _Object$create(superClass && superClass.prototype, {
-    constructor: {
-      value: subClass,
-      enumerable: false,
-      writable: true,
-      configurable: true
-    }
-  });
-  if (superClass) _Object$setPrototypeOf ? _Object$setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
-};
-
-exports.__esModule = true;
-},{"babel-runtime/core-js/object/create":139,"babel-runtime/core-js/object/set-prototype-of":142}],146:[function(require,module,exports){
-"use strict";
-
-exports["default"] = function (obj) {
-  return obj && obj.__esModule ? obj : {
-    "default": obj
-  };
-};
-
-exports.__esModule = true;
-},{}],147:[function(require,module,exports){
-"use strict";
-
-exports["default"] = function (obj) {
-  if (obj && obj.__esModule) {
-    return obj;
-  } else {
-    var newObj = {};
-
-    if (obj != null) {
-      for (var key in obj) {
-        if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
-      }
-    }
-
-    newObj["default"] = obj;
-    return newObj;
-  }
-};
-
-exports.__esModule = true;
-},{}],148:[function(require,module,exports){
-"use strict";
-
-exports["default"] = function (obj, keys) {
-  var target = {};
-
-  for (var i in obj) {
-    if (keys.indexOf(i) >= 0) continue;
-    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
-    target[i] = obj[i];
-  }
-
-  return target;
-};
-
-exports.__esModule = true;
-},{}],149:[function(require,module,exports){
-require('../../modules/es6.object.assign');
-module.exports = require('../../modules/$.core').Object.assign;
-},{"../../modules/$.core":158,"../../modules/es6.object.assign":172}],150:[function(require,module,exports){
-var $ = require('../../modules/$');
-module.exports = function create(P, D){
-  return $.create(P, D);
-};
-},{"../../modules/$":168}],151:[function(require,module,exports){
-require('../../modules/es6.object.is-frozen');
-module.exports = require('../../modules/$.core').Object.isFrozen;
-},{"../../modules/$.core":158,"../../modules/es6.object.is-frozen":173}],152:[function(require,module,exports){
-require('../../modules/es6.object.keys');
-module.exports = require('../../modules/$.core').Object.keys;
-},{"../../modules/$.core":158,"../../modules/es6.object.keys":174}],153:[function(require,module,exports){
-require('../../modules/es6.object.set-prototype-of');
-module.exports = require('../../modules/$.core').Object.setPrototypeOf;
-},{"../../modules/$.core":158,"../../modules/es6.object.set-prototype-of":175}],154:[function(require,module,exports){
-module.exports = function(it){
-  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
-  return it;
-};
-},{}],155:[function(require,module,exports){
-var isObject = require('./$.is-object');
-module.exports = function(it){
-  if(!isObject(it))throw TypeError(it + ' is not an object!');
-  return it;
-};
-},{"./$.is-object":167}],156:[function(require,module,exports){
-// 19.1.2.1 Object.assign(target, source, ...)
-var toObject = require('./$.to-object')
-  , IObject  = require('./$.iobject')
-  , enumKeys = require('./$.enum-keys')
-  , has      = require('./$.has');
-
-// should work with symbols and should have deterministic property order (V8 bug)
-module.exports = require('./$.fails')(function(){
-  var a = Object.assign
-    , A = {}
-    , B = {}
-    , S = Symbol()
-    , K = 'abcdefghijklmnopqrst';
-  A[S] = 7;
-  K.split('').forEach(function(k){ B[k] = k; });
-  return a({}, A)[S] != 7 || Object.keys(a({}, B)).join('') != K;
-}) ? function assign(target, source){   // eslint-disable-line no-unused-vars
-  var T = toObject(target)
-    , l = arguments.length
-    , i = 1;
-  while(l > i){
-    var S      = IObject(arguments[i++])
-      , keys   = enumKeys(S)
-      , length = keys.length
-      , j      = 0
-      , key;
-    while(length > j)if(has(S, key = keys[j++]))T[key] = S[key];
-  }
-  return T;
-} : Object.assign;
-},{"./$.enum-keys":162,"./$.fails":163,"./$.has":165,"./$.iobject":166,"./$.to-object":171}],157:[function(require,module,exports){
-var toString = {}.toString;
-
-module.exports = function(it){
-  return toString.call(it).slice(8, -1);
-};
-},{}],158:[function(require,module,exports){
-var core = module.exports = {version: '1.2.1'};
-if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
-},{}],159:[function(require,module,exports){
-// optional / simple context binding
-var aFunction = require('./$.a-function');
-module.exports = function(fn, that, length){
-  aFunction(fn);
-  if(that === undefined)return fn;
-  switch(length){
-    case 1: return function(a){
-      return fn.call(that, a);
-    };
-    case 2: return function(a, b){
-      return fn.call(that, a, b);
-    };
-    case 3: return function(a, b, c){
-      return fn.call(that, a, b, c);
-    };
-  }
-  return function(/* ...args */){
-    return fn.apply(that, arguments);
-  };
-};
-},{"./$.a-function":154}],160:[function(require,module,exports){
-var global    = require('./$.global')
-  , core      = require('./$.core')
-  , PROTOTYPE = 'prototype';
-var ctx = function(fn, that){
-  return function(){
-    return fn.apply(that, arguments);
-  };
-};
-var $def = function(type, name, source){
-  var key, own, out, exp
-    , isGlobal = type & $def.G
-    , isProto  = type & $def.P
-    , target   = isGlobal ? global : type & $def.S
-        ? global[name] : (global[name] || {})[PROTOTYPE]
-    , exports  = isGlobal ? core : core[name] || (core[name] = {});
-  if(isGlobal)source = name;
-  for(key in source){
-    // contains in native
-    own = !(type & $def.F) && target && key in target;
-    if(own && key in exports)continue;
-    // export native or passed
-    out = own ? target[key] : source[key];
-    // prevent global pollution for namespaces
-    if(isGlobal && typeof target[key] != 'function')exp = source[key];
-    // bind timers to global for call from export context
-    else if(type & $def.B && own)exp = ctx(out, global);
-    // wrap global constructors for prevent change them in library
-    else if(type & $def.W && target[key] == out)!function(C){
-      exp = function(param){
-        return this instanceof C ? new C(param) : C(param);
-      };
-      exp[PROTOTYPE] = C[PROTOTYPE];
-    }(out);
-    else exp = isProto && typeof out == 'function' ? ctx(Function.call, out) : out;
-    // export
-    exports[key] = exp;
-    if(isProto)(exports[PROTOTYPE] || (exports[PROTOTYPE] = {}))[key] = out;
-  }
-};
-// type bitmap
-$def.F = 1;  // forced
-$def.G = 2;  // global
-$def.S = 4;  // static
-$def.P = 8;  // proto
-$def.B = 16; // bind
-$def.W = 32; // wrap
-module.exports = $def;
-},{"./$.core":158,"./$.global":164}],161:[function(require,module,exports){
-// 7.2.1 RequireObjectCoercible(argument)
-module.exports = function(it){
-  if(it == undefined)throw TypeError("Can't call method on  " + it);
-  return it;
-};
-},{}],162:[function(require,module,exports){
-// all enumerable object keys, includes symbols
-var $ = require('./$');
-module.exports = function(it){
-  var keys       = $.getKeys(it)
-    , getSymbols = $.getSymbols;
-  if(getSymbols){
-    var symbols = getSymbols(it)
-      , isEnum  = $.isEnum
-      , i       = 0
-      , key;
-    while(symbols.length > i)if(isEnum.call(it, key = symbols[i++]))keys.push(key);
-  }
-  return keys;
-};
-},{"./$":168}],163:[function(require,module,exports){
-module.exports = function(exec){
-  try {
-    return !!exec();
-  } catch(e){
-    return true;
-  }
-};
-},{}],164:[function(require,module,exports){
-// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
-var UNDEFINED = 'undefined';
-var global = module.exports = typeof window != UNDEFINED && window.Math == Math
-  ? window : typeof self != UNDEFINED && self.Math == Math ? self : Function('return this')();
-if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
-},{}],165:[function(require,module,exports){
-var hasOwnProperty = {}.hasOwnProperty;
-module.exports = function(it, key){
-  return hasOwnProperty.call(it, key);
-};
-},{}],166:[function(require,module,exports){
-// indexed object, fallback for non-array-like ES3 strings
-var cof = require('./$.cof');
-module.exports = 0 in Object('z') ? Object : function(it){
-  return cof(it) == 'String' ? it.split('') : Object(it);
-};
-},{"./$.cof":157}],167:[function(require,module,exports){
-module.exports = function(it){
-  return typeof it === 'object' ? it !== null : typeof it === 'function';
-};
-},{}],168:[function(require,module,exports){
-var $Object = Object;
-module.exports = {
-  create:     $Object.create,
-  getProto:   $Object.getPrototypeOf,
-  isEnum:     {}.propertyIsEnumerable,
-  getDesc:    $Object.getOwnPropertyDescriptor,
-  setDesc:    $Object.defineProperty,
-  setDescs:   $Object.defineProperties,
-  getKeys:    $Object.keys,
-  getNames:   $Object.getOwnPropertyNames,
-  getSymbols: $Object.getOwnPropertySymbols,
-  each:       [].forEach
-};
-},{}],169:[function(require,module,exports){
-// most Object methods by ES6 should accept primitives
-module.exports = function(KEY, exec){
-  var $def = require('./$.def')
-    , fn   = (require('./$.core').Object || {})[KEY] || Object[KEY]
-    , exp  = {};
-  exp[KEY] = exec(fn);
-  $def($def.S + $def.F * require('./$.fails')(function(){ fn(1); }), 'Object', exp);
-};
-},{"./$.core":158,"./$.def":160,"./$.fails":163}],170:[function(require,module,exports){
-// Works with __proto__ only. Old v8 can't work with null proto objects.
-/* eslint-disable no-proto */
-var getDesc  = require('./$').getDesc
-  , isObject = require('./$.is-object')
-  , anObject = require('./$.an-object');
-var check = function(O, proto){
-  anObject(O);
-  if(!isObject(proto) && proto !== null)throw TypeError(proto + ": can't set as prototype!");
-};
-module.exports = {
-  set: Object.setPrototypeOf || ('__proto__' in {} ? // eslint-disable-line no-proto
-    function(test, buggy, set){
-      try {
-        set = require('./$.ctx')(Function.call, getDesc(Object.prototype, '__proto__').set, 2);
-        set(test, []);
-        buggy = !(test instanceof Array);
-      } catch(e){ buggy = true; }
-      return function setPrototypeOf(O, proto){
-        check(O, proto);
-        if(buggy)O.__proto__ = proto;
-        else set(O, proto);
-        return O;
-      };
-    }({}, false) : undefined),
-  check: check
-};
-},{"./$":168,"./$.an-object":155,"./$.ctx":159,"./$.is-object":167}],171:[function(require,module,exports){
-// 7.1.13 ToObject(argument)
-var defined = require('./$.defined');
-module.exports = function(it){
-  return Object(defined(it));
-};
-},{"./$.defined":161}],172:[function(require,module,exports){
-// 19.1.3.1 Object.assign(target, source)
-var $def = require('./$.def');
-
-$def($def.S + $def.F, 'Object', {assign: require('./$.assign')});
-},{"./$.assign":156,"./$.def":160}],173:[function(require,module,exports){
-// 19.1.2.12 Object.isFrozen(O)
-var isObject = require('./$.is-object');
-
-require('./$.object-sap')('isFrozen', function($isFrozen){
-  return function isFrozen(it){
-    return isObject(it) ? $isFrozen ? $isFrozen(it) : false : true;
-  };
-});
-},{"./$.is-object":167,"./$.object-sap":169}],174:[function(require,module,exports){
-// 19.1.2.14 Object.keys(O)
-var toObject = require('./$.to-object');
-
-require('./$.object-sap')('keys', function($keys){
-  return function keys(it){
-    return $keys(toObject(it));
-  };
-});
-},{"./$.object-sap":169,"./$.to-object":171}],175:[function(require,module,exports){
-// 19.1.3.19 Object.setPrototypeOf(O, proto)
-var $def = require('./$.def');
-$def($def.S, 'Object', {setPrototypeOf: require('./$.set-proto').set});
-},{"./$.def":160,"./$.set-proto":170}],176:[function(require,module,exports){
-/*!
-  Copyright (c) 2015 Jed Watson.
-  Licensed under the MIT License (MIT), see
-  http://jedwatson.github.io/classnames
-*/
-/* global define */
-
-(function () {
-	'use strict';
-
-	var hasOwn = {}.hasOwnProperty;
-
-	function classNames () {
-		var classes = '';
-
-		for (var i = 0; i < arguments.length; i++) {
-			var arg = arguments[i];
-			if (!arg) continue;
-
-			var argType = typeof arg;
-
-			if (argType === 'string' || argType === 'number') {
-				classes += ' ' + arg;
-			} else if (Array.isArray(arg)) {
-				classes += ' ' + classNames.apply(null, arg);
-			} else if (argType === 'object') {
-				for (var key in arg) {
-					if (hasOwn.call(arg, key) && arg[key]) {
-						classes += ' ' + key;
-					}
-				}
-			}
-		}
-
-		return classes.substr(1);
-	}
-
-	if (typeof module !== 'undefined' && module.exports) {
-		module.exports = classNames;
-	} else if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
-		// register as 'classnames', consistent with npm package name
-		define('classnames', function () {
-			return classNames;
-		});
-	} else {
-		window.classNames = classNames;
-	}
-}());
-
-},{}],177:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /**
  * Represents a cancellation caused by navigating away
  * before the previous transition has fully resolved.
@@ -13790,7 +420,7 @@ $def($def.S, 'Object', {setPrototypeOf: require('./$.set-proto').set});
 function Cancellation() {}
 
 module.exports = Cancellation;
-},{}],178:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 'use strict';
 
 var invariant = require('react/lib/invariant');
@@ -13821,7 +451,7 @@ var History = {
 };
 
 module.exports = History;
-},{"react/lib/ExecutionEnvironment":236,"react/lib/invariant":351}],179:[function(require,module,exports){
+},{"react/lib/ExecutionEnvironment":66,"react/lib/invariant":181}],10:[function(require,module,exports){
 /* jshint -W084 */
 'use strict';
 
@@ -13897,7 +527,7 @@ var Match = (function () {
 })();
 
 module.exports = Match;
-},{"./PathUtils":181}],180:[function(require,module,exports){
+},{"./PathUtils":12}],11:[function(require,module,exports){
 'use strict';
 
 var PropTypes = require('./PropTypes');
@@ -13968,7 +598,7 @@ var Navigation = {
 };
 
 module.exports = Navigation;
-},{"./PropTypes":182}],181:[function(require,module,exports){
+},{"./PropTypes":13}],12:[function(require,module,exports){
 'use strict';
 
 var invariant = require('react/lib/invariant');
@@ -14122,7 +752,7 @@ var PathUtils = {
 };
 
 module.exports = PathUtils;
-},{"object-assign":210,"qs":211,"react/lib/invariant":351}],182:[function(require,module,exports){
+},{"object-assign":41,"qs":42,"react/lib/invariant":181}],13:[function(require,module,exports){
 'use strict';
 
 var assign = require('react/lib/Object.assign');
@@ -14152,7 +782,7 @@ var PropTypes = assign({}, ReactPropTypes, {
 });
 
 module.exports = PropTypes;
-},{"./Route":184,"react":371,"react/lib/Object.assign":242}],183:[function(require,module,exports){
+},{"./Route":15,"react":201,"react/lib/Object.assign":72}],14:[function(require,module,exports){
 /**
  * Encapsulates a redirect to the given route.
  */
@@ -14165,7 +795,7 @@ function Redirect(to, params, query) {
 }
 
 module.exports = Redirect;
-},{}],184:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -14368,7 +998,7 @@ var Route = (function () {
 })();
 
 module.exports = Route;
-},{"./PathUtils":181,"react/lib/Object.assign":242,"react/lib/invariant":351,"react/lib/warning":370}],185:[function(require,module,exports){
+},{"./PathUtils":12,"react/lib/Object.assign":72,"react/lib/invariant":181,"react/lib/warning":200}],16:[function(require,module,exports){
 'use strict';
 
 var invariant = require('react/lib/invariant');
@@ -14444,7 +1074,7 @@ var ScrollHistory = {
 };
 
 module.exports = ScrollHistory;
-},{"./getWindowScrollPosition":200,"react/lib/ExecutionEnvironment":236,"react/lib/invariant":351}],186:[function(require,module,exports){
+},{"./getWindowScrollPosition":31,"react/lib/ExecutionEnvironment":66,"react/lib/invariant":181}],17:[function(require,module,exports){
 'use strict';
 
 var PropTypes = require('./PropTypes');
@@ -14519,7 +1149,7 @@ var State = {
 };
 
 module.exports = State;
-},{"./PropTypes":182}],187:[function(require,module,exports){
+},{"./PropTypes":13}],18:[function(require,module,exports){
 /* jshint -W058 */
 
 'use strict';
@@ -14595,7 +1225,7 @@ Transition.to = function (transition, routes, params, query, callback) {
 };
 
 module.exports = Transition;
-},{"./Cancellation":177,"./Redirect":183}],188:[function(require,module,exports){
+},{"./Cancellation":8,"./Redirect":14}],19:[function(require,module,exports){
 /**
  * Actions that modify the URL.
  */
@@ -14621,7 +1251,7 @@ var LocationActions = {
 };
 
 module.exports = LocationActions;
-},{}],189:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 'use strict';
 
 var LocationActions = require('../actions/LocationActions');
@@ -14651,7 +1281,7 @@ var ImitateBrowserBehavior = {
 };
 
 module.exports = ImitateBrowserBehavior;
-},{"../actions/LocationActions":188}],190:[function(require,module,exports){
+},{"../actions/LocationActions":19}],21:[function(require,module,exports){
 /**
  * A scroll behavior that always scrolls to the top of the page
  * after a transition.
@@ -14667,7 +1297,7 @@ var ScrollToTopBehavior = {
 };
 
 module.exports = ScrollToTopBehavior;
-},{}],191:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /**
  * This component is necessary to get around a context warning
  * present in React 0.13.0. It sovles this by providing a separation
@@ -14706,7 +1336,7 @@ var ContextWrapper = (function (_React$Component) {
 })(React.Component);
 
 module.exports = ContextWrapper;
-},{"react":371}],192:[function(require,module,exports){
+},{"react":201}],23:[function(require,module,exports){
 'use strict';
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -14754,7 +1384,7 @@ DefaultRoute.defaultProps = {
 };
 
 module.exports = DefaultRoute;
-},{"../PropTypes":182,"./Route":196,"./RouteHandler":197}],193:[function(require,module,exports){
+},{"../PropTypes":13,"./Route":27,"./RouteHandler":28}],24:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -14890,7 +1520,7 @@ Link.defaultProps = {
 };
 
 module.exports = Link;
-},{"../PropTypes":182,"react":371,"react/lib/Object.assign":242}],194:[function(require,module,exports){
+},{"../PropTypes":13,"react":201,"react/lib/Object.assign":72}],25:[function(require,module,exports){
 'use strict';
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -14939,7 +1569,7 @@ NotFoundRoute.defaultProps = {
 };
 
 module.exports = NotFoundRoute;
-},{"../PropTypes":182,"./Route":196,"./RouteHandler":197}],195:[function(require,module,exports){
+},{"../PropTypes":13,"./Route":27,"./RouteHandler":28}],26:[function(require,module,exports){
 'use strict';
 
 var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; desc = parent = getter = undefined; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
@@ -14983,7 +1613,7 @@ Redirect.propTypes = {
 Redirect.defaultProps = {};
 
 module.exports = Redirect;
-},{"../PropTypes":182,"./Route":196}],196:[function(require,module,exports){
+},{"../PropTypes":13,"./Route":27}],27:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -15075,7 +1705,7 @@ Route.defaultProps = {
 };
 
 module.exports = Route;
-},{"../PropTypes":182,"./RouteHandler":197,"react":371,"react/lib/invariant":351}],197:[function(require,module,exports){
+},{"../PropTypes":13,"./RouteHandler":28,"react":201,"react/lib/invariant":181}],28:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -15184,7 +1814,7 @@ RouteHandler.childContextTypes = {
 };
 
 module.exports = RouteHandler;
-},{"../PropTypes":182,"./ContextWrapper":191,"react":371,"react/lib/Object.assign":242}],198:[function(require,module,exports){
+},{"../PropTypes":13,"./ContextWrapper":22,"react":201,"react/lib/Object.assign":72}],29:[function(require,module,exports){
 (function (process){
 /* jshint -W058 */
 'use strict';
@@ -15700,7 +2330,7 @@ function createRouter(options) {
 module.exports = createRouter;
 }).call(this,require('_process'))
 
-},{"./Cancellation":177,"./History":178,"./Match":179,"./PathUtils":181,"./PropTypes":182,"./Redirect":183,"./Route":184,"./ScrollHistory":185,"./Transition":187,"./actions/LocationActions":188,"./behaviors/ImitateBrowserBehavior":189,"./createRoutesFromReactChildren":199,"./isReactChildren":202,"./locations/HashLocation":203,"./locations/HistoryLocation":204,"./locations/RefreshLocation":205,"./locations/StaticLocation":206,"./supportsHistory":209,"_process":25,"react":371,"react/lib/ExecutionEnvironment":236,"react/lib/invariant":351,"react/lib/warning":370}],199:[function(require,module,exports){
+},{"./Cancellation":8,"./History":9,"./Match":10,"./PathUtils":12,"./PropTypes":13,"./Redirect":14,"./Route":15,"./ScrollHistory":16,"./Transition":18,"./actions/LocationActions":19,"./behaviors/ImitateBrowserBehavior":20,"./createRoutesFromReactChildren":30,"./isReactChildren":33,"./locations/HashLocation":34,"./locations/HistoryLocation":35,"./locations/RefreshLocation":36,"./locations/StaticLocation":37,"./supportsHistory":40,"_process":7,"react":201,"react/lib/ExecutionEnvironment":66,"react/lib/invariant":181,"react/lib/warning":200}],30:[function(require,module,exports){
 /* jshint -W084 */
 'use strict';
 
@@ -15782,7 +2412,7 @@ function createRoutesFromReactChildren(children) {
 }
 
 module.exports = createRoutesFromReactChildren;
-},{"./Route":184,"./components/DefaultRoute":192,"./components/NotFoundRoute":194,"./components/Redirect":195,"react":371,"react/lib/Object.assign":242,"react/lib/warning":370}],200:[function(require,module,exports){
+},{"./Route":15,"./components/DefaultRoute":23,"./components/NotFoundRoute":25,"./components/Redirect":26,"react":201,"react/lib/Object.assign":72,"react/lib/warning":200}],31:[function(require,module,exports){
 'use strict';
 
 var invariant = require('react/lib/invariant');
@@ -15801,7 +2431,7 @@ function getWindowScrollPosition() {
 }
 
 module.exports = getWindowScrollPosition;
-},{"react/lib/ExecutionEnvironment":236,"react/lib/invariant":351}],201:[function(require,module,exports){
+},{"react/lib/ExecutionEnvironment":66,"react/lib/invariant":181}],32:[function(require,module,exports){
 'use strict';
 
 exports.DefaultRoute = require('./components/DefaultRoute');
@@ -15833,7 +2463,7 @@ exports.createRoutesFromReactChildren = require('./createRoutesFromReactChildren
 
 exports.create = require('./createRouter');
 exports.run = require('./runRouter');
-},{"./History":178,"./Navigation":180,"./Route":184,"./State":186,"./behaviors/ImitateBrowserBehavior":189,"./behaviors/ScrollToTopBehavior":190,"./components/DefaultRoute":192,"./components/Link":193,"./components/NotFoundRoute":194,"./components/Redirect":195,"./components/Route":196,"./components/RouteHandler":197,"./createRouter":198,"./createRoutesFromReactChildren":199,"./locations/HashLocation":203,"./locations/HistoryLocation":204,"./locations/RefreshLocation":205,"./locations/StaticLocation":206,"./locations/TestLocation":207,"./runRouter":208}],202:[function(require,module,exports){
+},{"./History":9,"./Navigation":11,"./Route":15,"./State":17,"./behaviors/ImitateBrowserBehavior":20,"./behaviors/ScrollToTopBehavior":21,"./components/DefaultRoute":23,"./components/Link":24,"./components/NotFoundRoute":25,"./components/Redirect":26,"./components/Route":27,"./components/RouteHandler":28,"./createRouter":29,"./createRoutesFromReactChildren":30,"./locations/HashLocation":34,"./locations/HistoryLocation":35,"./locations/RefreshLocation":36,"./locations/StaticLocation":37,"./locations/TestLocation":38,"./runRouter":39}],33:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -15847,7 +2477,7 @@ function isReactChildren(object) {
 }
 
 module.exports = isReactChildren;
-},{"react":371}],203:[function(require,module,exports){
+},{"react":201}],34:[function(require,module,exports){
 'use strict';
 
 var LocationActions = require('../actions/LocationActions');
@@ -15959,7 +2589,7 @@ var HashLocation = {
 };
 
 module.exports = HashLocation;
-},{"../History":178,"../actions/LocationActions":188}],204:[function(require,module,exports){
+},{"../History":9,"../actions/LocationActions":19}],35:[function(require,module,exports){
 'use strict';
 
 var LocationActions = require('../actions/LocationActions');
@@ -16044,7 +2674,7 @@ var HistoryLocation = {
 };
 
 module.exports = HistoryLocation;
-},{"../History":178,"../actions/LocationActions":188}],205:[function(require,module,exports){
+},{"../History":9,"../actions/LocationActions":19}],36:[function(require,module,exports){
 'use strict';
 
 var HistoryLocation = require('./HistoryLocation');
@@ -16076,7 +2706,7 @@ var RefreshLocation = {
 };
 
 module.exports = RefreshLocation;
-},{"../History":178,"./HistoryLocation":204}],206:[function(require,module,exports){
+},{"../History":9,"./HistoryLocation":35}],37:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -16126,7 +2756,7 @@ StaticLocation.prototype.replace = throwCannotModify;
 StaticLocation.prototype.pop = throwCannotModify;
 
 module.exports = StaticLocation;
-},{"react/lib/invariant":351}],207:[function(require,module,exports){
+},{"react/lib/invariant":181}],38:[function(require,module,exports){
 'use strict';
 
 var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
@@ -16217,7 +2847,7 @@ var TestLocation = (function () {
 })();
 
 module.exports = TestLocation;
-},{"../History":178,"../actions/LocationActions":188,"react/lib/invariant":351}],208:[function(require,module,exports){
+},{"../History":9,"../actions/LocationActions":19,"react/lib/invariant":181}],39:[function(require,module,exports){
 'use strict';
 
 var createRouter = require('./createRouter');
@@ -16268,7 +2898,7 @@ function runRouter(routes, location, callback) {
 }
 
 module.exports = runRouter;
-},{"./createRouter":198}],209:[function(require,module,exports){
+},{"./createRouter":29}],40:[function(require,module,exports){
 'use strict';
 
 function supportsHistory() {
@@ -16285,7 +2915,7 @@ function supportsHistory() {
 }
 
 module.exports = supportsHistory;
-},{}],210:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 'use strict';
 
 function ToObject(val) {
@@ -16313,10 +2943,10 @@ module.exports = Object.assign || function (target, source) {
 	return to;
 };
 
-},{}],211:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 module.exports = require('./lib/');
 
-},{"./lib/":212}],212:[function(require,module,exports){
+},{"./lib/":43}],43:[function(require,module,exports){
 // Load modules
 
 var Stringify = require('./stringify');
@@ -16333,7 +2963,7 @@ module.exports = {
     parse: Parse
 };
 
-},{"./parse":213,"./stringify":214}],213:[function(require,module,exports){
+},{"./parse":44,"./stringify":45}],44:[function(require,module,exports){
 // Load modules
 
 var Utils = require('./utils');
@@ -16496,7 +3126,7 @@ module.exports = function (str, options) {
     return Utils.compact(obj);
 };
 
-},{"./utils":215}],214:[function(require,module,exports){
+},{"./utils":46}],45:[function(require,module,exports){
 // Load modules
 
 var Utils = require('./utils');
@@ -16595,7 +3225,7 @@ module.exports = function (obj, options) {
     return keys.join(delimiter);
 };
 
-},{"./utils":215}],215:[function(require,module,exports){
+},{"./utils":46}],46:[function(require,module,exports){
 // Load modules
 
 
@@ -16729,192 +3359,7 @@ exports.isBuffer = function (obj) {
         obj.constructor.isBuffer(obj));
 };
 
-},{}],216:[function(require,module,exports){
-'use strict';
-
-var React = require('react');
-
-var PropTypes = React.PropTypes;
-
-var POSITIONS = {
-  above: 'above',
-  inside: 'inside',
-  below: 'below'
-};
-
-/**
- * Calls a function when you scroll to the element.
- */
-var Waypoint = React.createClass({
-  displayName: 'Waypoint',
-
-  propTypes: {
-    onEnter: PropTypes.func,
-    onLeave: PropTypes.func,
-    // threshold is percentage of the height of the visible part of the
-    // scrollable ancestor (e.g. 0.1)
-    threshold: PropTypes.number
-  },
-
-  /**
-   * @return {Object}
-   */
-  getDefaultProps: function getDefaultProps() {
-    return {
-      threshold: 0,
-      onEnter: function onEnter() {},
-      onLeave: function onLeave() {}
-    };
-  },
-
-  componentDidMount: function componentDidMount() {
-    this.scrollableAncestor = this._findScrollableAncestor();
-    this.scrollableAncestor.addEventListener('scroll', this._handleScroll);
-    window.addEventListener('resize', this._handleScroll);
-    this._handleScroll();
-  },
-
-  componentDidUpdate: function componentDidUpdate() {
-    // The element may have moved.
-    this._handleScroll();
-  },
-
-  componentWillUnmount: function componentWillUnmount() {
-    if (this.scrollableAncestor) {
-      // At the time of unmounting, the scrollable ancestor might no longer
-      // exist. Guarding against this prevents the following error:
-      //
-      //   Cannot read property 'removeEventListener' of undefined
-      this.scrollableAncestor.removeEventListener('scroll', this._handleScroll);
-    }
-    window.removeEventListener('resize', this._handleScroll);
-  },
-
-  /**
-   * Traverses up the DOM to find an ancestor container which has an overflow
-   * style that allows for scrolling.
-   *
-   * @return {Object} the closest ancestor element with an overflow style that
-   *   allows for scrolling. If none is found, the `window` object is returned
-   *   as a fallback.
-   */
-  _findScrollableAncestor: function _findScrollableAncestor() {
-    var node = React.findDOMNode(this);
-
-    while (node.parentNode) {
-      node = node.parentNode;
-
-      if (node === document) {
-        // This particular node does not have a computed style.
-        continue;
-      }
-
-      var style = window.getComputedStyle(node);
-      var overflowY = style.getPropertyValue('overflow-y') || style.getPropertyValue('overflow');
-
-      if (overflowY === 'auto' || overflowY === 'scroll') {
-        return node;
-      }
-    }
-
-    // A scrollable ancestor element was not found, which means that we need to
-    // do stuff on window.
-    return window;
-  },
-
-  /**
-   * @param {Object} event the native scroll event coming from the scrollable
-   *   ancestor, or resize event coming from the window. Will be undefined if
-   *   called by a React lifecyle method
-   */
-  _handleScroll: function _handleScroll(event) {
-    var currentPosition = this._currentPosition();
-
-    if (this._previousPosition === currentPosition) {
-      // No change since last trigger
-      return;
-    }
-
-    if (currentPosition === POSITIONS.inside) {
-      this.props.onEnter.call(this, event);
-    } else if (this._previousPosition === POSITIONS.inside) {
-      this.props.onLeave.call(this, event);
-    }
-
-    var isRapidScrollDown = this._previousPosition === POSITIONS.below && currentPosition === POSITIONS.above;
-    var isRapidScrollUp = this._previousPosition === POSITIONS.above && currentPosition === POSITIONS.below;
-    if (isRapidScrollDown || isRapidScrollUp) {
-      // If the scroll event isn't fired often enough to occur while the
-      // waypoint was visible, we trigger both callbacks anyway.
-      this.props.onEnter.call(this, event);
-      this.props.onLeave.call(this, event);
-    }
-
-    this._previousPosition = currentPosition;
-  },
-
-  /**
-   * @param {Object} node
-   * @return {Number}
-   */
-  _distanceToTopOfScrollableAncestor: function _distanceToTopOfScrollableAncestor(node) {
-    if (this.scrollableAncestor !== window && !node.offsetParent) {
-      throw new Error('The scrollable ancestor of Waypoint needs to have positioning to ' + 'properly determine position of Waypoint (e.g. `position: relative;`)');
-    }
-
-    if (node.offsetParent === this.scrollableAncestor || !node.offsetParent) {
-      return node.offsetTop;
-    } else {
-      return node.offsetTop + this._distanceToTopOfScrollableAncestor(node.offsetParent);
-    }
-  },
-
-  /**
-   * @return {boolean} true if scrolled down almost to the end of the scrollable
-   *   ancestor element.
-   */
-  _currentPosition: function _currentPosition() {
-    var waypointTop = this._distanceToTopOfScrollableAncestor(React.findDOMNode(this));
-    var contextHeight = undefined;
-    var contextScrollTop = undefined;
-
-    if (this.scrollableAncestor === window) {
-      contextHeight = window.innerHeight;
-      contextScrollTop = window.pageYOffset;
-    } else {
-      contextHeight = this.scrollableAncestor.offsetHeight;
-      contextScrollTop = this.scrollableAncestor.scrollTop;
-    }
-
-    var thresholdPx = contextHeight * this.props.threshold;
-
-    var isBelowTop = contextScrollTop <= waypointTop + thresholdPx;
-    if (!isBelowTop) {
-      return POSITIONS.above;
-    }
-
-    var contextBottom = contextScrollTop + contextHeight;
-    var isAboveBottom = contextBottom >= waypointTop - thresholdPx;
-    if (!isAboveBottom) {
-      return POSITIONS.below;
-    }
-
-    return POSITIONS.inside;
-  },
-
-  /**
-   * @return {Object}
-   */
-  render: function render() {
-    // We need an element that we can locate in the DOM to determine where it is
-    // rendered relative to the top of its context.
-    return React.createElement('span', { style: { fontSize: 0 } });
-  }
-});
-
-module.exports = Waypoint;
-
-},{"react":371}],217:[function(require,module,exports){
+},{}],47:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -16941,7 +3386,7 @@ var AutoFocusMixin = {
 
 module.exports = AutoFocusMixin;
 
-},{"./focusNode":335}],218:[function(require,module,exports){
+},{"./focusNode":165}],48:[function(require,module,exports){
 /**
  * Copyright 2013-2015 Facebook, Inc.
  * All rights reserved.
@@ -17436,7 +3881,7 @@ var BeforeInputEventPlugin = {
 
 module.exports = BeforeInputEventPlugin;
 
-},{"./EventConstants":230,"./EventPropagators":235,"./ExecutionEnvironment":236,"./FallbackCompositionState":237,"./SyntheticCompositionEvent":309,"./SyntheticInputEvent":313,"./keyOf":357}],219:[function(require,module,exports){
+},{"./EventConstants":60,"./EventPropagators":65,"./ExecutionEnvironment":66,"./FallbackCompositionState":67,"./SyntheticCompositionEvent":139,"./SyntheticInputEvent":143,"./keyOf":187}],49:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -17561,7 +4006,7 @@ var CSSProperty = {
 
 module.exports = CSSProperty;
 
-},{}],220:[function(require,module,exports){
+},{}],50:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -17744,7 +4189,7 @@ module.exports = CSSPropertyOperations;
 
 }).call(this,require('_process'))
 
-},{"./CSSProperty":219,"./ExecutionEnvironment":236,"./camelizeStyleName":324,"./dangerousStyleValue":329,"./hyphenateStyleName":349,"./memoizeStringOnly":359,"./warning":370,"_process":25}],221:[function(require,module,exports){
+},{"./CSSProperty":49,"./ExecutionEnvironment":66,"./camelizeStyleName":154,"./dangerousStyleValue":159,"./hyphenateStyleName":179,"./memoizeStringOnly":189,"./warning":200,"_process":7}],51:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -17845,7 +4290,7 @@ module.exports = CallbackQueue;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":242,"./PooledClass":243,"./invariant":351,"_process":25}],222:[function(require,module,exports){
+},{"./Object.assign":72,"./PooledClass":73,"./invariant":181,"_process":7}],52:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -18227,7 +4672,7 @@ var ChangeEventPlugin = {
 
 module.exports = ChangeEventPlugin;
 
-},{"./EventConstants":230,"./EventPluginHub":232,"./EventPropagators":235,"./ExecutionEnvironment":236,"./ReactUpdates":303,"./SyntheticEvent":311,"./isEventSupported":352,"./isTextInputElement":354,"./keyOf":357}],223:[function(require,module,exports){
+},{"./EventConstants":60,"./EventPluginHub":62,"./EventPropagators":65,"./ExecutionEnvironment":66,"./ReactUpdates":133,"./SyntheticEvent":141,"./isEventSupported":182,"./isTextInputElement":184,"./keyOf":187}],53:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -18252,7 +4697,7 @@ var ClientReactRootIndex = {
 
 module.exports = ClientReactRootIndex;
 
-},{}],224:[function(require,module,exports){
+},{}],54:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -18391,7 +4836,7 @@ module.exports = DOMChildrenOperations;
 
 }).call(this,require('_process'))
 
-},{"./Danger":227,"./ReactMultiChildUpdateTypes":288,"./invariant":351,"./setTextContent":365,"_process":25}],225:[function(require,module,exports){
+},{"./Danger":57,"./ReactMultiChildUpdateTypes":118,"./invariant":181,"./setTextContent":195,"_process":7}],55:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -18691,7 +5136,7 @@ module.exports = DOMProperty;
 
 }).call(this,require('_process'))
 
-},{"./invariant":351,"_process":25}],226:[function(require,module,exports){
+},{"./invariant":181,"_process":7}],56:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -18884,7 +5329,7 @@ module.exports = DOMPropertyOperations;
 
 }).call(this,require('_process'))
 
-},{"./DOMProperty":225,"./quoteAttributeValueForBrowser":363,"./warning":370,"_process":25}],227:[function(require,module,exports){
+},{"./DOMProperty":55,"./quoteAttributeValueForBrowser":193,"./warning":200,"_process":7}],57:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -19072,7 +5517,7 @@ module.exports = Danger;
 
 }).call(this,require('_process'))
 
-},{"./ExecutionEnvironment":236,"./createNodesFromMarkup":328,"./emptyFunction":330,"./getMarkupWrap":343,"./invariant":351,"_process":25}],228:[function(require,module,exports){
+},{"./ExecutionEnvironment":66,"./createNodesFromMarkup":158,"./emptyFunction":160,"./getMarkupWrap":173,"./invariant":181,"_process":7}],58:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -19111,7 +5556,7 @@ var DefaultEventPluginOrder = [
 
 module.exports = DefaultEventPluginOrder;
 
-},{"./keyOf":357}],229:[function(require,module,exports){
+},{"./keyOf":187}],59:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -19251,7 +5696,7 @@ var EnterLeaveEventPlugin = {
 
 module.exports = EnterLeaveEventPlugin;
 
-},{"./EventConstants":230,"./EventPropagators":235,"./ReactMount":286,"./SyntheticMouseEvent":315,"./keyOf":357}],230:[function(require,module,exports){
+},{"./EventConstants":60,"./EventPropagators":65,"./ReactMount":116,"./SyntheticMouseEvent":145,"./keyOf":187}],60:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -19323,7 +5768,7 @@ var EventConstants = {
 
 module.exports = EventConstants;
 
-},{"./keyMirror":356}],231:[function(require,module,exports){
+},{"./keyMirror":186}],61:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -19414,7 +5859,7 @@ module.exports = EventListener;
 
 }).call(this,require('_process'))
 
-},{"./emptyFunction":330,"_process":25}],232:[function(require,module,exports){
+},{"./emptyFunction":160,"_process":7}],62:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -19693,7 +6138,7 @@ module.exports = EventPluginHub;
 
 }).call(this,require('_process'))
 
-},{"./EventPluginRegistry":233,"./EventPluginUtils":234,"./accumulateInto":321,"./forEachAccumulated":336,"./invariant":351,"_process":25}],233:[function(require,module,exports){
+},{"./EventPluginRegistry":63,"./EventPluginUtils":64,"./accumulateInto":151,"./forEachAccumulated":166,"./invariant":181,"_process":7}],63:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -19974,7 +6419,7 @@ module.exports = EventPluginRegistry;
 
 }).call(this,require('_process'))
 
-},{"./invariant":351,"_process":25}],234:[function(require,module,exports){
+},{"./invariant":181,"_process":7}],64:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -20196,7 +6641,7 @@ module.exports = EventPluginUtils;
 
 }).call(this,require('_process'))
 
-},{"./EventConstants":230,"./invariant":351,"_process":25}],235:[function(require,module,exports){
+},{"./EventConstants":60,"./invariant":181,"_process":7}],65:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -20339,7 +6784,7 @@ module.exports = EventPropagators;
 
 }).call(this,require('_process'))
 
-},{"./EventConstants":230,"./EventPluginHub":232,"./accumulateInto":321,"./forEachAccumulated":336,"_process":25}],236:[function(require,module,exports){
+},{"./EventConstants":60,"./EventPluginHub":62,"./accumulateInto":151,"./forEachAccumulated":166,"_process":7}],66:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -20383,7 +6828,7 @@ var ExecutionEnvironment = {
 
 module.exports = ExecutionEnvironment;
 
-},{}],237:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -20474,7 +6919,7 @@ PooledClass.addPoolingTo(FallbackCompositionState);
 
 module.exports = FallbackCompositionState;
 
-},{"./Object.assign":242,"./PooledClass":243,"./getTextContentAccessor":346}],238:[function(require,module,exports){
+},{"./Object.assign":72,"./PooledClass":73,"./getTextContentAccessor":176}],68:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -20685,7 +7130,7 @@ var HTMLDOMPropertyConfig = {
 
 module.exports = HTMLDOMPropertyConfig;
 
-},{"./DOMProperty":225,"./ExecutionEnvironment":236}],239:[function(require,module,exports){
+},{"./DOMProperty":55,"./ExecutionEnvironment":66}],69:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -20842,7 +7287,7 @@ module.exports = LinkedValueUtils;
 
 }).call(this,require('_process'))
 
-},{"./ReactPropTypes":294,"./invariant":351,"_process":25}],240:[function(require,module,exports){
+},{"./ReactPropTypes":124,"./invariant":181,"_process":7}],70:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -20900,7 +7345,7 @@ module.exports = LocalEventTrapMixin;
 
 }).call(this,require('_process'))
 
-},{"./ReactBrowserEventEmitter":246,"./accumulateInto":321,"./forEachAccumulated":336,"./invariant":351,"_process":25}],241:[function(require,module,exports){
+},{"./ReactBrowserEventEmitter":76,"./accumulateInto":151,"./forEachAccumulated":166,"./invariant":181,"_process":7}],71:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -20958,7 +7403,7 @@ var MobileSafariClickEventPlugin = {
 
 module.exports = MobileSafariClickEventPlugin;
 
-},{"./EventConstants":230,"./emptyFunction":330}],242:[function(require,module,exports){
+},{"./EventConstants":60,"./emptyFunction":160}],72:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -21007,7 +7452,7 @@ function assign(target, sources) {
 
 module.exports = assign;
 
-},{}],243:[function(require,module,exports){
+},{}],73:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -21124,7 +7569,7 @@ module.exports = PooledClass;
 
 }).call(this,require('_process'))
 
-},{"./invariant":351,"_process":25}],244:[function(require,module,exports){
+},{"./invariant":181,"_process":7}],74:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -21277,7 +7722,7 @@ module.exports = React;
 
 }).call(this,require('_process'))
 
-},{"./EventPluginUtils":234,"./ExecutionEnvironment":236,"./Object.assign":242,"./ReactChildren":248,"./ReactClass":249,"./ReactComponent":250,"./ReactContext":254,"./ReactCurrentOwner":255,"./ReactDOM":256,"./ReactDOMTextComponent":267,"./ReactDefaultInjection":270,"./ReactElement":273,"./ReactElementValidator":274,"./ReactInstanceHandles":282,"./ReactMount":286,"./ReactPerf":291,"./ReactPropTypes":294,"./ReactReconciler":297,"./ReactServerRendering":300,"./findDOMNode":333,"./onlyChild":360,"_process":25}],245:[function(require,module,exports){
+},{"./EventPluginUtils":64,"./ExecutionEnvironment":66,"./Object.assign":72,"./ReactChildren":78,"./ReactClass":79,"./ReactComponent":80,"./ReactContext":84,"./ReactCurrentOwner":85,"./ReactDOM":86,"./ReactDOMTextComponent":97,"./ReactDefaultInjection":100,"./ReactElement":103,"./ReactElementValidator":104,"./ReactInstanceHandles":112,"./ReactMount":116,"./ReactPerf":121,"./ReactPropTypes":124,"./ReactReconciler":127,"./ReactServerRendering":130,"./findDOMNode":163,"./onlyChild":190,"_process":7}],75:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -21308,7 +7753,7 @@ var ReactBrowserComponentMixin = {
 
 module.exports = ReactBrowserComponentMixin;
 
-},{"./findDOMNode":333}],246:[function(require,module,exports){
+},{"./findDOMNode":163}],76:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -21661,7 +8106,7 @@ var ReactBrowserEventEmitter = assign({}, ReactEventEmitterMixin, {
 
 module.exports = ReactBrowserEventEmitter;
 
-},{"./EventConstants":230,"./EventPluginHub":232,"./EventPluginRegistry":233,"./Object.assign":242,"./ReactEventEmitterMixin":277,"./ViewportMetrics":320,"./isEventSupported":352}],247:[function(require,module,exports){
+},{"./EventConstants":60,"./EventPluginHub":62,"./EventPluginRegistry":63,"./Object.assign":72,"./ReactEventEmitterMixin":107,"./ViewportMetrics":150,"./isEventSupported":182}],77:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -21788,7 +8233,7 @@ var ReactChildReconciler = {
 
 module.exports = ReactChildReconciler;
 
-},{"./ReactReconciler":297,"./flattenChildren":334,"./instantiateReactComponent":350,"./shouldUpdateReactComponent":367}],248:[function(require,module,exports){
+},{"./ReactReconciler":127,"./flattenChildren":164,"./instantiateReactComponent":180,"./shouldUpdateReactComponent":197}],78:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -21942,7 +8387,7 @@ module.exports = ReactChildren;
 
 }).call(this,require('_process'))
 
-},{"./PooledClass":243,"./ReactFragment":279,"./traverseAllChildren":369,"./warning":370,"_process":25}],249:[function(require,module,exports){
+},{"./PooledClass":73,"./ReactFragment":109,"./traverseAllChildren":199,"./warning":200,"_process":7}],79:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -22889,7 +9334,7 @@ module.exports = ReactClass;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":242,"./ReactComponent":250,"./ReactCurrentOwner":255,"./ReactElement":273,"./ReactErrorUtils":276,"./ReactInstanceMap":283,"./ReactLifeCycle":284,"./ReactPropTypeLocationNames":292,"./ReactPropTypeLocations":293,"./ReactUpdateQueue":302,"./invariant":351,"./keyMirror":356,"./keyOf":357,"./warning":370,"_process":25}],250:[function(require,module,exports){
+},{"./Object.assign":72,"./ReactComponent":80,"./ReactCurrentOwner":85,"./ReactElement":103,"./ReactErrorUtils":106,"./ReactInstanceMap":113,"./ReactLifeCycle":114,"./ReactPropTypeLocationNames":122,"./ReactPropTypeLocations":123,"./ReactUpdateQueue":132,"./invariant":181,"./keyMirror":186,"./keyOf":187,"./warning":200,"_process":7}],80:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -23044,7 +9489,7 @@ module.exports = ReactComponent;
 
 }).call(this,require('_process'))
 
-},{"./ReactUpdateQueue":302,"./invariant":351,"./warning":370,"_process":25}],251:[function(require,module,exports){
+},{"./ReactUpdateQueue":132,"./invariant":181,"./warning":200,"_process":7}],81:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -23091,7 +9536,7 @@ var ReactComponentBrowserEnvironment = {
 
 module.exports = ReactComponentBrowserEnvironment;
 
-},{"./ReactDOMIDOperations":260,"./ReactMount":286}],252:[function(require,module,exports){
+},{"./ReactDOMIDOperations":90,"./ReactMount":116}],82:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -23153,7 +9598,7 @@ module.exports = ReactComponentEnvironment;
 
 }).call(this,require('_process'))
 
-},{"./invariant":351,"_process":25}],253:[function(require,module,exports){
+},{"./invariant":181,"_process":7}],83:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -24067,7 +10512,7 @@ module.exports = ReactCompositeComponent;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":242,"./ReactComponentEnvironment":252,"./ReactContext":254,"./ReactCurrentOwner":255,"./ReactElement":273,"./ReactElementValidator":274,"./ReactInstanceMap":283,"./ReactLifeCycle":284,"./ReactNativeComponent":289,"./ReactPerf":291,"./ReactPropTypeLocationNames":292,"./ReactPropTypeLocations":293,"./ReactReconciler":297,"./ReactUpdates":303,"./emptyObject":331,"./invariant":351,"./shouldUpdateReactComponent":367,"./warning":370,"_process":25}],254:[function(require,module,exports){
+},{"./Object.assign":72,"./ReactComponentEnvironment":82,"./ReactContext":84,"./ReactCurrentOwner":85,"./ReactElement":103,"./ReactElementValidator":104,"./ReactInstanceMap":113,"./ReactLifeCycle":114,"./ReactNativeComponent":119,"./ReactPerf":121,"./ReactPropTypeLocationNames":122,"./ReactPropTypeLocations":123,"./ReactReconciler":127,"./ReactUpdates":133,"./emptyObject":161,"./invariant":181,"./shouldUpdateReactComponent":197,"./warning":200,"_process":7}],84:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -24146,7 +10591,7 @@ module.exports = ReactContext;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":242,"./emptyObject":331,"./warning":370,"_process":25}],255:[function(require,module,exports){
+},{"./Object.assign":72,"./emptyObject":161,"./warning":200,"_process":7}],85:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -24180,7 +10625,7 @@ var ReactCurrentOwner = {
 
 module.exports = ReactCurrentOwner;
 
-},{}],256:[function(require,module,exports){
+},{}],86:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -24360,7 +10805,7 @@ module.exports = ReactDOM;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":273,"./ReactElementValidator":274,"./mapObject":358,"_process":25}],257:[function(require,module,exports){
+},{"./ReactElement":103,"./ReactElementValidator":104,"./mapObject":188,"_process":7}],87:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -24424,7 +10869,7 @@ var ReactDOMButton = ReactClass.createClass({
 
 module.exports = ReactDOMButton;
 
-},{"./AutoFocusMixin":217,"./ReactBrowserComponentMixin":245,"./ReactClass":249,"./ReactElement":273,"./keyMirror":356}],258:[function(require,module,exports){
+},{"./AutoFocusMixin":47,"./ReactBrowserComponentMixin":75,"./ReactClass":79,"./ReactElement":103,"./keyMirror":186}],88:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -24935,7 +11380,7 @@ module.exports = ReactDOMComponent;
 
 }).call(this,require('_process'))
 
-},{"./CSSPropertyOperations":220,"./DOMProperty":225,"./DOMPropertyOperations":226,"./Object.assign":242,"./ReactBrowserEventEmitter":246,"./ReactComponentBrowserEnvironment":251,"./ReactMount":286,"./ReactMultiChild":287,"./ReactPerf":291,"./escapeTextContentForBrowser":332,"./invariant":351,"./isEventSupported":352,"./keyOf":357,"./warning":370,"_process":25}],259:[function(require,module,exports){
+},{"./CSSPropertyOperations":50,"./DOMProperty":55,"./DOMPropertyOperations":56,"./Object.assign":72,"./ReactBrowserEventEmitter":76,"./ReactComponentBrowserEnvironment":81,"./ReactMount":116,"./ReactMultiChild":117,"./ReactPerf":121,"./escapeTextContentForBrowser":162,"./invariant":181,"./isEventSupported":182,"./keyOf":187,"./warning":200,"_process":7}],89:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -24984,7 +11429,7 @@ var ReactDOMForm = ReactClass.createClass({
 
 module.exports = ReactDOMForm;
 
-},{"./EventConstants":230,"./LocalEventTrapMixin":240,"./ReactBrowserComponentMixin":245,"./ReactClass":249,"./ReactElement":273}],260:[function(require,module,exports){
+},{"./EventConstants":60,"./LocalEventTrapMixin":70,"./ReactBrowserComponentMixin":75,"./ReactClass":79,"./ReactElement":103}],90:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -25153,7 +11598,7 @@ module.exports = ReactDOMIDOperations;
 
 }).call(this,require('_process'))
 
-},{"./CSSPropertyOperations":220,"./DOMChildrenOperations":224,"./DOMPropertyOperations":226,"./ReactMount":286,"./ReactPerf":291,"./invariant":351,"./setInnerHTML":364,"_process":25}],261:[function(require,module,exports){
+},{"./CSSPropertyOperations":50,"./DOMChildrenOperations":54,"./DOMPropertyOperations":56,"./ReactMount":116,"./ReactPerf":121,"./invariant":181,"./setInnerHTML":194,"_process":7}],91:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -25198,7 +11643,7 @@ var ReactDOMIframe = ReactClass.createClass({
 
 module.exports = ReactDOMIframe;
 
-},{"./EventConstants":230,"./LocalEventTrapMixin":240,"./ReactBrowserComponentMixin":245,"./ReactClass":249,"./ReactElement":273}],262:[function(require,module,exports){
+},{"./EventConstants":60,"./LocalEventTrapMixin":70,"./ReactBrowserComponentMixin":75,"./ReactClass":79,"./ReactElement":103}],92:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -25244,7 +11689,7 @@ var ReactDOMImg = ReactClass.createClass({
 
 module.exports = ReactDOMImg;
 
-},{"./EventConstants":230,"./LocalEventTrapMixin":240,"./ReactBrowserComponentMixin":245,"./ReactClass":249,"./ReactElement":273}],263:[function(require,module,exports){
+},{"./EventConstants":60,"./LocalEventTrapMixin":70,"./ReactBrowserComponentMixin":75,"./ReactClass":79,"./ReactElement":103}],93:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -25422,7 +11867,7 @@ module.exports = ReactDOMInput;
 
 }).call(this,require('_process'))
 
-},{"./AutoFocusMixin":217,"./DOMPropertyOperations":226,"./LinkedValueUtils":239,"./Object.assign":242,"./ReactBrowserComponentMixin":245,"./ReactClass":249,"./ReactElement":273,"./ReactMount":286,"./ReactUpdates":303,"./invariant":351,"_process":25}],264:[function(require,module,exports){
+},{"./AutoFocusMixin":47,"./DOMPropertyOperations":56,"./LinkedValueUtils":69,"./Object.assign":72,"./ReactBrowserComponentMixin":75,"./ReactClass":79,"./ReactElement":103,"./ReactMount":116,"./ReactUpdates":133,"./invariant":181,"_process":7}],94:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -25475,7 +11920,7 @@ module.exports = ReactDOMOption;
 
 }).call(this,require('_process'))
 
-},{"./ReactBrowserComponentMixin":245,"./ReactClass":249,"./ReactElement":273,"./warning":370,"_process":25}],265:[function(require,module,exports){
+},{"./ReactBrowserComponentMixin":75,"./ReactClass":79,"./ReactElement":103,"./warning":200,"_process":7}],95:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -25653,7 +12098,7 @@ var ReactDOMSelect = ReactClass.createClass({
 
 module.exports = ReactDOMSelect;
 
-},{"./AutoFocusMixin":217,"./LinkedValueUtils":239,"./Object.assign":242,"./ReactBrowserComponentMixin":245,"./ReactClass":249,"./ReactElement":273,"./ReactUpdates":303}],266:[function(require,module,exports){
+},{"./AutoFocusMixin":47,"./LinkedValueUtils":69,"./Object.assign":72,"./ReactBrowserComponentMixin":75,"./ReactClass":79,"./ReactElement":103,"./ReactUpdates":133}],96:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -25866,7 +12311,7 @@ var ReactDOMSelection = {
 
 module.exports = ReactDOMSelection;
 
-},{"./ExecutionEnvironment":236,"./getNodeForCharacterOffset":344,"./getTextContentAccessor":346}],267:[function(require,module,exports){
+},{"./ExecutionEnvironment":66,"./getNodeForCharacterOffset":174,"./getTextContentAccessor":176}],97:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -25983,7 +12428,7 @@ assign(ReactDOMTextComponent.prototype, {
 
 module.exports = ReactDOMTextComponent;
 
-},{"./DOMPropertyOperations":226,"./Object.assign":242,"./ReactComponentBrowserEnvironment":251,"./ReactDOMComponent":258,"./escapeTextContentForBrowser":332}],268:[function(require,module,exports){
+},{"./DOMPropertyOperations":56,"./Object.assign":72,"./ReactComponentBrowserEnvironment":81,"./ReactDOMComponent":88,"./escapeTextContentForBrowser":162}],98:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -26124,7 +12569,7 @@ module.exports = ReactDOMTextarea;
 
 }).call(this,require('_process'))
 
-},{"./AutoFocusMixin":217,"./DOMPropertyOperations":226,"./LinkedValueUtils":239,"./Object.assign":242,"./ReactBrowserComponentMixin":245,"./ReactClass":249,"./ReactElement":273,"./ReactUpdates":303,"./invariant":351,"./warning":370,"_process":25}],269:[function(require,module,exports){
+},{"./AutoFocusMixin":47,"./DOMPropertyOperations":56,"./LinkedValueUtils":69,"./Object.assign":72,"./ReactBrowserComponentMixin":75,"./ReactClass":79,"./ReactElement":103,"./ReactUpdates":133,"./invariant":181,"./warning":200,"_process":7}],99:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -26197,7 +12642,7 @@ var ReactDefaultBatchingStrategy = {
 
 module.exports = ReactDefaultBatchingStrategy;
 
-},{"./Object.assign":242,"./ReactUpdates":303,"./Transaction":319,"./emptyFunction":330}],270:[function(require,module,exports){
+},{"./Object.assign":72,"./ReactUpdates":133,"./Transaction":149,"./emptyFunction":160}],100:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -26357,7 +12802,7 @@ module.exports = {
 
 }).call(this,require('_process'))
 
-},{"./BeforeInputEventPlugin":218,"./ChangeEventPlugin":222,"./ClientReactRootIndex":223,"./DefaultEventPluginOrder":228,"./EnterLeaveEventPlugin":229,"./ExecutionEnvironment":236,"./HTMLDOMPropertyConfig":238,"./MobileSafariClickEventPlugin":241,"./ReactBrowserComponentMixin":245,"./ReactClass":249,"./ReactComponentBrowserEnvironment":251,"./ReactDOMButton":257,"./ReactDOMComponent":258,"./ReactDOMForm":259,"./ReactDOMIDOperations":260,"./ReactDOMIframe":261,"./ReactDOMImg":262,"./ReactDOMInput":263,"./ReactDOMOption":264,"./ReactDOMSelect":265,"./ReactDOMTextComponent":267,"./ReactDOMTextarea":268,"./ReactDefaultBatchingStrategy":269,"./ReactDefaultPerf":271,"./ReactElement":273,"./ReactEventListener":278,"./ReactInjection":280,"./ReactInstanceHandles":282,"./ReactMount":286,"./ReactReconcileTransaction":296,"./SVGDOMPropertyConfig":304,"./SelectEventPlugin":305,"./ServerReactRootIndex":306,"./SimpleEventPlugin":307,"./createFullPageComponent":327,"_process":25}],271:[function(require,module,exports){
+},{"./BeforeInputEventPlugin":48,"./ChangeEventPlugin":52,"./ClientReactRootIndex":53,"./DefaultEventPluginOrder":58,"./EnterLeaveEventPlugin":59,"./ExecutionEnvironment":66,"./HTMLDOMPropertyConfig":68,"./MobileSafariClickEventPlugin":71,"./ReactBrowserComponentMixin":75,"./ReactClass":79,"./ReactComponentBrowserEnvironment":81,"./ReactDOMButton":87,"./ReactDOMComponent":88,"./ReactDOMForm":89,"./ReactDOMIDOperations":90,"./ReactDOMIframe":91,"./ReactDOMImg":92,"./ReactDOMInput":93,"./ReactDOMOption":94,"./ReactDOMSelect":95,"./ReactDOMTextComponent":97,"./ReactDOMTextarea":98,"./ReactDefaultBatchingStrategy":99,"./ReactDefaultPerf":101,"./ReactElement":103,"./ReactEventListener":108,"./ReactInjection":110,"./ReactInstanceHandles":112,"./ReactMount":116,"./ReactReconcileTransaction":126,"./SVGDOMPropertyConfig":134,"./SelectEventPlugin":135,"./ServerReactRootIndex":136,"./SimpleEventPlugin":137,"./createFullPageComponent":157,"_process":7}],101:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -26623,7 +13068,7 @@ var ReactDefaultPerf = {
 
 module.exports = ReactDefaultPerf;
 
-},{"./DOMProperty":225,"./ReactDefaultPerfAnalysis":272,"./ReactMount":286,"./ReactPerf":291,"./performanceNow":362}],272:[function(require,module,exports){
+},{"./DOMProperty":55,"./ReactDefaultPerfAnalysis":102,"./ReactMount":116,"./ReactPerf":121,"./performanceNow":192}],102:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -26829,7 +13274,7 @@ var ReactDefaultPerfAnalysis = {
 
 module.exports = ReactDefaultPerfAnalysis;
 
-},{"./Object.assign":242}],273:[function(require,module,exports){
+},{"./Object.assign":72}],103:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -27138,7 +13583,7 @@ module.exports = ReactElement;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":242,"./ReactContext":254,"./ReactCurrentOwner":255,"./warning":370,"_process":25}],274:[function(require,module,exports){
+},{"./Object.assign":72,"./ReactContext":84,"./ReactCurrentOwner":85,"./warning":200,"_process":7}],104:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -27604,7 +14049,7 @@ module.exports = ReactElementValidator;
 
 }).call(this,require('_process'))
 
-},{"./ReactCurrentOwner":255,"./ReactElement":273,"./ReactFragment":279,"./ReactNativeComponent":289,"./ReactPropTypeLocationNames":292,"./ReactPropTypeLocations":293,"./getIteratorFn":342,"./invariant":351,"./warning":370,"_process":25}],275:[function(require,module,exports){
+},{"./ReactCurrentOwner":85,"./ReactElement":103,"./ReactFragment":109,"./ReactNativeComponent":119,"./ReactPropTypeLocationNames":122,"./ReactPropTypeLocations":123,"./getIteratorFn":172,"./invariant":181,"./warning":200,"_process":7}],105:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -27700,7 +14145,7 @@ module.exports = ReactEmptyComponent;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":273,"./ReactInstanceMap":283,"./invariant":351,"_process":25}],276:[function(require,module,exports){
+},{"./ReactElement":103,"./ReactInstanceMap":113,"./invariant":181,"_process":7}],106:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -27732,7 +14177,7 @@ var ReactErrorUtils = {
 
 module.exports = ReactErrorUtils;
 
-},{}],277:[function(require,module,exports){
+},{}],107:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -27782,7 +14227,7 @@ var ReactEventEmitterMixin = {
 
 module.exports = ReactEventEmitterMixin;
 
-},{"./EventPluginHub":232}],278:[function(require,module,exports){
+},{"./EventPluginHub":62}],108:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -27965,7 +14410,7 @@ var ReactEventListener = {
 
 module.exports = ReactEventListener;
 
-},{"./EventListener":231,"./ExecutionEnvironment":236,"./Object.assign":242,"./PooledClass":243,"./ReactInstanceHandles":282,"./ReactMount":286,"./ReactUpdates":303,"./getEventTarget":341,"./getUnboundedScrollPosition":347}],279:[function(require,module,exports){
+},{"./EventListener":61,"./ExecutionEnvironment":66,"./Object.assign":72,"./PooledClass":73,"./ReactInstanceHandles":112,"./ReactMount":116,"./ReactUpdates":133,"./getEventTarget":171,"./getUnboundedScrollPosition":177}],109:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2015, Facebook, Inc.
@@ -28151,7 +14596,7 @@ module.exports = ReactFragment;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":273,"./warning":370,"_process":25}],280:[function(require,module,exports){
+},{"./ReactElement":103,"./warning":200,"_process":7}],110:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -28193,7 +14638,7 @@ var ReactInjection = {
 
 module.exports = ReactInjection;
 
-},{"./DOMProperty":225,"./EventPluginHub":232,"./ReactBrowserEventEmitter":246,"./ReactClass":249,"./ReactComponentEnvironment":252,"./ReactDOMComponent":258,"./ReactEmptyComponent":275,"./ReactNativeComponent":289,"./ReactPerf":291,"./ReactRootIndex":299,"./ReactUpdates":303}],281:[function(require,module,exports){
+},{"./DOMProperty":55,"./EventPluginHub":62,"./ReactBrowserEventEmitter":76,"./ReactClass":79,"./ReactComponentEnvironment":82,"./ReactDOMComponent":88,"./ReactEmptyComponent":105,"./ReactNativeComponent":119,"./ReactPerf":121,"./ReactRootIndex":129,"./ReactUpdates":133}],111:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -28328,7 +14773,7 @@ var ReactInputSelection = {
 
 module.exports = ReactInputSelection;
 
-},{"./ReactDOMSelection":266,"./containsNode":325,"./focusNode":335,"./getActiveElement":337}],282:[function(require,module,exports){
+},{"./ReactDOMSelection":96,"./containsNode":155,"./focusNode":165,"./getActiveElement":167}],112:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -28665,7 +15110,7 @@ module.exports = ReactInstanceHandles;
 
 }).call(this,require('_process'))
 
-},{"./ReactRootIndex":299,"./invariant":351,"_process":25}],283:[function(require,module,exports){
+},{"./ReactRootIndex":129,"./invariant":181,"_process":7}],113:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -28714,7 +15159,7 @@ var ReactInstanceMap = {
 
 module.exports = ReactInstanceMap;
 
-},{}],284:[function(require,module,exports){
+},{}],114:[function(require,module,exports){
 /**
  * Copyright 2015, Facebook, Inc.
  * All rights reserved.
@@ -28751,7 +15196,7 @@ var ReactLifeCycle = {
 
 module.exports = ReactLifeCycle;
 
-},{}],285:[function(require,module,exports){
+},{}],115:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -28799,7 +15244,7 @@ var ReactMarkupChecksum = {
 
 module.exports = ReactMarkupChecksum;
 
-},{"./adler32":322}],286:[function(require,module,exports){
+},{"./adler32":152}],116:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -29691,7 +16136,7 @@ module.exports = ReactMount;
 
 }).call(this,require('_process'))
 
-},{"./DOMProperty":225,"./ReactBrowserEventEmitter":246,"./ReactCurrentOwner":255,"./ReactElement":273,"./ReactElementValidator":274,"./ReactEmptyComponent":275,"./ReactInstanceHandles":282,"./ReactInstanceMap":283,"./ReactMarkupChecksum":285,"./ReactPerf":291,"./ReactReconciler":297,"./ReactUpdateQueue":302,"./ReactUpdates":303,"./containsNode":325,"./emptyObject":331,"./getReactRootElementInContainer":345,"./instantiateReactComponent":350,"./invariant":351,"./setInnerHTML":364,"./shouldUpdateReactComponent":367,"./warning":370,"_process":25}],287:[function(require,module,exports){
+},{"./DOMProperty":55,"./ReactBrowserEventEmitter":76,"./ReactCurrentOwner":85,"./ReactElement":103,"./ReactElementValidator":104,"./ReactEmptyComponent":105,"./ReactInstanceHandles":112,"./ReactInstanceMap":113,"./ReactMarkupChecksum":115,"./ReactPerf":121,"./ReactReconciler":127,"./ReactUpdateQueue":132,"./ReactUpdates":133,"./containsNode":155,"./emptyObject":161,"./getReactRootElementInContainer":175,"./instantiateReactComponent":180,"./invariant":181,"./setInnerHTML":194,"./shouldUpdateReactComponent":197,"./warning":200,"_process":7}],117:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30121,7 +16566,7 @@ var ReactMultiChild = {
 
 module.exports = ReactMultiChild;
 
-},{"./ReactChildReconciler":247,"./ReactComponentEnvironment":252,"./ReactMultiChildUpdateTypes":288,"./ReactReconciler":297}],288:[function(require,module,exports){
+},{"./ReactChildReconciler":77,"./ReactComponentEnvironment":82,"./ReactMultiChildUpdateTypes":118,"./ReactReconciler":127}],118:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30154,7 +16599,7 @@ var ReactMultiChildUpdateTypes = keyMirror({
 
 module.exports = ReactMultiChildUpdateTypes;
 
-},{"./keyMirror":356}],289:[function(require,module,exports){
+},{"./keyMirror":186}],119:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -30262,7 +16707,7 @@ module.exports = ReactNativeComponent;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":242,"./invariant":351,"_process":25}],290:[function(require,module,exports){
+},{"./Object.assign":72,"./invariant":181,"_process":7}],120:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -30375,7 +16820,7 @@ module.exports = ReactOwner;
 
 }).call(this,require('_process'))
 
-},{"./invariant":351,"_process":25}],291:[function(require,module,exports){
+},{"./invariant":181,"_process":7}],121:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -30480,7 +16925,7 @@ module.exports = ReactPerf;
 
 }).call(this,require('_process'))
 
-},{"_process":25}],292:[function(require,module,exports){
+},{"_process":7}],122:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -30509,7 +16954,7 @@ module.exports = ReactPropTypeLocationNames;
 
 }).call(this,require('_process'))
 
-},{"_process":25}],293:[function(require,module,exports){
+},{"_process":7}],123:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30533,7 +16978,7 @@ var ReactPropTypeLocations = keyMirror({
 
 module.exports = ReactPropTypeLocations;
 
-},{"./keyMirror":356}],294:[function(require,module,exports){
+},{"./keyMirror":186}],124:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30882,7 +17327,7 @@ function getPreciseType(propValue) {
 
 module.exports = ReactPropTypes;
 
-},{"./ReactElement":273,"./ReactFragment":279,"./ReactPropTypeLocationNames":292,"./emptyFunction":330}],295:[function(require,module,exports){
+},{"./ReactElement":103,"./ReactFragment":109,"./ReactPropTypeLocationNames":122,"./emptyFunction":160}],125:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -30938,7 +17383,7 @@ PooledClass.addPoolingTo(ReactPutListenerQueue);
 
 module.exports = ReactPutListenerQueue;
 
-},{"./Object.assign":242,"./PooledClass":243,"./ReactBrowserEventEmitter":246}],296:[function(require,module,exports){
+},{"./Object.assign":72,"./PooledClass":73,"./ReactBrowserEventEmitter":76}],126:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -31114,7 +17559,7 @@ PooledClass.addPoolingTo(ReactReconcileTransaction);
 
 module.exports = ReactReconcileTransaction;
 
-},{"./CallbackQueue":221,"./Object.assign":242,"./PooledClass":243,"./ReactBrowserEventEmitter":246,"./ReactInputSelection":281,"./ReactPutListenerQueue":295,"./Transaction":319}],297:[function(require,module,exports){
+},{"./CallbackQueue":51,"./Object.assign":72,"./PooledClass":73,"./ReactBrowserEventEmitter":76,"./ReactInputSelection":111,"./ReactPutListenerQueue":125,"./Transaction":149}],127:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -31239,7 +17684,7 @@ module.exports = ReactReconciler;
 
 }).call(this,require('_process'))
 
-},{"./ReactElementValidator":274,"./ReactRef":298,"_process":25}],298:[function(require,module,exports){
+},{"./ReactElementValidator":104,"./ReactRef":128,"_process":7}],128:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -31310,7 +17755,7 @@ ReactRef.detachRefs = function(instance, element) {
 
 module.exports = ReactRef;
 
-},{"./ReactOwner":290}],299:[function(require,module,exports){
+},{"./ReactOwner":120}],129:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -31341,7 +17786,7 @@ var ReactRootIndex = {
 
 module.exports = ReactRootIndex;
 
-},{}],300:[function(require,module,exports){
+},{}],130:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -31424,7 +17869,7 @@ module.exports = {
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":273,"./ReactInstanceHandles":282,"./ReactMarkupChecksum":285,"./ReactServerRenderingTransaction":301,"./emptyObject":331,"./instantiateReactComponent":350,"./invariant":351,"_process":25}],301:[function(require,module,exports){
+},{"./ReactElement":103,"./ReactInstanceHandles":112,"./ReactMarkupChecksum":115,"./ReactServerRenderingTransaction":131,"./emptyObject":161,"./instantiateReactComponent":180,"./invariant":181,"_process":7}],131:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -31537,7 +17982,7 @@ PooledClass.addPoolingTo(ReactServerRenderingTransaction);
 
 module.exports = ReactServerRenderingTransaction;
 
-},{"./CallbackQueue":221,"./Object.assign":242,"./PooledClass":243,"./ReactPutListenerQueue":295,"./Transaction":319,"./emptyFunction":330}],302:[function(require,module,exports){
+},{"./CallbackQueue":51,"./Object.assign":72,"./PooledClass":73,"./ReactPutListenerQueue":125,"./Transaction":149,"./emptyFunction":160}],132:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2015, Facebook, Inc.
@@ -31837,7 +18282,7 @@ module.exports = ReactUpdateQueue;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":242,"./ReactCurrentOwner":255,"./ReactElement":273,"./ReactInstanceMap":283,"./ReactLifeCycle":284,"./ReactUpdates":303,"./invariant":351,"./warning":370,"_process":25}],303:[function(require,module,exports){
+},{"./Object.assign":72,"./ReactCurrentOwner":85,"./ReactElement":103,"./ReactInstanceMap":113,"./ReactLifeCycle":114,"./ReactUpdates":133,"./invariant":181,"./warning":200,"_process":7}],133:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -32120,7 +18565,7 @@ module.exports = ReactUpdates;
 
 }).call(this,require('_process'))
 
-},{"./CallbackQueue":221,"./Object.assign":242,"./PooledClass":243,"./ReactCurrentOwner":255,"./ReactPerf":291,"./ReactReconciler":297,"./Transaction":319,"./invariant":351,"./warning":370,"_process":25}],304:[function(require,module,exports){
+},{"./CallbackQueue":51,"./Object.assign":72,"./PooledClass":73,"./ReactCurrentOwner":85,"./ReactPerf":121,"./ReactReconciler":127,"./Transaction":149,"./invariant":181,"./warning":200,"_process":7}],134:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -32214,7 +18659,7 @@ var SVGDOMPropertyConfig = {
 
 module.exports = SVGDOMPropertyConfig;
 
-},{"./DOMProperty":225}],305:[function(require,module,exports){
+},{"./DOMProperty":55}],135:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -32409,7 +18854,7 @@ var SelectEventPlugin = {
 
 module.exports = SelectEventPlugin;
 
-},{"./EventConstants":230,"./EventPropagators":235,"./ReactInputSelection":281,"./SyntheticEvent":311,"./getActiveElement":337,"./isTextInputElement":354,"./keyOf":357,"./shallowEqual":366}],306:[function(require,module,exports){
+},{"./EventConstants":60,"./EventPropagators":65,"./ReactInputSelection":111,"./SyntheticEvent":141,"./getActiveElement":167,"./isTextInputElement":184,"./keyOf":187,"./shallowEqual":196}],136:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -32440,7 +18885,7 @@ var ServerReactRootIndex = {
 
 module.exports = ServerReactRootIndex;
 
-},{}],307:[function(require,module,exports){
+},{}],137:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -32869,7 +19314,7 @@ module.exports = SimpleEventPlugin;
 
 }).call(this,require('_process'))
 
-},{"./EventConstants":230,"./EventPluginUtils":234,"./EventPropagators":235,"./SyntheticClipboardEvent":308,"./SyntheticDragEvent":310,"./SyntheticEvent":311,"./SyntheticFocusEvent":312,"./SyntheticKeyboardEvent":314,"./SyntheticMouseEvent":315,"./SyntheticTouchEvent":316,"./SyntheticUIEvent":317,"./SyntheticWheelEvent":318,"./getEventCharCode":338,"./invariant":351,"./keyOf":357,"./warning":370,"_process":25}],308:[function(require,module,exports){
+},{"./EventConstants":60,"./EventPluginUtils":64,"./EventPropagators":65,"./SyntheticClipboardEvent":138,"./SyntheticDragEvent":140,"./SyntheticEvent":141,"./SyntheticFocusEvent":142,"./SyntheticKeyboardEvent":144,"./SyntheticMouseEvent":145,"./SyntheticTouchEvent":146,"./SyntheticUIEvent":147,"./SyntheticWheelEvent":148,"./getEventCharCode":168,"./invariant":181,"./keyOf":187,"./warning":200,"_process":7}],138:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -32914,7 +19359,7 @@ SyntheticEvent.augmentClass(SyntheticClipboardEvent, ClipboardEventInterface);
 
 module.exports = SyntheticClipboardEvent;
 
-},{"./SyntheticEvent":311}],309:[function(require,module,exports){
+},{"./SyntheticEvent":141}],139:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -32959,7 +19404,7 @@ SyntheticEvent.augmentClass(
 
 module.exports = SyntheticCompositionEvent;
 
-},{"./SyntheticEvent":311}],310:[function(require,module,exports){
+},{"./SyntheticEvent":141}],140:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -32998,7 +19443,7 @@ SyntheticMouseEvent.augmentClass(SyntheticDragEvent, DragEventInterface);
 
 module.exports = SyntheticDragEvent;
 
-},{"./SyntheticMouseEvent":315}],311:[function(require,module,exports){
+},{"./SyntheticMouseEvent":145}],141:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33164,7 +19609,7 @@ PooledClass.addPoolingTo(SyntheticEvent, PooledClass.threeArgumentPooler);
 
 module.exports = SyntheticEvent;
 
-},{"./Object.assign":242,"./PooledClass":243,"./emptyFunction":330,"./getEventTarget":341}],312:[function(require,module,exports){
+},{"./Object.assign":72,"./PooledClass":73,"./emptyFunction":160,"./getEventTarget":171}],142:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33203,7 +19648,7 @@ SyntheticUIEvent.augmentClass(SyntheticFocusEvent, FocusEventInterface);
 
 module.exports = SyntheticFocusEvent;
 
-},{"./SyntheticUIEvent":317}],313:[function(require,module,exports){
+},{"./SyntheticUIEvent":147}],143:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33249,7 +19694,7 @@ SyntheticEvent.augmentClass(
 
 module.exports = SyntheticInputEvent;
 
-},{"./SyntheticEvent":311}],314:[function(require,module,exports){
+},{"./SyntheticEvent":141}],144:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33336,7 +19781,7 @@ SyntheticUIEvent.augmentClass(SyntheticKeyboardEvent, KeyboardEventInterface);
 
 module.exports = SyntheticKeyboardEvent;
 
-},{"./SyntheticUIEvent":317,"./getEventCharCode":338,"./getEventKey":339,"./getEventModifierState":340}],315:[function(require,module,exports){
+},{"./SyntheticUIEvent":147,"./getEventCharCode":168,"./getEventKey":169,"./getEventModifierState":170}],145:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33417,7 +19862,7 @@ SyntheticUIEvent.augmentClass(SyntheticMouseEvent, MouseEventInterface);
 
 module.exports = SyntheticMouseEvent;
 
-},{"./SyntheticUIEvent":317,"./ViewportMetrics":320,"./getEventModifierState":340}],316:[function(require,module,exports){
+},{"./SyntheticUIEvent":147,"./ViewportMetrics":150,"./getEventModifierState":170}],146:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33465,7 +19910,7 @@ SyntheticUIEvent.augmentClass(SyntheticTouchEvent, TouchEventInterface);
 
 module.exports = SyntheticTouchEvent;
 
-},{"./SyntheticUIEvent":317,"./getEventModifierState":340}],317:[function(require,module,exports){
+},{"./SyntheticUIEvent":147,"./getEventModifierState":170}],147:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33527,7 +19972,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 
 module.exports = SyntheticUIEvent;
 
-},{"./SyntheticEvent":311,"./getEventTarget":341}],318:[function(require,module,exports){
+},{"./SyntheticEvent":141,"./getEventTarget":171}],148:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33588,7 +20033,7 @@ SyntheticMouseEvent.augmentClass(SyntheticWheelEvent, WheelEventInterface);
 
 module.exports = SyntheticWheelEvent;
 
-},{"./SyntheticMouseEvent":315}],319:[function(require,module,exports){
+},{"./SyntheticMouseEvent":145}],149:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -33830,7 +20275,7 @@ module.exports = Transaction;
 
 }).call(this,require('_process'))
 
-},{"./invariant":351,"_process":25}],320:[function(require,module,exports){
+},{"./invariant":181,"_process":7}],150:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33859,7 +20304,7 @@ var ViewportMetrics = {
 
 module.exports = ViewportMetrics;
 
-},{}],321:[function(require,module,exports){
+},{}],151:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -33926,7 +20371,7 @@ module.exports = accumulateInto;
 
 }).call(this,require('_process'))
 
-},{"./invariant":351,"_process":25}],322:[function(require,module,exports){
+},{"./invariant":181,"_process":7}],152:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33960,7 +20405,7 @@ function adler32(data) {
 
 module.exports = adler32;
 
-},{}],323:[function(require,module,exports){
+},{}],153:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -33992,7 +20437,7 @@ function camelize(string) {
 
 module.exports = camelize;
 
-},{}],324:[function(require,module,exports){
+},{}],154:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -34034,7 +20479,7 @@ function camelizeStyleName(string) {
 
 module.exports = camelizeStyleName;
 
-},{"./camelize":323}],325:[function(require,module,exports){
+},{"./camelize":153}],155:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34078,7 +20523,7 @@ function containsNode(outerNode, innerNode) {
 
 module.exports = containsNode;
 
-},{"./isTextNode":355}],326:[function(require,module,exports){
+},{"./isTextNode":185}],156:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34164,7 +20609,7 @@ function createArrayFromMixed(obj) {
 
 module.exports = createArrayFromMixed;
 
-},{"./toArray":368}],327:[function(require,module,exports){
+},{"./toArray":198}],157:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34227,7 +20672,7 @@ module.exports = createFullPageComponent;
 
 }).call(this,require('_process'))
 
-},{"./ReactClass":249,"./ReactElement":273,"./invariant":351,"_process":25}],328:[function(require,module,exports){
+},{"./ReactClass":79,"./ReactElement":103,"./invariant":181,"_process":7}],158:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34318,7 +20763,7 @@ module.exports = createNodesFromMarkup;
 
 }).call(this,require('_process'))
 
-},{"./ExecutionEnvironment":236,"./createArrayFromMixed":326,"./getMarkupWrap":343,"./invariant":351,"_process":25}],329:[function(require,module,exports){
+},{"./ExecutionEnvironment":66,"./createArrayFromMixed":156,"./getMarkupWrap":173,"./invariant":181,"_process":7}],159:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34376,7 +20821,7 @@ function dangerousStyleValue(name, value) {
 
 module.exports = dangerousStyleValue;
 
-},{"./CSSProperty":219}],330:[function(require,module,exports){
+},{"./CSSProperty":49}],160:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34410,7 +20855,7 @@ emptyFunction.thatReturnsArgument = function(arg) { return arg; };
 
 module.exports = emptyFunction;
 
-},{}],331:[function(require,module,exports){
+},{}],161:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34435,7 +20880,7 @@ module.exports = emptyObject;
 
 }).call(this,require('_process'))
 
-},{"_process":25}],332:[function(require,module,exports){
+},{"_process":7}],162:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34475,7 +20920,7 @@ function escapeTextContentForBrowser(text) {
 
 module.exports = escapeTextContentForBrowser;
 
-},{}],333:[function(require,module,exports){
+},{}],163:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34549,7 +20994,7 @@ module.exports = findDOMNode;
 
 }).call(this,require('_process'))
 
-},{"./ReactCurrentOwner":255,"./ReactInstanceMap":283,"./ReactMount":286,"./invariant":351,"./isNode":353,"./warning":370,"_process":25}],334:[function(require,module,exports){
+},{"./ReactCurrentOwner":85,"./ReactInstanceMap":113,"./ReactMount":116,"./invariant":181,"./isNode":183,"./warning":200,"_process":7}],164:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -34608,7 +21053,7 @@ module.exports = flattenChildren;
 
 }).call(this,require('_process'))
 
-},{"./traverseAllChildren":369,"./warning":370,"_process":25}],335:[function(require,module,exports){
+},{"./traverseAllChildren":199,"./warning":200,"_process":7}],165:[function(require,module,exports){
 /**
  * Copyright 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -34637,7 +21082,7 @@ function focusNode(node) {
 
 module.exports = focusNode;
 
-},{}],336:[function(require,module,exports){
+},{}],166:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34668,7 +21113,7 @@ var forEachAccumulated = function(arr, cb, scope) {
 
 module.exports = forEachAccumulated;
 
-},{}],337:[function(require,module,exports){
+},{}],167:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34697,7 +21142,7 @@ function getActiveElement() /*?DOMElement*/ {
 
 module.exports = getActiveElement;
 
-},{}],338:[function(require,module,exports){
+},{}],168:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34749,7 +21194,7 @@ function getEventCharCode(nativeEvent) {
 
 module.exports = getEventCharCode;
 
-},{}],339:[function(require,module,exports){
+},{}],169:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34854,7 +21299,7 @@ function getEventKey(nativeEvent) {
 
 module.exports = getEventKey;
 
-},{"./getEventCharCode":338}],340:[function(require,module,exports){
+},{"./getEventCharCode":168}],170:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34901,7 +21346,7 @@ function getEventModifierState(nativeEvent) {
 
 module.exports = getEventModifierState;
 
-},{}],341:[function(require,module,exports){
+},{}],171:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34932,7 +21377,7 @@ function getEventTarget(nativeEvent) {
 
 module.exports = getEventTarget;
 
-},{}],342:[function(require,module,exports){
+},{}],172:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -34976,7 +21421,7 @@ function getIteratorFn(maybeIterable) {
 
 module.exports = getIteratorFn;
 
-},{}],343:[function(require,module,exports){
+},{}],173:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -35096,7 +21541,7 @@ module.exports = getMarkupWrap;
 
 }).call(this,require('_process'))
 
-},{"./ExecutionEnvironment":236,"./invariant":351,"_process":25}],344:[function(require,module,exports){
+},{"./ExecutionEnvironment":66,"./invariant":181,"_process":7}],174:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35171,7 +21616,7 @@ function getNodeForCharacterOffset(root, offset) {
 
 module.exports = getNodeForCharacterOffset;
 
-},{}],345:[function(require,module,exports){
+},{}],175:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35206,7 +21651,7 @@ function getReactRootElementInContainer(container) {
 
 module.exports = getReactRootElementInContainer;
 
-},{}],346:[function(require,module,exports){
+},{}],176:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35243,7 +21688,7 @@ function getTextContentAccessor() {
 
 module.exports = getTextContentAccessor;
 
-},{"./ExecutionEnvironment":236}],347:[function(require,module,exports){
+},{"./ExecutionEnvironment":66}],177:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35283,7 +21728,7 @@ function getUnboundedScrollPosition(scrollable) {
 
 module.exports = getUnboundedScrollPosition;
 
-},{}],348:[function(require,module,exports){
+},{}],178:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35316,7 +21761,7 @@ function hyphenate(string) {
 
 module.exports = hyphenate;
 
-},{}],349:[function(require,module,exports){
+},{}],179:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35357,7 +21802,7 @@ function hyphenateStyleName(string) {
 
 module.exports = hyphenateStyleName;
 
-},{"./hyphenate":348}],350:[function(require,module,exports){
+},{"./hyphenate":178}],180:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -35496,7 +21941,7 @@ module.exports = instantiateReactComponent;
 
 }).call(this,require('_process'))
 
-},{"./Object.assign":242,"./ReactCompositeComponent":253,"./ReactEmptyComponent":275,"./ReactNativeComponent":289,"./invariant":351,"./warning":370,"_process":25}],351:[function(require,module,exports){
+},{"./Object.assign":72,"./ReactCompositeComponent":83,"./ReactEmptyComponent":105,"./ReactNativeComponent":119,"./invariant":181,"./warning":200,"_process":7}],181:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -35554,7 +21999,7 @@ module.exports = invariant;
 
 }).call(this,require('_process'))
 
-},{"_process":25}],352:[function(require,module,exports){
+},{"_process":7}],182:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35619,7 +22064,7 @@ function isEventSupported(eventNameSuffix, capture) {
 
 module.exports = isEventSupported;
 
-},{"./ExecutionEnvironment":236}],353:[function(require,module,exports){
+},{"./ExecutionEnvironment":66}],183:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35646,7 +22091,7 @@ function isNode(object) {
 
 module.exports = isNode;
 
-},{}],354:[function(require,module,exports){
+},{}],184:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35689,7 +22134,7 @@ function isTextInputElement(elem) {
 
 module.exports = isTextInputElement;
 
-},{}],355:[function(require,module,exports){
+},{}],185:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35714,7 +22159,7 @@ function isTextNode(object) {
 
 module.exports = isTextNode;
 
-},{"./isNode":353}],356:[function(require,module,exports){
+},{"./isNode":183}],186:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -35770,7 +22215,7 @@ module.exports = keyMirror;
 
 }).call(this,require('_process'))
 
-},{"./invariant":351,"_process":25}],357:[function(require,module,exports){
+},{"./invariant":181,"_process":7}],187:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35806,7 +22251,7 @@ var keyOf = function(oneKeyObj) {
 
 module.exports = keyOf;
 
-},{}],358:[function(require,module,exports){
+},{}],188:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35859,7 +22304,7 @@ function mapObject(object, callback, context) {
 
 module.exports = mapObject;
 
-},{}],359:[function(require,module,exports){
+},{}],189:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35892,7 +22337,7 @@ function memoizeStringOnly(callback) {
 
 module.exports = memoizeStringOnly;
 
-},{}],360:[function(require,module,exports){
+},{}],190:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -35933,7 +22378,7 @@ module.exports = onlyChild;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":273,"./invariant":351,"_process":25}],361:[function(require,module,exports){
+},{"./ReactElement":103,"./invariant":181,"_process":7}],191:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35961,7 +22406,7 @@ if (ExecutionEnvironment.canUseDOM) {
 
 module.exports = performance || {};
 
-},{"./ExecutionEnvironment":236}],362:[function(require,module,exports){
+},{"./ExecutionEnvironment":66}],192:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -35989,7 +22434,7 @@ var performanceNow = performance.now.bind(performance);
 
 module.exports = performanceNow;
 
-},{"./performance":361}],363:[function(require,module,exports){
+},{"./performance":191}],193:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36017,7 +22462,7 @@ function quoteAttributeValueForBrowser(value) {
 
 module.exports = quoteAttributeValueForBrowser;
 
-},{"./escapeTextContentForBrowser":332}],364:[function(require,module,exports){
+},{"./escapeTextContentForBrowser":162}],194:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36106,7 +22551,7 @@ if (ExecutionEnvironment.canUseDOM) {
 
 module.exports = setInnerHTML;
 
-},{"./ExecutionEnvironment":236}],365:[function(require,module,exports){
+},{"./ExecutionEnvironment":66}],195:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36148,7 +22593,7 @@ if (ExecutionEnvironment.canUseDOM) {
 
 module.exports = setTextContent;
 
-},{"./ExecutionEnvironment":236,"./escapeTextContentForBrowser":332,"./setInnerHTML":364}],366:[function(require,module,exports){
+},{"./ExecutionEnvironment":66,"./escapeTextContentForBrowser":162,"./setInnerHTML":194}],196:[function(require,module,exports){
 /**
  * Copyright 2013-2015, Facebook, Inc.
  * All rights reserved.
@@ -36192,7 +22637,7 @@ function shallowEqual(objA, objB) {
 
 module.exports = shallowEqual;
 
-},{}],367:[function(require,module,exports){
+},{}],197:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -36297,7 +22742,7 @@ module.exports = shouldUpdateReactComponent;
 
 }).call(this,require('_process'))
 
-},{"./warning":370,"_process":25}],368:[function(require,module,exports){
+},{"./warning":200,"_process":7}],198:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -36370,7 +22815,7 @@ module.exports = toArray;
 
 }).call(this,require('_process'))
 
-},{"./invariant":351,"_process":25}],369:[function(require,module,exports){
+},{"./invariant":181,"_process":7}],199:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2013-2015, Facebook, Inc.
@@ -36624,7 +23069,7 @@ module.exports = traverseAllChildren;
 
 }).call(this,require('_process'))
 
-},{"./ReactElement":273,"./ReactFragment":279,"./ReactInstanceHandles":282,"./getIteratorFn":342,"./invariant":351,"./warning":370,"_process":25}],370:[function(require,module,exports){
+},{"./ReactElement":103,"./ReactFragment":109,"./ReactInstanceHandles":112,"./getIteratorFn":172,"./invariant":181,"./warning":200,"_process":7}],200:[function(require,module,exports){
 (function (process){
 /**
  * Copyright 2014-2015, Facebook, Inc.
@@ -36688,342 +23133,10 @@ module.exports = warning;
 
 }).call(this,require('_process'))
 
-},{"./emptyFunction":330,"_process":25}],371:[function(require,module,exports){
+},{"./emptyFunction":160,"_process":7}],201:[function(require,module,exports){
 module.exports = require('./lib/React');
 
-},{"./lib/React":244}],372:[function(require,module,exports){
-(function() {
-  'use strict';
-
-  if (self.fetch) {
-    return
-  }
-
-  function normalizeName(name) {
-    if (typeof name !== 'string') {
-      name = name.toString();
-    }
-    if (/[^a-z0-9\-#$%&'*+.\^_`|~]/i.test(name)) {
-      throw new TypeError('Invalid character in header field name')
-    }
-    return name.toLowerCase()
-  }
-
-  function normalizeValue(value) {
-    if (typeof value !== 'string') {
-      value = value.toString();
-    }
-    return value
-  }
-
-  function Headers(headers) {
-    this.map = {}
-
-    if (headers instanceof Headers) {
-      headers.forEach(function(value, name) {
-        this.append(name, value)
-      }, this)
-
-    } else if (headers) {
-      Object.getOwnPropertyNames(headers).forEach(function(name) {
-        this.append(name, headers[name])
-      }, this)
-    }
-  }
-
-  Headers.prototype.append = function(name, value) {
-    name = normalizeName(name)
-    value = normalizeValue(value)
-    var list = this.map[name]
-    if (!list) {
-      list = []
-      this.map[name] = list
-    }
-    list.push(value)
-  }
-
-  Headers.prototype['delete'] = function(name) {
-    delete this.map[normalizeName(name)]
-  }
-
-  Headers.prototype.get = function(name) {
-    var values = this.map[normalizeName(name)]
-    return values ? values[0] : null
-  }
-
-  Headers.prototype.getAll = function(name) {
-    return this.map[normalizeName(name)] || []
-  }
-
-  Headers.prototype.has = function(name) {
-    return this.map.hasOwnProperty(normalizeName(name))
-  }
-
-  Headers.prototype.set = function(name, value) {
-    this.map[normalizeName(name)] = [normalizeValue(value)]
-  }
-
-  Headers.prototype.forEach = function(callback, thisArg) {
-    Object.getOwnPropertyNames(this.map).forEach(function(name) {
-      this.map[name].forEach(function(value) {
-        callback.call(thisArg, value, name, this)
-      }, this)
-    }, this)
-  }
-
-  function consumed(body) {
-    if (body.bodyUsed) {
-      return Promise.reject(new TypeError('Already read'))
-    }
-    body.bodyUsed = true
-  }
-
-  function fileReaderReady(reader) {
-    return new Promise(function(resolve, reject) {
-      reader.onload = function() {
-        resolve(reader.result)
-      }
-      reader.onerror = function() {
-        reject(reader.error)
-      }
-    })
-  }
-
-  function readBlobAsArrayBuffer(blob) {
-    var reader = new FileReader()
-    reader.readAsArrayBuffer(blob)
-    return fileReaderReady(reader)
-  }
-
-  function readBlobAsText(blob) {
-    var reader = new FileReader()
-    reader.readAsText(blob)
-    return fileReaderReady(reader)
-  }
-
-  var support = {
-    blob: 'FileReader' in self && 'Blob' in self && (function() {
-      try {
-        new Blob();
-        return true
-      } catch(e) {
-        return false
-      }
-    })(),
-    formData: 'FormData' in self
-  }
-
-  function Body() {
-    this.bodyUsed = false
-
-
-    this._initBody = function(body) {
-      this._bodyInit = body
-      if (typeof body === 'string') {
-        this._bodyText = body
-      } else if (support.blob && Blob.prototype.isPrototypeOf(body)) {
-        this._bodyBlob = body
-      } else if (support.formData && FormData.prototype.isPrototypeOf(body)) {
-        this._bodyFormData = body
-      } else if (!body) {
-        this._bodyText = ''
-      } else {
-        throw new Error('unsupported BodyInit type')
-      }
-    }
-
-    if (support.blob) {
-      this.blob = function() {
-        var rejected = consumed(this)
-        if (rejected) {
-          return rejected
-        }
-
-        if (this._bodyBlob) {
-          return Promise.resolve(this._bodyBlob)
-        } else if (this._bodyFormData) {
-          throw new Error('could not read FormData body as blob')
-        } else {
-          return Promise.resolve(new Blob([this._bodyText]))
-        }
-      }
-
-      this.arrayBuffer = function() {
-        return this.blob().then(readBlobAsArrayBuffer)
-      }
-
-      this.text = function() {
-        var rejected = consumed(this)
-        if (rejected) {
-          return rejected
-        }
-
-        if (this._bodyBlob) {
-          return readBlobAsText(this._bodyBlob)
-        } else if (this._bodyFormData) {
-          throw new Error('could not read FormData body as text')
-        } else {
-          return Promise.resolve(this._bodyText)
-        }
-      }
-    } else {
-      this.text = function() {
-        var rejected = consumed(this)
-        return rejected ? rejected : Promise.resolve(this._bodyText)
-      }
-    }
-
-    if (support.formData) {
-      this.formData = function() {
-        return this.text().then(decode)
-      }
-    }
-
-    this.json = function() {
-      return this.text().then(JSON.parse)
-    }
-
-    return this
-  }
-
-  // HTTP methods whose capitalization should be normalized
-  var methods = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT']
-
-  function normalizeMethod(method) {
-    var upcased = method.toUpperCase()
-    return (methods.indexOf(upcased) > -1) ? upcased : method
-  }
-
-  function Request(url, options) {
-    options = options || {}
-    this.url = url
-
-    this.credentials = options.credentials || 'omit'
-    this.headers = new Headers(options.headers)
-    this.method = normalizeMethod(options.method || 'GET')
-    this.mode = options.mode || null
-    this.referrer = null
-
-    if ((this.method === 'GET' || this.method === 'HEAD') && options.body) {
-      throw new TypeError('Body not allowed for GET or HEAD requests')
-    }
-    this._initBody(options.body)
-  }
-
-  function decode(body) {
-    var form = new FormData()
-    body.trim().split('&').forEach(function(bytes) {
-      if (bytes) {
-        var split = bytes.split('=')
-        var name = split.shift().replace(/\+/g, ' ')
-        var value = split.join('=').replace(/\+/g, ' ')
-        form.append(decodeURIComponent(name), decodeURIComponent(value))
-      }
-    })
-    return form
-  }
-
-  function headers(xhr) {
-    var head = new Headers()
-    var pairs = xhr.getAllResponseHeaders().trim().split('\n')
-    pairs.forEach(function(header) {
-      var split = header.trim().split(':')
-      var key = split.shift().trim()
-      var value = split.join(':').trim()
-      head.append(key, value)
-    })
-    return head
-  }
-
-  Body.call(Request.prototype)
-
-  function Response(bodyInit, options) {
-    if (!options) {
-      options = {}
-    }
-
-    this._initBody(bodyInit)
-    this.type = 'default'
-    this.url = null
-    this.status = options.status
-    this.ok = this.status >= 200 && this.status < 300
-    this.statusText = options.statusText
-    this.headers = options.headers instanceof Headers ? options.headers : new Headers(options.headers)
-    this.url = options.url || ''
-  }
-
-  Body.call(Response.prototype)
-
-  self.Headers = Headers;
-  self.Request = Request;
-  self.Response = Response;
-
-  self.fetch = function(input, init) {
-    // TODO: Request constructor should accept input, init
-    var request
-    if (Request.prototype.isPrototypeOf(input) && !init) {
-      request = input
-    } else {
-      request = new Request(input, init)
-    }
-
-    return new Promise(function(resolve, reject) {
-      var xhr = new XMLHttpRequest()
-
-      function responseURL() {
-        if ('responseURL' in xhr) {
-          return xhr.responseURL
-        }
-
-        // Avoid security warnings on getResponseHeader when not allowed by CORS
-        if (/^X-Request-URL:/m.test(xhr.getAllResponseHeaders())) {
-          return xhr.getResponseHeader('X-Request-URL')
-        }
-
-        return;
-      }
-
-      xhr.onload = function() {
-        var status = (xhr.status === 1223) ? 204 : xhr.status
-        if (status < 100 || status > 599) {
-          reject(new TypeError('Network request failed'))
-          return
-        }
-        var options = {
-          status: status,
-          statusText: xhr.statusText,
-          headers: headers(xhr),
-          url: responseURL()
-        }
-        var body = 'response' in xhr ? xhr.response : xhr.responseText;
-        resolve(new Response(body, options))
-      }
-
-      xhr.onerror = function() {
-        reject(new TypeError('Network request failed'))
-      }
-
-      xhr.open(request.method, request.url, true)
-
-      if (request.credentials === 'include') {
-        xhr.withCredentials = true
-      }
-
-      if ('responseType' in xhr && support.blob) {
-        xhr.responseType = 'blob'
-      }
-
-      request.headers.forEach(function(value, name) {
-        xhr.setRequestHeader(name, value)
-      })
-
-      xhr.send(typeof request._bodyInit === 'undefined' ? null : request._bodyInit)
-    })
-  }
-  self.fetch.polyfill = true
-})();
-
-},{}]},{},[1])
+},{"./lib/React":74}]},{},[1])
 
 
 //# sourceMappingURL=build.js.map
