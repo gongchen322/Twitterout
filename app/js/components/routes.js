@@ -2,13 +2,14 @@
 import React from 'react';
 import {Route,DefaultRoute,NotFoundRoute} from 'react-router';
 import Layout from './layout';
-import JoinUs from './joinus';
+import Home from './home';
+import Go from './go';
 
 
 const routes = (
   <Route handler={Layout}>
-    
-
+    <DefaultRoute name="home" handler={Home}/>
+    <Route name="go" path="/go" handler= {Go}/>
   </Route>
 );
 

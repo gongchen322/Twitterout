@@ -312,7 +312,12 @@ var _joinus = require('./joinus');
 
 var _joinus2 = _interopRequireDefault(_joinus);
 
-var routes = _react2['default'].createElement(_reactRouter.Route, { handler: _layout2['default'] });
+var routes = _react2['default'].createElement(
+  _reactRouter.Route,
+  { handler: _layout2['default'] },
+  _react2['default'].createElement(_reactRouter.DefaultRoute, { name: 'home', handler: Home }),
+  _react2['default'].createElement(_reactRouter.Route, { name: 'go', path: '/go', handler: go })
+);
 
 exports['default'] = routes;
 module.exports = exports['default'];
