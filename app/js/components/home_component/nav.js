@@ -12,7 +12,7 @@ class Nav extends React.Component {
       <div>
         <div id='cssmenu'>
           <ul>
-           <li><Router.Link to="1">Home</Router.Link></li>
+           <li><Router.Link to="home">Home</Router.Link></li>
            <li><Router.Link to="2">Products</Router.Link></li>
            <li><Router.Link to="3">Company</Router.Link></li>
            <li><Router.Link to="4">Contact</Router.Link></li>

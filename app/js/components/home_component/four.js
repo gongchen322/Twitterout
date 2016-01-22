@@ -4,7 +4,7 @@ import React from 'react';
 
 
 var divStyle = {
-  backgroundImage: 'url(../assets/images/bg6.jpg)',
+  backgroundImage: 'url(../assets/images/bg3.jpg)',
 };
 
 class Four extends React.Component {

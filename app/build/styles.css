@@ -138,8 +138,59 @@ border: 1px solid purple;}
     .contactHeader .contactHeaderContainer span {
       margin-right: 50px; }
 
+.one{
+   min-height: 600px; 
+   background-image:  url("../assets/images/Twitter/background.jpg");
+   background-repeat: no-repeat;
+    background-position: center;
+   text-align: center;
+}
+.object {
+    position: relative;
+}
+.van {
+    top: 65%;
+    left: 20%;
 
+}
+.laba{
+  top:50%;
+  left: 0px;
+  height: 200px;
+  width:300px;
+}
+.arrow{
+  right: 90px;
+  bottom: 30%;
+  height: 75px;
+  width:75px;
+}
+.folder{
+  bottom:12%;
+  right: 0px;
+  height: 150px;
+  width:150px;
+}
+.dialog{
+  right: 30px;
+  bottom: 40%;
+  height: 300px;
+  width: 300px;
+}
 
+#axis:hover .move-right{
+    transform: translate(1000px,0);
+    -webkit-transform: translate(1100px,0); /** Chrome & Safari **/
+    -o-transform: translate(1100px,0); /** Opera **/
+    -moz-transform: translate(1100px,0); /** Firefox **/
+}
+.object {
+    position: absolute;
+    transition: all 2s ease-in-out;
+    -webkit-transition: all 2s ease-in-out; /** Chrome & Safari **/
+    -moz-transition: all 2s ease-in-out; /** Firefox **/
+    -o-transition: all 2s ease-in-out; /** Opera **/
+}
 
 
 

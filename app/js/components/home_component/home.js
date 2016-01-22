@@ -21,10 +21,14 @@ class Home extends React.Component {
 
   render() {
     return (
-      <div className="homepage">
-
-        <div id='homeleft' style={divStyle}></div>
-       
+      <div>
+        <div id="axis" className="one ">
+          <img className="object dialog" src="../assets/images/Twitter/dialog.png"/>
+          <img className="object laba" src="../assets/images/Twitter/laba.jpg"/>
+          <img className="object van move-right" src="../assets/images/van-to-right.png"/>
+          <img className="object folder" src="../assets/images/Twitter/folder.png"/>
+          <img className="object arrow" src="../assets/images/Twitter/arrow.jpeg"/>
+        </div>
       </div>
     );
   }

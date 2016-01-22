@@ -134,7 +134,7 @@ var _react = require('react');
 var _react2 = _interopRequireDefault(_react);
 
 var divStyle = {
-  backgroundImage: 'url(../assets/images/bg6.jpg)'
+  backgroundImage: 'url(../assets/images/bg3.jpg)'
 };
 
 var Four = (function (_React$Component) {
@@ -273,8 +273,16 @@ var Home = (function (_React$Component) {
     value: function render() {
       return _react2['default'].createElement(
         'div',
-        { className: 'homepage' },
-        _react2['default'].createElement('div', { id: 'homeleft', style: divStyle })
+        null,
+        _react2['default'].createElement(
+          'div',
+          { id: 'axis', className: 'one ' },
+          _react2['default'].createElement('img', { className: 'object dialog', src: '../assets/images/Twitter/dialog.png' }),
+          _react2['default'].createElement('img', { className: 'object laba', src: '../assets/images/Twitter/laba.jpg' }),
+          _react2['default'].createElement('img', { className: 'object van move-right', src: '../assets/images/van-to-right.png' }),
+          _react2['default'].createElement('img', { className: 'object folder', src: '../assets/images/Twitter/folder.png' }),
+          _react2['default'].createElement('img', { className: 'object arrow', src: '../assets/images/Twitter/arrow.jpeg' })
+        )
       );
     }
   }]);
@@ -400,7 +408,7 @@ var Nav = (function (_React$Component) {
               null,
               _react2['default'].createElement(
                 _reactRouter2['default'].Link,
-                { to: '1' },
+                { to: 'home' },
                 'Home'
               )
             ),
@@ -543,7 +551,6 @@ var routes = _react2['default'].createElement(
   { handler: _layout2['default'] },
   _react2['default'].createElement(_reactRouter.DefaultRoute, { name: 'home', handler: _home2['default'] }),
   _react2['default'].createElement(_reactRouter.Route, { name: 'go', path: '/go', handler: _go2['default'] }),
-  _react2['default'].createElement(_reactRouter.Route, { name: '1', path: '/1', handler: _one2['default'] }),
   _react2['default'].createElement(_reactRouter.Route, { name: '2', path: '/2', handler: _two2['default'] }),
   _react2['default'].createElement(_reactRouter.Route, { name: '3', path: '/3', handler: _three2['default'] }),
   _react2['default'].createElement(_reactRouter.Route, { name: '4', path: '/4', handler: _four2['default'] })
