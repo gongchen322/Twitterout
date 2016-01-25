@@ -13,14 +13,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/daichuqi/TeachAndTour.git"
+    "url": "https://github.com/gongchen322"
   },
   "author": "Chuqi Dai",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/daichuqi/TeachAndTour/issues"
-  },
-  "homepage": "https://github.com/daichuqi/TeachAndTour#readme",
+
+  "homepage": "https://github.com/gongchen322",
   "dependencies": {
     "assert": "^1.3.0",
     "bcrypt": "^0.8.5",
