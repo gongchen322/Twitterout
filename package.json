@@ -1,5 +1,5 @@
 {
-  "name": "TeachAndTour",
+  "name": "Twitterout",
   "version": "1.0.0",
   "engines": {
     "node": "4.2.1",
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "https://github.com/gongchen322"
   },
-  "author": "Chuqi Dai",
+  "author": "Chen Gong",
   "license": "ISC",
 
   "homepage": "https://github.com/gongchen322",
