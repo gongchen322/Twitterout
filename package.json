@@ -8,7 +8,7 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-    "start": "node ./app/server.js",
+     "start": "node app/server.js | node s1napkite-engine/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
