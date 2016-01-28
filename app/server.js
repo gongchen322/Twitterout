@@ -17,7 +17,9 @@ server.get('*', function(req, res) {
 
 
 var port = process.env.PORT || 4000;
-server.listen(port);
-console.log('listening on port', port);
+server.listen(port, function () {
+	console.log('listening on port', port);
+});
+
 
 module.exports = server;
