@@ -2,6 +2,12 @@ var React = require('react');
 var Header = require('./Header.react');
 var Tweet = require('./Tweet.react');
 
+var CollectionActionCreators = require('../actions/CollectionActionCreators');
+
+addTweetToCollection: function (tweet) {
+  CollectionActionCreators.addTweetToCollection(tweet);
+},
+
 var StreamTweet = React.createClass({
 
   getInitialState: function () {
@@ -83,7 +89,7 @@ var StreamTweet = React.createClass({
         <Header text={this.state.headerText} />
         <Tweet
           tweet={this.props.tweet}
-          onImageClick={this.props.onAddTweetToCollection} />
+          onImageClick={this.addTweetToCollection} />
       </section>
     ); 
   }

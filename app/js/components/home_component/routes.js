@@ -8,6 +8,9 @@ import One from './one';
 import Two from './two';
 import Three from './three';
 import Application from '../twitter_component/Application.react';
+var WebAPIUtils = require('../utils/WebAPIUtils.js');
+
+WebAPIUtils.initializeStreamOfTweets();
 
 const routes = (
   <Route handler={Layout}>

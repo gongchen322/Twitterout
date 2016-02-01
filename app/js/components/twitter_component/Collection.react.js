@@ -3,37 +3,42 @@ var CollectionControls = require('./CollectionControls.react');
 var TweetList = require('./TweetList.react');
 var Header = require('./Header.react');
 
+var CollectionUtils = require('../utils/CollectionUtils');
+var CollectionStore = require('../stores/CollectionStore');
+
 var Collection = React.createClass({
 
-
-
-  getListOfTweetIds: function () {
-    return Object.keys(this.props.tweets);
+  getInitialState: function () {
+    return {
+      collectionTweets: CollectionStore.getCollectionTweets()
+    }
   },
 
-  getNumberOfTweetsInCollection: function () {
-    return this.getListOfTweetIds().length;
+  componentDidMount: function () {
+    CollectionStore.addChangeListener(this.onCollectionChange);
+  },
+
+  componentWillUnmount: function () {
+    CollectionStore.removeChangeListener(this.onCollectionChange);
+  },
+
+  onCollectionChange: function () {
+    this.setState({
+      collectionTweets: CollectionStore.getCollectionTweets()
+    });
   },
 
   render: function () {
-    var numberOfTweetsInCollection = this.getNumberOfTweetsInCollection();
+
+    var collectionTweets = this.state.collectionTweets;
+    var numberOfTweetsInCollection = CollectionUtils.getNumberOfTweetsInCollection(collectionTweets);
 
     if (numberOfTweetsInCollection > 0) {
-      var tweets = this.props.tweets;
-     
-      var removeAllTweetsFromCollection = this.props.onRemoveAllTweetsFromCollection;
-      var handleRemoveTweetFromCollection = this.props.onRemoveTweetFromCollection;
       
       return (
         <div>
-          <CollectionControls
-            numberOfTweetsInCollection={numberOfTweetsInCollection}
-  
-            onRemoveAllTweetsFromCollection={removeAllTweetsFromCollection} />
-
-          <TweetList
-            tweets={tweets}
-            onRemoveTweetFromCollection={handleRemoveTweetFromCollection} />
+          <CollectionControls numberOfTweetsInCollection={numberOfTweetsInCollection} />
+          <TweetList tweets={collectionTweets} />
         </div>
       );
     }
