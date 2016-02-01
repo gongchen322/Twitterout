@@ -4,11 +4,13 @@ var Tweet = require('./Tweet.react');
 
 var CollectionActionCreators = require('../actions/CollectionActionCreators');
 
-addTweetToCollection: function (tweet) {
-  CollectionActionCreators.addTweetToCollection(tweet);
-},
+
 
 var StreamTweet = React.createClass({
+
+  addTweetToCollection: function (tweet) {
+    CollectionActionCreators.addTweetToCollection(tweet);
+  },
 
   getInitialState: function () {
     console.log('[Snapterest] StreamTweet: 1. Running getInitialState()');

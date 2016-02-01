@@ -209,7 +209,7 @@ border: 1px solid purple;}
   height: 100%;
   width: 100%;
   margin-top: .8%;
-  
+  overflow: scroll;
   padding-bottom: .8%;
   min-height: 500px; }
   .homepage #homeleft {
@@ -229,7 +229,7 @@ border: 1px solid purple;}
 
 
 .footer {
-  position: absolute;
+  position: fixed;
   width: 100%;
   left: 0;
   bottom: 0;

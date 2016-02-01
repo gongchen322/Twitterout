@@ -43,6 +43,10 @@ var CollectionControls = React.createClass({
     CollectionActionCreators.removeAllTweetsFromCollection();
   },
 
+  exportAllTweetsToLocal: function (){
+ 
+  },
+
   render: function () {
     if (this.state.isEditingName) {
       return (
@@ -62,6 +66,10 @@ var CollectionControls = React.createClass({
         <Button
           label="Empty collection"
           handleClick={this.removeAllTweetsFromCollection} />
+
+         <Button
+          label="Export collection"
+          handleClick={this.exportAllTweetsToLocal} />
         
       </div>
     );
