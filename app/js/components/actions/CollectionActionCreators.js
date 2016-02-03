@@ -23,7 +23,15 @@ module.exports = {
 	removeAllTweetsFromCollection: function () {
 
 		var action = {
-			type: 'remove_all_tweets_from_collection',
+			type: 'remove_all_tweets_from_collection'
+		};
+		AppDispatcher.dispatch(action);
+	},
+
+	exportAllTweetsFromCollection: function () {
+
+		var action = {
+			type: 'export_all_tweets_from_collection'
 		};
 		AppDispatcher.dispatch(action);
 	},

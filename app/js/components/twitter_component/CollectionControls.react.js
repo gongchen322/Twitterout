@@ -44,7 +44,7 @@ var CollectionControls = React.createClass({
   },
 
   exportAllTweetsToLocal: function (){
- 
+    CollectionActionCreators.exportAllTweetsFromCollection();
   },
 
   render: function () {

@@ -8,7 +8,7 @@
   "description": "",
   "main": "gulpfile.js",
   "scripts": {
-     "start": "node app/server.js | node s1napkite-engine/app.js",
+    "start": "node app/server.js | node s1napkite-engine/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -17,7 +17,6 @@
   },
   "author": "Chen Gong",
   "license": "ISC",
-
   "homepage": "https://github.com/gongchen322",
   "dependencies": {
     "assert": "^1.3.0",
@@ -25,6 +24,7 @@
     "bluebird": "^2.10.1",
     "body-parser": "^1.13.3",
     "bootstrap": "^3.3.5",
+    "easy-zip": "0.0.4",
     "express": "^4.13.3",
     "flux": "^2.1.1",
     "keymirror": "^0.1.1",

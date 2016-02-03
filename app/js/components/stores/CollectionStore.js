@@ -1,11 +1,13 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var assign = require('object-assign');
+var CollectionExportUtils = require('../utils/CollectionExportUtils');
 
 var CHANGE_EVENT = 'change';
 
 var collectionTweets = {};
 var collectionName = 'new';
+var tweetIndex=0;
 
 function addTweetToCollection(tweet) {
 	collectionTweets[tweet.id]= tweet;
@@ -17,6 +19,10 @@ function removeTweetFromCollection(tweetId) {
 
 function removeAllTweetsFromCollection () {
 	collectionTweets = {};
+}
+
+function exportAllTweetsFromCollection() {
+	CollectionExportUtils.postJSON('/export', collectionTweets);
 }
 
 function setCollectionName (name) {
@@ -62,6 +68,11 @@ function handleAction (action) {
 
 		case 'remove_all_tweets_from_collection':
 			removeAllTweetsFromCollection();
+			emitChange();
+			break;
+
+		case 'export_all_tweets_from_collection':
+			exportAllTweetsFromCollection();
 			emitChange();
 			break;
 

@@ -16,7 +16,6 @@ var StreamTweet = React.createClass({
     console.log('[Snapterest] StreamTweet: 1. Running getInitialState()');
     
     return {
-      numberOfCharactersIsIncreasing: null,
       headerText: null
     };
   },
@@ -25,7 +24,6 @@ var StreamTweet = React.createClass({
     console.log('[Snapterest] StreamTweet: 2. Running componentWillMount()');
     
     this.setState({
-      numberOfCharactersIsIncreasing: true,
       headerText: 'Latest public photo from Twitter'
     });
 
@@ -41,18 +39,11 @@ var StreamTweet = React.createClass({
 
     var currentTweetLength = this.props.tweet.text.length;
     var nextTweetLength = nextProps.tweet.text.length;
-    var isNumberOfCharactersIncreasing = (nextTweetLength > currentTweetLength);
     var headerText;
 
-    this.setState({
-      numberOfCharactersIsIncreasing: isNumberOfCharactersIncreasing
-    });
 
-    if (isNumberOfCharactersIncreasing) {
-      headerText = 'Number of characters is increasing';
-    } else {
-      headerText = 'Latest public photo from Twitter';
-    }
+    headerText = 'Latest public photo from Twitter';
+   
 
     this.setState({
       headerText: headerText
