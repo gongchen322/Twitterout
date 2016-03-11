@@ -1,0 +1,34 @@
+{
+  "application": {
+    "pushTweets": true,
+    "storeTweets": false,
+    "pushKeywords": false,
+    "storeKeywords": false,
+    "trackKeywords": "my",
+    "excludeKeywords": "",
+    "filters": [
+    "snapkite-filter-is-retweet",
+    "snapkite-filter-has-text",
+    "snapkite-filter-has-mobile-photo",
+    "snapkite-filter-is-possibly-sensitive"
+    ]
+  },
+  "twitter": {
+    "api": {
+      "consumerKey": "ur2chcmXueRLVOoQXAwR6Vxgy",
+      "consumerSecret": "IBiQoDn9uZwjcB1XmdLP9KHVqLmmWqmTJgKBrm2PV7muvJrQJo",
+      "accessTokenKey": "2780177359-OX4PejEl158TbniwKJv4EHgjVFFB3fIqFui4mYy",
+      "accessTokenSecret": "xyxQlhKMYDAFqeyHqnXguVHWIJ0MnhZmVdJvPOa8LbYNe"
+    }
+  },
+  "database": {
+    "hostname": "127.0.0.1",
+    "port": "27017",
+    "username": "",
+    "password": "",
+    "name": "snapkite"
+  },
+  "socket": {
+    "port": 3000
+  }
+}
