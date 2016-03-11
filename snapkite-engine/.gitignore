@@ -2,13 +2,11 @@
 # Config
 ###############################
 
-config.json
 
 ###############################
 # Snapkite filters
 ###############################
 
-filters/snapkite-filter-*
 
 ###############################
 # Node modules
@@ -19,6 +17,3 @@ node_modules
 ###############################
 # OS generated files
 ###############################
-
-.DS_Store
-.log
